@@ -1,6 +1,6 @@
 package Code;
 
-public class Uni_database {
+public class Uni_Database {
 
     // 返回一个可以遍历的所有社团的名字
     public Iterable<String> get_uni_name() {
