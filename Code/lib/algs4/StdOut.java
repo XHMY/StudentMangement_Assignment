@@ -7,7 +7,7 @@
  *
  ******************************************************************************/
 
-package Code.algs4;
+package Code.lib.algs4;
 
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;

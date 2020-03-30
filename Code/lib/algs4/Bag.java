@@ -27,7 +27,7 @@
  *
  ******************************************************************************/
 
-package Code.algs4;
+package Code.lib.algs4;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

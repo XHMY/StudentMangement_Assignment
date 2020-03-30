@@ -1,6 +1,6 @@
 package Code;
 
-import Code.algs4.RedBlackBST;
+import Code.lib.algs4.RedBlackBST;
 
 public class Schedule {
 

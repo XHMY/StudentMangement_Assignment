@@ -1,5 +1,7 @@
 package Code;
 
+import Code.lib.algs4.BST;
+
 public class Union {
 
     private class member {
