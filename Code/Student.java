@@ -1,3 +1,5 @@
+package Code;
+
 public class Student {
     int num; // 学号
     String name; // 姓名
@@ -11,14 +13,14 @@ public class Student {
 
     public Student(int num, String name, boolean sex, String clas, String prof, String colle, long tel, String wechat,
             int year) {
-                this.num = num;
-                this.sex = sex;
-                this.clas = clas;
-                this.prof = prof;
-                this.colle = colle;
-                this.tel = tel;
-                this.wechat = wechat;
-                this.year = year;
+        this.num = num;
+        this.sex = sex;
+        this.clas = clas;
+        this.prof = prof;
+        this.colle = colle;
+        this.tel = tel;
+        this.wechat = wechat;
+        this.year = year;
     }
 
 }

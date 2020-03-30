@@ -1,3 +1,5 @@
+package Code;
+
 public class StudentMangement {
     // 登陆界面
     // 提交登陆请求

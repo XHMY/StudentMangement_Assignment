@@ -1,3 +1,5 @@
+package Code;
+
 public class Course {
     public String name;
     public char pos;

@@ -23,7 +23,7 @@
  *
  ******************************************************************************/
 
-//package edu.princeton.cs.algs4;
+package Code.algs4;
 
 import java.util.NoSuchElementException;
 

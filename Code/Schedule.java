@@ -1,3 +1,7 @@
+package Code;
+
+import Code.algs4.RedBlackBST;
+
 public class Schedule {
 
     private RedBlackBST<Integer, Course[][][]> stu2course;
