@@ -6,5 +6,6 @@ public class test_java_zyf {
         StdOut.println("This is ZYF!");
         StdOut.println("This is LQQ!");
         StdOUt.println("hello");
+        StdOut.println("hello");
     }
 }
