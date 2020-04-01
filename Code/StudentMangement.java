@@ -3,7 +3,7 @@ package Code;
 public class StudentMangement {
     // 登陆界面
     // 提交登陆请求
-    public boolean Login(String acc, String pas) {
+    public static boolean Login(String acc, String pas) {
         Authentication atc = new Authentication();
         return atc.check_user(acc, pas);
     }

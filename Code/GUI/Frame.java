@@ -16,8 +16,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
+import Code.StudentMangement;
+
 public class Frame {
-	public static void Login() {
+	public static void LoginFrame() {
 		BackgroundFrame login = new BackgroundFrame(530,250,500,320,new Color(45,85,151));
 		
 		//添加文本
@@ -108,7 +110,7 @@ public class Frame {
 					tips.setBounds(215,40,150,30);
 				}
 				else {
-					boolean a = Login(account,password.toString());
+					boolean a = StudentMangement.Login(account.getText(),password.toString());
 						if(a) Home();
 				}
 			}
@@ -130,7 +132,7 @@ public class Frame {
 						tips.setBounds(215,40,150,30);
 					}
 					else{
-						boolean a = Login(account,password.toString());
+						boolean a = StudentMangement.Login(account.getText(),password.toString());
 						if(a) Home();
 					}					
 				}
@@ -158,7 +160,7 @@ public class Frame {
 						tips.setBounds(215,40,150,30);
 					}
 					else{
-						boolean a = Login(account,password.toString());
+						boolean a = StudentMangement.Login(account.getText(),password.toString());
 						if(a) Home();
 					}					
 				}				
@@ -172,11 +174,11 @@ public class Frame {
 		});		
 	}
 
-	public void static Home() {} 
+	public static void  Home() {} 
 	
 	public static void main(String[] args) {
 		
-		Login();
+		LoginFrame();
 		
 	}
 
