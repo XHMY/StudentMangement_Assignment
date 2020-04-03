@@ -10,9 +10,10 @@ public class Student {
     long tel; // 电话
     String wechat; // 微信ID
     int year; // 入学年份
+    String dorm;//宿舍号
 
     public Student(int num, String name, boolean sex, String clas, String prof, String colle, long tel, String wechat,
-            int year) {
+            int year, String dorm) {
         this.num = num;
         this.sex = sex;
         this.clas = clas;
@@ -21,6 +22,7 @@ public class Student {
         this.tel = tel;
         this.wechat = wechat;
         this.year = year;
+        this.dorm = dorm;
     }
 
 }
