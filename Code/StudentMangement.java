@@ -30,12 +30,12 @@ public class StudentMangement {
     }
 
     // 添加日程
-    public void Add_course(Course cou, int num, Boolean week, int day, int time) {
+    public void Add_course(Course cou, int num, int week, int day, int time) {
 
     }
 
     // 修改日程
-    public void Modify_course(Course aft, int num, Boolean week, int day, int time) {
+    public void Modify_course(Course aft, int num, int week, int day, int time) {
 
     }
 

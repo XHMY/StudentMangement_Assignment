@@ -1,4 +1,3 @@
-package Code;
 
 public class Student {
     int num; // 学号
@@ -10,7 +9,7 @@ public class Student {
     long tel; // 电话
     String wechat; // 微信ID
     int year; // 入学年份
-    String dorm;//宿舍号
+    String dorm;// 宿舍号
 
     public Student(int num, String name, boolean sex, String clas, String prof, String colle, long tel, String wechat,
             int year, String dorm) {

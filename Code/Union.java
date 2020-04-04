@@ -1,6 +1,5 @@
-package Code;
-
-import Code.lib.algs4.BST;
+import lib.algs4.Queue;
+import lib.algs4.RedBlackBST;
 
 public class Union {
 
@@ -20,7 +19,7 @@ public class Union {
     public String from;
     public String type;
     public int size = 0;
-    private BST<Integer, member> memDatabase;
+    private RedBlackBST<Integer, member> memDatabase;
 
     public Union(String name, String from, String type) {
         this.name = name;
@@ -30,6 +29,18 @@ public class Union {
 
     public void joinMember(Student stu, int join_data, String level) {
         memDatabase.put(stu.num, new member(stu, join_data, level));
+    }
+
+    public void delMember(int num) {
+        memDatabase.delete(num);
+    }
+
+    public Iterable<member> getAllMember() {
+        Queue<member> mem = new Queue<member>();
+        for (Integer member : memDatabase.keys()) {
+            mem.enqueue(memDatabase.get(member));
+        }
+        return mem;
     }
 
 }

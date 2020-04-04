@@ -7,7 +7,7 @@
  *
  ******************************************************************************/
 
-package Code.lib.algs4;
+package lib.algs4;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
