@@ -1,6 +1,14 @@
 package Code;
 
 public class StudentMangement {
+
+    private Stu_Database sdb;
+    
+
+    public StudentMangement(){
+        sdb = new Stu_Database();
+    }
+
     // 登陆界面
     // 提交登陆请求
     public boolean Login(String acc, String pas) {
@@ -11,22 +19,25 @@ public class StudentMangement {
     // 学生资料界面
     // 用学号查询学生
     public Student Get_stu(int num) {
-
+       
+        return sdb.get_stu(num);
     }
 
     // 添加学生
     public void Add_stu(Student stu) {
-
+        
+        return sdb.add_stu(num, stu);
     }
 
     // 修改学生信息
     public void Modify_stu(Student bef, Student aft) {
-
+        
     }
 
     // 学生日程
     public Course[][][] Get_course(int num) {
-
+        Course cous. = new Course();
+        return cous.getClass(num);
     }
 
     // 添加日程
