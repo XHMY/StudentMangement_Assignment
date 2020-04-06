@@ -1,3 +1,4 @@
+//作为单个课程的结构
 
 public class Course {
     public String name;

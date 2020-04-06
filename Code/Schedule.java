@@ -1,3 +1,5 @@
+//日程：进行学生课表相关的管理
+
 import lib.algs4.LinearProbingHashST;
 import lib.algs4.SET;
 import lib.algs4.StdOut;

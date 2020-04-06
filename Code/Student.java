@@ -1,3 +1,4 @@
+//学生类：保存单个学生中的信息
 
 public class Student {
     int num; // 学号

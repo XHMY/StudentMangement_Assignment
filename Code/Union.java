@@ -1,12 +1,14 @@
+//社团类：保存社团信息，并进行单个社团的管理
+
 import lib.algs4.Queue;
 import lib.algs4.RedBlackBST;
 
 public class Union {
 
     private class member {
-        Student stu;
-        int join_data;
-        String level;
+        Student stu; // 该成员的学生类属性
+        int join_data; // 加入社团的日期
+        String level; // 在社团内的职位
 
         public member(Student stu, int join_data, String level) {
             this.stu = stu;
