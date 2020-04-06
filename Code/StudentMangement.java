@@ -1,4 +1,4 @@
-package Code;
+//学生管理系统接口：提供给前台程序使用
 
 public class StudentMangement {
     // 登陆界面
