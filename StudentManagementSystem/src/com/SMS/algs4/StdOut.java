@@ -7,7 +7,7 @@
  *
  ******************************************************************************/
 
-package lib.algs4;
+package com.SMS.algs4;
 
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;

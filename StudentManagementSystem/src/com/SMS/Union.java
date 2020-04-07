@@ -1,7 +1,7 @@
 //社团类：保存社团信息，并进行单个社团的管理
-
-import lib.algs4.Queue;
-import lib.algs4.RedBlackBST;
+package com.SMS;
+import com.SMS.algs4.Queue;
+import com.SMS.algs4.RedBlackBST;
 
 public class Union {
 

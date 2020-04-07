@@ -8,7 +8,7 @@
  *
  ******************************************************************************/
 
-package lib.algs4;
+package com.SMS.algs4;
 
 /**
  * The {@code LinearProbingHashST} class represents a symbol table of generic

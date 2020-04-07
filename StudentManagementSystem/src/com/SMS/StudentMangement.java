@@ -1,5 +1,5 @@
 //学生管理系统接口：提供给前台程序使用
-
+package com.SMS;
 public class StudentMangement {
     // 登陆界面
     // 提交登陆请求

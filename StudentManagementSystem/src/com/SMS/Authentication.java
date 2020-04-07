@@ -1,6 +1,7 @@
+package com.SMS;
 //鉴权：进行用户管理等
 
-import lib.algs4.LinearProbingHashST;
+import com.SMS.algs4.LinearProbingHashST;
 
 public class Authentication {
 

@@ -1,5 +1,5 @@
 //学生类：保存单个学生中的信息
-
+package com.SMS;
 public class Student {
     int num; // 学号
     String name; // 姓名
