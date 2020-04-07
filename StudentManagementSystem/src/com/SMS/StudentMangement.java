@@ -1,6 +1,8 @@
 //学生管理系统接口：提供给前台程序使用
 package com.SMS;
 public class StudentMangement {
+    Stu_Database stuD = new Stu_Database();
+
     // 登陆界面
     // 提交登陆请求
     public static boolean Login(String acc, String pas) {
@@ -10,8 +12,8 @@ public class StudentMangement {
 
     // 学生资料界面
     // 用学号查询学生
-    public Student Get_stu(int num) {
-
+    public Student Get_stu(int num){
+        return stuD.get_stu(num);
     }
 
     // 添加学生
