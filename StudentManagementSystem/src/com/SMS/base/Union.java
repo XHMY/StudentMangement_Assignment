@@ -1,5 +1,5 @@
 //社团类：保存社团信息，并进行单个社团的管理
-package com.SMS;
+package com.SMS.base;
 import com.SMS.algs4.Queue;
 import com.SMS.algs4.RedBlackBST;
 

@@ -1,7 +1,14 @@
 //学生管理系统接口：提供给前台程序使用
 package com.SMS;
+
+import com.SMS.base.*;
+
 public class StudentMangement {
-    Stu_Database stuD = new Stu_Database();
+    private Stu_Database stuD ;
+
+    public StudentMangement() {
+        stuD = new Stu_Database();
+    }
 
     // 登陆界面
     // 提交登陆请求

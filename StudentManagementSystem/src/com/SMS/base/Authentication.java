@@ -1,4 +1,4 @@
-package com.SMS;
+package com.SMS.base;
 //鉴权：进行用户管理等
 
 import com.SMS.algs4.LinearProbingHashST;

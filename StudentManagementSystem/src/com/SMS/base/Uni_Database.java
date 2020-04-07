@@ -1,5 +1,5 @@
 //社团数据库：进行所有社团相关的管理
-package com.SMS;
+package com.SMS.base;
 import com.SMS.algs4.LinearProbingHashST;
 
 public class Uni_Database {
