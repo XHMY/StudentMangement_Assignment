@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Union {
 
-    private class member {
+    public class member {
         int stu_num; // 该成员的学生类属性
         Date join_data; // 加入社团的日期
         String level; // 在社团内的职位
@@ -22,18 +22,16 @@ public class Union {
     public String name;
     public String from;
     public String type;
-    public int size = 0;
     private RedBlackBST<Integer, member> memDatabase;
 
     public Union() {
         memDatabase = new RedBlackBST<Integer, member>();
     }
 
-    public Union(String name, String from, String type, int size) {
+    public Union(String name, String from, String type) {
         this.name = name;
         this.from = from;
         this.type = type;
-        this.size = size;
         memDatabase = new RedBlackBST<Integer, member>();
     }
 
@@ -47,10 +45,6 @@ public class Union {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
     }
 
     public void joinMember(int stu_num, Date join_data, String level) {

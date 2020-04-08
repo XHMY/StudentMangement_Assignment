@@ -4,16 +4,21 @@ package com.SMS;
 import com.SMS.base.*;
 
 public class StudentMangement {
+    private Authentication atc;
     private Stu_Database stuD ;
+    private Uni_Database uniD;
+    private StuSysIO ssIO;
 
     public StudentMangement() {
+        atc = new Authentication();
         stuD = new Stu_Database();
+        uniD = new Uni_Database();
+        ssIO = new StuSysIO();
     }
 
     // 登陆界面
     // 提交登陆请求
-    public static boolean Login(String acc, String pas) {
-        Authentication atc = new Authentication();
+    public  boolean Login(String acc, String pas) {
         return atc.check_user(acc, pas);
     }
 
