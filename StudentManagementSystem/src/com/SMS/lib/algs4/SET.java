@@ -13,7 +13,7 @@
  *
  ******************************************************************************/
 
-package com.SMS.algs4;
+package com.SMS.lib.algs4;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

@@ -1,8 +1,8 @@
 //学生数据库：在数据库中管理学生
 package com.SMS.base;
-import com.SMS.algs4.LinearProbingHashST;
-import com.SMS.algs4.Queue;
-import com.SMS.algs4.RedBlackBST;
+import com.SMS.lib.algs4.LinearProbingHashST;
+import com.SMS.lib.algs4.Queue;
+import com.SMS.lib.algs4.RedBlackBST;
 
 public class Stu_Database {
 

@@ -1,8 +1,8 @@
 //日程：进行学生课表相关的管理
 package com.SMS.base;
-import com.SMS.algs4.LinearProbingHashST;
-import com.SMS.algs4.SET;
-import com.SMS.algs4.StdOut;
+import com.SMS.lib.algs4.LinearProbingHashST;
+import com.SMS.lib.algs4.SET;
+import com.SMS.lib.algs4.StdOut;
 
 public class Schedule {
 

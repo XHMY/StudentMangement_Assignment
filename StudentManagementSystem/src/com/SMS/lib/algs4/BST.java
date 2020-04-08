@@ -23,7 +23,7 @@
  *
  ******************************************************************************/
 
-package com.SMS.algs4;
+package com.SMS.lib.algs4;
 
 import java.util.NoSuchElementException;
 
