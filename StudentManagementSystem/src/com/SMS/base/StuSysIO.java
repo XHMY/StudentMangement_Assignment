@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class StuSysIO {
     private static CellProcessor[] getStuProcessors() {
-        final CellProcessor[] processors = new CellProcessor[]{
+        return new CellProcessor[]{
                 new ParseInt(), // 学号
                 new NotNull(), // 姓名
                 new ParseBool("男", "女"), // 性别
@@ -26,11 +26,10 @@ public class StuSysIO {
                 new ParseInt(), //入学年份
                 new NotNull() //宿舍
         };
-        return processors;
     }
 
     private static CellProcessor[] putStuProcessors() {
-        final CellProcessor[] processors = new CellProcessor[]{
+        return new CellProcessor[]{
                 new NotNull(), // 学号
                 new NotNull(), // 姓名
                 new FmtBool("男", "女"), // 性别
@@ -42,34 +41,54 @@ public class StuSysIO {
                 new NotNull(), //入学年份
                 new NotNull() //宿舍
         };
-        return processors;
     }
 
     private static CellProcessor[] getUniMemProcessors() {
-        final CellProcessor[] processors = new CellProcessor[]{
+        return new CellProcessor[]{
                 new ParseInt(), // 学号
                 new ParseDate("yyyy/MM/dd"), // 加入日期
                 new NotNull()// 职位
         };
-        return processors;
     }
 
     private static CellProcessor[] putUniMemProcessors() {
-        final CellProcessor[] processors = new CellProcessor[]{
+        return new CellProcessor[]{
                 new NotNull(), // 学号
                 new FmtDate("yyyy/MM/dd"), // 加入日期
                 new NotNull()// 职位
         };
-        return processors;
     }
 
     private static CellProcessor[] getUniProcessors() {
-        final CellProcessor[] processors = new CellProcessor[]{
+        return new CellProcessor[]{
                 new NotNull(), //name 社团名
                 new NotNull(), // from 从属关系
                 new NotNull(), // type 社团类型
         };
-        return processors;
+    }
+
+    private static CellProcessor[] getCourProcessors() {
+        return new CellProcessor[]{
+                new ParseInt(), //学生学号
+                new NotNull(), // 课程名
+                new ParseChar(), // 地点
+                new ParseInt(), // 教室
+                new ParseInt(), //单双周
+                new ParseInt(), // 周几
+                new ParseInt() //第几节课
+        };
+    }
+
+    private static CellProcessor[] putCourProcessors() {
+        return new CellProcessor[]{
+                new NotNull(),//学生学号
+                new NotNull(), // 课程名
+                new NotNull(), // 地点
+                new NotNull(), // 教室
+                new NotNull(), //单双周
+                new NotNull(), // 周几
+                new NotNull() //第几节课
+        };
     }
 
     private static CellProcessor[] putUniProcessors() {
@@ -117,6 +136,33 @@ public class StuSysIO {
             while ((customerMap = mapReader.read(header, processors)) != null) {
                 //System.out.println(String.format("lineNo=%s, rowNo=%s, customerMap=%s", mapReader.getLineNumber(), mapReader.getRowNumber(), customerMap));
                 uni.joinMember((Integer) customerMap.get("stu_num"), (Date) customerMap.get("join_date"), (String) customerMap.get("level"));
+            }
+        }
+    }
+
+    public void sysImport(Schedule sche, String csvFilename) throws IOException {
+        try (ICsvBeanReader beanReader = new CsvBeanReader(new FileReader(csvFilename), CsvPreference.STANDARD_PREFERENCE)) {
+            // the header elements are used to map the values to the bean (names must match)
+            final String[] header = beanReader.getHeader(true);
+            final CellProcessor[] processors = getCourProcessors();
+            Course cour;
+            while ((cour = beanReader.read(Course.class, header, processors)) != null) {
+                sche.add_cour(cour);
+            }
+        }
+    }
+
+    public void sysExport(Schedule sche, String csvFilename) throws IOException {
+        try (ICsvBeanWriter beanWriter = new CsvBeanWriter(new FileWriter(csvFilename),
+                CsvPreference.STANDARD_PREFERENCE)) {
+            // the header elements are used to map the bean values to each column (names must match)
+            final String[] header = new String[]{"stu_num", "name", "pos", "clasroom", "week", "day", "time"};
+            final CellProcessor[] processors = putCourProcessors();
+            // write the header
+            beanWriter.writeHeader(header);
+            // write the beans
+            for (final Course cour : sche.get_all_course()) {
+                beanWriter.write(cour, header, processors);
             }
         }
     }

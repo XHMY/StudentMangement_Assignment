@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class StudentMangement {
     private Authentication atc;
-    private Stu_Database stuD ;
+    private Stu_Database stuD;
     private Uni_Database uniD;
     private StuSysIO ssIO;
     private Schedule schD;
@@ -20,6 +20,13 @@ public class StudentMangement {
         uniD = new Uni_Database();
         ssIO = new StuSysIO();
         schD = new Schedule();
+    }
+
+    public static void main(String[] args) {
+        StudentMangement sm = new StudentMangement();
+        for (String s : sm.Get_union_name()) {
+            StdOut.println(s);
+        }
     }
 
     // 登陆界面
@@ -34,13 +41,6 @@ public class StudentMangement {
         return stuD.get_stu(num);
     }
 
-    public static void main(String[] args) {
-        StudentMangement sm = new StudentMangement();
-        for (String s : sm.Get_union_name()) {
-            StdOut.println(s);
-        }
-    }
-
     // 添加学生
     public void Add_stu(Student stu) {
         stuD.add_stu(stu.getNum(), stu);
@@ -53,19 +53,19 @@ public class StudentMangement {
     }
 
     // 学生日程
-    public Course[][][] Get_course(int num) {
+    public Iterable<Course> Get_course(int num) {
         return schD.get_cour(num);
     }
 
     // 添加日程
-    public void Add_course(Course cou, int num, int week, int day, int time) {
-        schD.add_cour(cou, num, week, day, time);
+    public void Add_course(Course cou) {
+        schD.add_cour(cou);
     }
 
     // 修改日程
-    public void Modify_course(Course aft, int num, int week, int day, int time) {
-        schD.del_cour(num, week, day, time);
-        schD.add_cour(aft, num, week, day, time);
+    public void Modify_course(Course bef, Course aft) {
+        schD.del_cour(bef);
+        schD.add_cour(aft);
     }
 
     // 导入
@@ -80,8 +80,8 @@ public class StudentMangement {
     }
 
     // 导入课程表
-    public void Import_course(String file) {
-
+    public void Import_course(String file) throws IOException {
+        ssIO.sysImport(schD, file);
     }
 
     //导入社团列表
@@ -98,6 +98,11 @@ public class StudentMangement {
     // 导出所有学生
     public void Export_stu(String file) throws IOException {
         ssIO.sysExport(stuD, file);
+    }
+
+    // 导出课程表
+    public void Export_course(String file) throws IOException {
+        ssIO.sysExport(schD, file);
     }
 
     // 社团管理
