@@ -55,6 +55,10 @@ public class Union {
         memDatabase.delete(num);
     }
 
+    public Iterable<Integer> getAllMemberNum() {
+        return memDatabase.keys();
+    }
+
     public Iterable<member> getAllMember() {
         Queue<member> mem = new Queue<member>();
         for (Integer member : memDatabase.keys()) {

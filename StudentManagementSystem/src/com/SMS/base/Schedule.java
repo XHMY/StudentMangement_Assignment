@@ -33,7 +33,7 @@ public class Schedule {
     }
 
     // 删除课程
-    public void del_cour(Course cour, int num, int week, int day, int time) {
+    public void del_cour(int num, int week, int day, int time) {
         Course[][][] tc = stu2course.get(num);
         if (tc == null)
             throw new IllegalArgumentException("无该课程，无法删除！");
@@ -42,14 +42,14 @@ public class Schedule {
     }
 
     // 查空
-    public int[][][] get_free(int[] stu_num) {
+    public int[][][] get_free(Iterable<Integer> stu_num) {
         int[][][] free = new int[2][7][6];
         // 默认free中全部为0
         for (int w = 0; w < 2; w++)
             for (int d = 0; d < 7; d++)
                 for (int t = 0; t < 6; t++) {
-                    for (int i = 0; i < stu_num.length; i++)
-                        if (course2stu[w][d][t].contains(stu_num[i]))
+                    for (int value : stu_num)
+                        if (course2stu[w][d][t].contains(value))
                             free[w][d][t]++;
                 }
         return free;
