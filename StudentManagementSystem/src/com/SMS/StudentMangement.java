@@ -14,15 +14,25 @@ public class StudentMangement {
     private StuSysIO ssIO;
     private Schedule schD;
 
-    public StudentMangement() {
+    public StudentMangement() throws IOException {
         atc = new Authentication();
         stuD = new Stu_Database();
         uniD = new Uni_Database();
         ssIO = new StuSysIO();
         schD = new Schedule();
+        if (!StuSysIO.createFile("data/stu.csv")) {
+            ssIO.sysImport(stuD, "data/stu.csv");
+        }
+        if (!StuSysIO.createFile("data/uni.csv")) {
+            StuSysIO.createFile("data/unimem.csv");
+            ssIO.sysImport(uniD, "data/uni.csv", "data/unimem.csv");
+        }
+        if (!StuSysIO.createFile("data/cour.csv")) {
+            ssIO.sysImport(stuD, "data/cour.csv");
+        }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         StudentMangement sm = new StudentMangement();
         for (String s : sm.Get_union_name()) {
             StdOut.println(s);
@@ -74,19 +84,14 @@ public class StudentMangement {
         ssIO.sysImport(stuD, file);
     }
 
-    //导入社团列表
-    public void Import_uni(String file) throws IOException {
-        ssIO.sysImport(uniD, file);
+    //导入社团信息
+    public void Import_uni(String uni_file, String mem_file) throws IOException {
+        ssIO.sysImport(uniD, uni_file, mem_file);
     }
 
     // 导入课程表
     public void Import_course(String file) throws IOException {
         ssIO.sysImport(schD, file);
-    }
-
-    //导入社团列表
-    public void Import_unimem(String file, Union uni) throws IOException {
-        ssIO.sysImport(uni, file);
     }
 
     // 导出
@@ -103,6 +108,11 @@ public class StudentMangement {
     // 导出课程表
     public void Export_course(String file) throws IOException {
         ssIO.sysExport(schD, file);
+    }
+
+    //导出社团信息
+    public void Export_uni(String uni_file, String mem_file) throws IOException {
+        ssIO.sysExport(uniD, uni_file, mem_file);
     }
 
     // 社团管理
@@ -143,5 +153,11 @@ public class StudentMangement {
 
     public int[][][] Get_free(String uni_name) {
         return schD.get_free(uniD.get_nui(uni_name).getAllMemberNum());
+    }
+
+    public void call_when_exit() throws IOException {
+        ssIO.sysExport(stuD, "data/stu.csv");
+        ssIO.sysExport(uniD, "data/uni.csv", "data/unimem.csv");
+        ssIO.sysExport(stuD, "data/cour.csv");
     }
 }
