@@ -21,8 +21,6 @@ public class Schedule {
         test_s.add_cour(new Course(20190105, "绝地求生与和平精英", 'W', 542, 1, 4, 4));
         test_s.add_cour(new Course(20190101, "手机电竞实践", 'C', 553, 1, 1, 4));
         test_s.add_cour(new Course(20190101, "绝地求生与和平精英", 'W', 542, 1, 4, 4));
-
-
     }
 
     // 获取指定学生的课程
