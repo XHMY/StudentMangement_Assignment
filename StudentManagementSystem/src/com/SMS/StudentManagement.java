@@ -7,14 +7,14 @@ import com.SMS.lib.algs4.StdOut;
 import java.io.IOException;
 import java.util.Date;
 
-public class StudentMangement {
+public class StudentManagement {
     private Authentication atc;
     private Stu_Database stuD;
     private Uni_Database uniD;
     private StuSysIO ssIO;
     private Schedule schD;
 
-    public StudentMangement() throws IOException {
+    public StudentManagement() throws IOException {
         atc = new Authentication();
         stuD = new Stu_Database();
         uniD = new Uni_Database();
@@ -33,7 +33,7 @@ public class StudentMangement {
     }
 
     public static void main(String[] args) throws IOException {
-        StudentMangement sm = new StudentMangement();
+        StudentManagement sm = new StudentManagement();
         for (String s : sm.Get_union_name()) {
             StdOut.println(s);
         }

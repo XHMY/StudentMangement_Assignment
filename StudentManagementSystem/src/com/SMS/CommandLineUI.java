@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class CommandLineUI {
     public static void main(String[] args) throws IOException {
-        StudentMangement sys = new StudentMangement();
+        StudentManagement sys = new StudentManagement();
         StdOut.println("欢迎使用学生信息管理系统（命令行版）");
         StdOut.println("请输入数字选择相应功能:");
         if (args.length == 0) {
