@@ -4,7 +4,6 @@ package com.SMS.base;
 import com.SMS.lib.algs4.Bag;
 import com.SMS.lib.algs4.LinearProbingHashST;
 import com.SMS.lib.algs4.SET;
-import com.SMS.lib.algs4.StdOut;
 
 public class Schedule {
     private LinearProbingHashST<Integer, SET<Course>> stu2course;
@@ -22,10 +21,8 @@ public class Schedule {
         test_s.add_cour(new Course(20190105, "绝地求生与和平精英", 'W', 542, 1, 4, 4));
         test_s.add_cour(new Course(20190101, "手机电竞实践", 'C', 553, 1, 1, 4));
         test_s.add_cour(new Course(20190101, "绝地求生与和平精英", 'W', 542, 1, 4, 4));
-        for (Course c : test_s.get_cour(20190105)) {
-            StdOut.println(c);
-        }
-        StdOut.println();
+
+
     }
 
     // 获取指定学生的课程
@@ -46,22 +43,22 @@ public class Schedule {
         course2stu[cour.week][cour.day][cour.time].add(cour.stu_num);
     }
 
-    // 查空
+    // 查空（返回有课的人数）
     public int[][][] get_free(Iterable<Integer> stu_num) {
-        int[][][] free = new int[2][7][6];
+        int[][][] busy = new int[2][7][6];
         // 默认free中全部为0
         for (int w = 0; w < 2; w++)
             for (int d = 0; d < 7; d++)
                 for (int t = 0; t < 6; t++) {
                     for (int value : stu_num)
                         if (course2stu[w][d][t].contains(value))
-                            free[w][d][t]++;
+                            busy[w][d][t]++;
                 }
-        return free;
+        return busy;
     }
 
     // 删除课程
-    // ‼️ 注意：这里传入的是要删除课程的引用
+    // ‼️ 注意：这里传入的是要删除课程的引用，其实我也不知道为什么，new一个出来也可以
     public void del_cour(Course cour) {
         SET<Course> tc = stu2course.get(cour.stu_num);
         if (tc == null)

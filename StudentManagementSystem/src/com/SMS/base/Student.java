@@ -19,6 +19,7 @@ public class Student {
     public Student(int num, String name, boolean sex, int clas, String prof, String colle, long tel, String wechat,
                    int year, String dorm) {
         this.num = num;
+        this.name = name;
         this.sex = sex;
         this.clas = clas;
         this.prof = prof;

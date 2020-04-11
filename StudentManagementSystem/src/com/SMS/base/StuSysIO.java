@@ -10,8 +10,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 public class StuSysIO {
     private static CellProcessor[] getStuProcessors() {
@@ -118,7 +117,7 @@ public class StuSysIO {
     public static boolean createFile(String destFileName) {
         File file = new File(destFileName);
         if (file.exists()) {
-            System.out.println("创建单个文件" + destFileName + "失败，目标文件已存在！");
+            //System.out.println("创建单个文件" + destFileName + "失败，目标文件已存在！");
             return false;
         }
         if (destFileName.endsWith(File.separator)) {
@@ -218,7 +217,7 @@ public class StuSysIO {
         try (ICsvBeanWriter beanWriter = new CsvBeanWriter(new FileWriter(csvFilename_Uni),
                 CsvPreference.STANDARD_PREFERENCE)) {
             // the header elements are used to map the bean values to each column (names must match)
-            final String[] header = new String[]{"name", "from", "type"};
+            final String[] header = new String[]{"uniName", "from", "type"};
             final CellProcessor[] processors = putUniProcessors();
             // write the header
             beanWriter.writeHeader(header);
@@ -227,17 +226,22 @@ public class StuSysIO {
                 beanWriter.write(uni, header, processors);
             }
         }
-        try (ICsvBeanWriter beanWriter = new CsvBeanWriter(new FileWriter(csvFilename_Mem),
+        try (ICsvListWriter listWriter = new CsvListWriter(new FileWriter(csvFilename_Mem),
                 CsvPreference.STANDARD_PREFERENCE)) {
-            // the header elements are used to map the bean values to each column (names must match)
-            final String[] header = new String[]{"uni_name", "stu_num", "join_date", "level"};
             final CellProcessor[] processors = putUniMemProcessors();
+            List<Object> lst = Arrays.asList(new Object[]{"", "",
+                    new GregorianCalendar(1919, Calendar.FEBRUARY, 25).getTime(), ""});
+            final String[] header = new String[]{"uni_name", "stu_num", "join_date", "level"};
             // write the header
-            beanWriter.writeHeader(header);
-            // write the beans
+            listWriter.writeHeader(header);
+            //List<String> lst = Arrays.asList(" "," "," "," ");
             for (Union uni : uni_database.allUnion()) {
+                lst.set(0, String.valueOf(uni.uniName));
                 for (final Union.member nm : uni.getAllMember()) {
-                    beanWriter.write(nm, header, processors);
+                    lst.set(1, String.valueOf(nm.stu_num));
+                    lst.set(2, nm.join_data);
+                    lst.set(3, String.valueOf(nm.level));
+                    listWriter.write(lst, processors);
                 }
             }
         }

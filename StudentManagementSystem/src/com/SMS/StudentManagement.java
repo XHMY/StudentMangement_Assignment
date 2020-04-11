@@ -51,6 +51,7 @@ public class StudentManagement {
         return stuD.get_stu(num);
     }
 
+    //用姓名查找学生
     public Student Get_stu(String name) {
         return stuD.get_stu(name);
     }
@@ -163,6 +164,6 @@ public class StudentManagement {
     public void call_when_exit() throws IOException {
         ssIO.sysExport(stuD, "data/stu.csv");
         ssIO.sysExport(uniD, "data/uni.csv", "data/unimem.csv");
-        ssIO.sysExport(stuD, "data/cour.csv");
+        ssIO.sysExport(schD, "data/cour.csv");
     }
 }

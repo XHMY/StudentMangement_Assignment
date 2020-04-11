@@ -32,7 +32,7 @@ public class Uni_Database {
 
     // 添加新的社团
     public void add_uni(Union uni) {
-        uni_data.put(uni.name, uni);
+        uni_data.put(uni.uniName, uni);
     }
 
     // 删除社团

@@ -23,28 +23,56 @@ public class Course implements Comparable<Course> {
     public Course() {
     }
 
+    public int getStu_num() {
+        return stu_num;
+    }
+
     public void setStu_num(int stu_num) {
         this.stu_num = stu_num;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    public char getPos() {
+        return pos;
+    }
+
     public void setPos(char pos) {
         this.pos = pos;
+    }
+
+    public int getClasroom() {
+        return clasroom;
     }
 
     public void setClasroom(int clasroom) {
         this.clasroom = clasroom;
     }
 
+    public int getWeek() {
+        return week;
+    }
+
     public void setWeek(int week) {
         this.week = week;
     }
 
+    public int getDay() {
+        return day;
+    }
+
     public void setDay(int day) {
         this.day = day;
+    }
+
+    public int getTime() {
+        return time;
     }
 
     public void setTime(int time) {
