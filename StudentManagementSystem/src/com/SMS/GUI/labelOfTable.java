@@ -1,9 +1,7 @@
-package GUI;
+package com.SMS.GUI;
 
-import java.awt.Color;
-import java.awt.Font;
-
-import javax.swing.JLabel;
+import javax.swing.*;
+import java.awt.*;
 
 public class labelOfTable extends JLabel{
 	
@@ -15,5 +13,5 @@ public class labelOfTable extends JLabel{
 		setHorizontalAlignment(CENTER);
 		setOpaque(true);
 	}
-	
+
 }

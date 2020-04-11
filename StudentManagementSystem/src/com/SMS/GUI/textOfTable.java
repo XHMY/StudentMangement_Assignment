@@ -1,20 +1,13 @@
-package GUI;
+package com.SMS.GUI;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
+import javax.swing.*;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
 import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 
 

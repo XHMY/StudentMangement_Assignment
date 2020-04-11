@@ -1,15 +1,9 @@
-package GUI;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+package com.SMS.GUI;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class BackgroundFrame extends JFrame{
     JPanel main = new JPanel();
@@ -24,29 +18,29 @@ public class BackgroundFrame extends JFrame{
 		setBounds(530,250,width,height);		
 		setLayout(null);
 		setBackground(new Color(242,242,242));
-		
+
 		//实现窗体拖动
-		FrameListener moveListener = new FrameListener(this);		
+		FrameListener moveListener = new FrameListener(this);
 		addMouseListener(moveListener);
 		addMouseMotionListener(moveListener);
-		
+
 		//创建标题top
 		JPanel top = new JPanel();
-		top.setBackground(new Color(47,85,151));
+		top.setBackground(new Color(47, 85, 151));
 		top.setLayout(null);
-		
-		ImageIcon icon1 = new ImageIcon("image\\close.png");
-		ImageIcon icon2 = new ImageIcon("image\\minimum.png");
-		
+
+		ImageIcon icon1 = new ImageIcon("src/com/SMS/GUI/image/close.png");
+		ImageIcon icon2 = new ImageIcon("src/com/SMS/GUI/image/minimum.png");
+
 		JButton close = new JButton();
 		JButton minimum = new JButton();
 		close.setIcon(icon1);
 		minimum.setIcon(icon2);
-		
+
 		top.add(close);
 		top.add(minimum);
-		close.setBounds(x-60, 0, 30, 30);
-		minimum.setBounds(x-90, 0, 30, 30);
+		close.setBounds(x - 60, 0, 30, 30);
+		minimum.setBounds(x - 90, 0, 30, 30);
 		
 		//添加最小化和关闭功能
 		close.addActionListener((e)->{dispose();});
@@ -75,29 +69,29 @@ public class BackgroundFrame extends JFrame{
 		setBounds(x,y,width,height);
 		setLayout(null);
 		setBackground(new Color(242,242,242));
-		
+
 		//实现窗体拖动
-		FrameListener moveListener = new FrameListener(this);		
+		FrameListener moveListener = new FrameListener(this);
 		addMouseListener(moveListener);
 		addMouseMotionListener(moveListener);
-		
+
 		//创建标题top
 		JPanel top = new JPanel();
-		top.setBackground(new Color(47,85,151));
+		top.setBackground(new Color(47, 85, 151));
 		top.setLayout(null);
-		
-		ImageIcon icon1 = new ImageIcon("image\\close.png");
-		ImageIcon icon2 = new ImageIcon("image\\minimum.png");
-		
+
+		ImageIcon icon1 = new ImageIcon("src/com/SMS/GUI/image/close.png");
+		ImageIcon icon2 = new ImageIcon("src/com/SMS/GUI/image/minimum.png");
+
 		JButton close = new JButton();
 		JButton minimum = new JButton();
 		close.setIcon(icon1);
 		minimum.setIcon(icon2);
-		
+
 		top.add(close);
 		top.add(minimum);
-		close.setBounds(width-d, 0, d, d);
-		minimum.setBounds(width-2*d, 0, d, d);
+		close.setBounds(width - d, 0, d, d);
+		minimum.setBounds(width - 2 * d, 0, d, d);
 		
 		//添加最小化和关闭功能
 		close.addActionListener((e)->{
@@ -142,30 +136,30 @@ public class BackgroundFrame extends JFrame{
 		
 		//添加top到窗口
 		add(top);
-		top.setBounds(0,0,width,d);
-		
+		top.setBounds(0, 0, width, d);
+
 		//添加主面板main
 		add(main);
 		main.setLayout(null);
-		main.setBounds(0, d, width, height-d);
-		main.setBackground(new Color(242,242,242));
-		
+		main.setBounds(0, d, width, height - d);
+		main.setBackground(new Color(242, 242, 242));
+
 		//添加确认和取消按钮
 		JLabel confirm = new JLabel();
-		confirm.setIcon(new ImageIcon("image\\confirm.png"));
+		confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirm.png"));
 		main.add(confirm);
-		confirm.setBounds(width/2+28,height-100,50,27);
+		confirm.setBounds(width / 2 + 28, height - 100, 50, 27);
 		confirm.setOpaque(true);
-		
+
 		JLabel cancel = new JLabel();
-		cancel.setIcon(new ImageIcon("image\\cancel.png"));
+		cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancel.png"));
 		main.add(cancel);
-		cancel.setBounds(width/2-84, height-100, 50, 27);
+		cancel.setBounds(width / 2 - 84, height - 100, 50, 27);
 		cancel.setOpaque(true);
-		
-			//添加鼠标监听器
+
+		//添加鼠标监听器
 		cancel.addMouseListener(new MouseListener() {
-			
+
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
@@ -180,14 +174,14 @@ public class BackgroundFrame extends JFrame{
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				cancel.setIcon(new ImageIcon("image\\cancel.png"));
-				
+				cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancel.png"));
+
 			}
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				cancel.setIcon(new ImageIcon("image\\cancelEntered.png"));
-				
+				cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancelEntered.png"));
+
 			}
 			
 			@Override
@@ -213,14 +207,14 @@ public class BackgroundFrame extends JFrame{
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				confirm.setIcon(new ImageIcon("image\\confirm.png"));
-				
+				confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirm.png"));
+
 			}
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				confirm.setIcon(new ImageIcon("image\\confirmEntered.png"));
-				
+				confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirmEntered.png"));
+
 			}
 			
 			@Override
@@ -261,30 +255,30 @@ public class BackgroundFrame extends JFrame{
 		main.setLayout(null);
 		main.setBounds(0, d, width, height-d);
 		main.setBackground(new Color(242,242,242));
-		
+
 		//添加提示文本
 		JLabel warn = new JLabel(text);
 		warn.setForeground(Frame.fc);
-		warn.setFont(new Font(Frame.type,0,20));
+		warn.setFont(new Font(Frame.type, 0, 20));
 		this.main.add(warn);
-		warn.setBounds((width-text.length()*10)/3, (height-30)/4, text.length()*100, 30);
-		
+		warn.setBounds((width - text.length() * 10) / 3, (height - 30) / 4, text.length() * 100, 30);
+
 		//添加确认和取消按钮
 		JLabel confirm = new JLabel();
-		confirm.setIcon(new ImageIcon("image\\confirm.png"));
+		confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirm.png"));
 		main.add(confirm);
-		confirm.setBounds(width/2+28,height-100,50,27);
+		confirm.setBounds(width / 2 + 28, height - 100, 50, 27);
 		confirm.setOpaque(true);
-		
+
 		JLabel cancel = new JLabel();
-		cancel.setIcon(new ImageIcon("image\\cancel.png"));
+		cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancel.png"));
 		main.add(cancel);
-		cancel.setBounds(width/2-84, height-100, 50, 27);
+		cancel.setBounds(width / 2 - 84, height - 100, 50, 27);
 		cancel.setOpaque(true);
-		
-			//添加鼠标监听器
+
+		//添加鼠标监听器
 		cancel.addMouseListener(new MouseListener() {
-			
+
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
@@ -299,14 +293,14 @@ public class BackgroundFrame extends JFrame{
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				cancel.setIcon(new ImageIcon("image\\cancel.png"));
-				
+				cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancel.png"));
+
 			}
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				cancel.setIcon(new ImageIcon("image\\cancelEntered.png"));
-				
+				cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancelEntered.png"));
+
 			}
 			
 			@Override
@@ -332,14 +326,14 @@ public class BackgroundFrame extends JFrame{
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				confirm.setIcon(new ImageIcon("image\\confirm.png"));
-				
+				confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirm.png"));
+
 			}
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				confirm.setIcon(new ImageIcon("image\\confirmEntered.png"));
-				
+				confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirmEntered.png"));
+
 			}
 			
 			@Override

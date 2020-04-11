@@ -1,12 +1,7 @@
-package GUI;
+package com.SMS.GUI;
 
-import java.awt.Color;
-import java.awt.Font;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
+import java.awt.*;
 
 public class DataPanel extends JPanel{
     //字体常量

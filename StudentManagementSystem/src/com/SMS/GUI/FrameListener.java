@@ -1,7 +1,6 @@
-package GUI;
+package com.SMS.GUI;
 
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -23,11 +22,11 @@ public class FrameListener extends MouseAdapter{
 		Point point = e.getLocationOnScreen();
 		int offsetX = point.x - lastPoint.x;
 		int offsetY = point.y - lastPoint.y;
-		
+
 		Rectangle bounds = window.getBounds();
-		bounds.x+=offsetX;
-		bounds.y+=offsetY;
-		window.setBounds(bounds);;
+		bounds.x += offsetX;
+		bounds.y += offsetY;
+		window.setBounds(bounds);
 		lastPoint = point;
 	}
 }

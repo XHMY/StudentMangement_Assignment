@@ -1,13 +1,10 @@
-package GUI;
+package com.SMS.GUI;
 
-import java.awt.Color;
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.border.Border;
 
 public class HomeButton extends JLabel{
     public HomeButton(String name,Color color,ImageIcon icon1,ImageIcon icon2) {
