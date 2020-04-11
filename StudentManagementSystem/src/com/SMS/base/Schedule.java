@@ -1,8 +1,10 @@
 //日程：进行学生课表相关的管理
 package com.SMS.base;
+
 import com.SMS.lib.algs4.Bag;
 import com.SMS.lib.algs4.LinearProbingHashST;
 import com.SMS.lib.algs4.SET;
+import com.SMS.lib.algs4.StdOut;
 
 public class Schedule {
     private LinearProbingHashST<Integer, SET<Course>> stu2course;
@@ -14,12 +16,16 @@ public class Schedule {
     }
 
     public static void main(String[] args) {
-//        Schedule test_s = new Schedule();
-//        test_s.add_cour(new Course("电子竞技导论", 'A', 543), 20200101, 1, 2, 3);
-//        test_s.add_cour(new Course("社交学", 'B', 542), 20200101, 0, 2, 4);
-//        test_s.add_cour(new Course("电子竞技导论", 'A', 543), 20200101, 0, 2, 3);
-//        Course[][][] c = test_s.get_cour(20200101);
-//        StdOut.println();
+        Schedule test_s = new Schedule();
+        test_s.add_cour(new Course(20190105, "电子竞技导论", 'A', 523, 0, 2, 2));
+        test_s.add_cour(new Course(20190105, "手机电竞实践", 'C', 553, 1, 1, 4));
+        test_s.add_cour(new Course(20190105, "绝地求生与和平精英", 'W', 542, 1, 4, 4));
+        test_s.add_cour(new Course(20190101, "手机电竞实践", 'C', 553, 1, 1, 4));
+        test_s.add_cour(new Course(20190101, "绝地求生与和平精英", 'W', 542, 1, 4, 4));
+        for (Course c : test_s.get_cour(20190105)) {
+            StdOut.println(c);
+        }
+        StdOut.println();
     }
 
     // 获取指定学生的课程
@@ -55,6 +61,7 @@ public class Schedule {
     }
 
     // 删除课程
+    // ‼️ 注意：这里传入的是要删除课程的引用
     public void del_cour(Course cour) {
         SET<Course> tc = stu2course.get(cour.stu_num);
         if (tc == null)

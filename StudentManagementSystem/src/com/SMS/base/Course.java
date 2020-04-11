@@ -57,4 +57,17 @@ public class Course implements Comparable<Course> {
         int oth_val = other.week * 100 + other.day + 10 + other.time;
         return Integer.compare(me_val, oth_val);
     }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "stu_num=" + stu_num +
+                ", name='" + name + '\'' +
+                ", pos=" + pos +
+                ", clasroom=" + clasroom +
+                ", week=" + week +
+                ", day=" + day +
+                ", time=" + time +
+                '}';
+    }
 }

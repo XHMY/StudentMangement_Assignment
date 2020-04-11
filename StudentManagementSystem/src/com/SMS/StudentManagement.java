@@ -51,6 +51,10 @@ public class StudentManagement {
         return stuD.get_stu(num);
     }
 
+    public Student Get_stu(String name) {
+        return stuD.get_stu(name);
+    }
+
     // 添加学生
     public void Add_stu(Student stu) {
         stuD.add_stu(stu.getNum(), stu);
@@ -155,6 +159,7 @@ public class StudentManagement {
         return schD.get_free(uniD.get_nui(uni_name).getAllMemberNum());
     }
 
+    //程序结束时一定要调用这个
     public void call_when_exit() throws IOException {
         ssIO.sysExport(stuD, "data/stu.csv");
         ssIO.sysExport(uniD, "data/uni.csv", "data/unimem.csv");
