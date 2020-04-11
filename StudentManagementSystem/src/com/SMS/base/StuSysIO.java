@@ -110,7 +110,6 @@ public class StuSysIO {
             final CellProcessor[] processors = getStuProcessors();
             Student stu;
             while ((stu = beanReader.read(Student.class, header, processors)) != null) {
-                //System.out.println(String.format("lineNo=%s, rowNo=%s, stu=%s", beanReader.getLineNumber(), beanReader.getRowNumber(), stu));
                 stu_database.add_stu(stu.num, stu);
             }
         }

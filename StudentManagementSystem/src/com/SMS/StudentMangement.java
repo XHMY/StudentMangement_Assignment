@@ -28,7 +28,7 @@ public class StudentMangement {
             ssIO.sysImport(uniD, "data/uni.csv", "data/unimem.csv");
         }
         if (!StuSysIO.createFile("data/cour.csv")) {
-            ssIO.sysImport(stuD, "data/cour.csv");
+            ssIO.sysImport(schD, "data/cour.csv");
         }
     }
 
