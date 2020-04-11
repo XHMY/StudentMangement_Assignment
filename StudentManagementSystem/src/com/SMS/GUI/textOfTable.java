@@ -47,7 +47,7 @@ public class textOfTable extends JTextPane{
 		text = this.getStyledDocument();
 		text.setParagraphAttributes(0, text.getLength(), font, false);
 		
-		//Ìí¼ÓÊó±ê¼àÌıÆ÷
+		//æ·»åŠ é¼ æ ‡ç›‘å¬å™¨
 		this.addMouseListener(new MouseListener() {
 			
 			@Override
@@ -78,26 +78,26 @@ public class textOfTable extends JTextPane{
 			public void mouseClicked(MouseEvent e) {
 				BackgroundFrame add = new BackgroundFrame( 580, 300, 350, 262 ,0);
 				
-				//´´½¨ÎÄ±¾
-				JLabel name = new JLabel("¿Î³ÌÃû:");
+				//æ·»åŠ æ–‡æœ¬é¡¹
+				JLabel name = new JLabel("è¯¾ç¨‹å:");
 				name.setForeground(Frame.fc);
 				name.setFont(new Font(Frame.type,0,20));
 				add.main.add(name);
 				name.setBounds(45, 16, 70, 25);
 				
-				JLabel region = new JLabel("ÇøÓò:");
+				JLabel region = new JLabel("åŒºåŸŸ:");
 				region.setForeground(Frame.fc);
 				region.setFont(new Font(Frame.type,0,20));
 				add.main.add(region);
 				region.setBounds(55, 16+55, 50, 25);
 				
-				JLabel classroom = new JLabel("¿ÎÊÒ:");
+				JLabel classroom = new JLabel("è¯¾å®¤:");
 				classroom.setForeground(Frame.fc);
 				classroom.setFont(new Font(Frame.type,0,20));
 				add.main.add(classroom);
 				classroom.setBounds(55, 16+55*2, 50, 25);
 				
-				//´´½¨ÊäÈë¿òºÍ¸´Ñ¡¿ò
+				//æ·»åŠ è¾“å…¥æ¡†
 				JTextField nameField = new JTextField();
 				nameField.setFont(new Font(Frame.type,0,20));
 				nameField.setForeground(Frame.fc);
@@ -111,7 +111,7 @@ public class textOfTable extends JTextPane{
 				regionBox.setFont(new Font(Frame.type,0,20));
 				add.main.add(regionBox);
 				regionBox.setBounds(120, 12+55, 100, 35);
-				for(int a = 65;a < 74;a++) {regionBox.addItem((char)a);}//Ìí¼ÓA~I
+				for(int a = 65;a < 74;a++) {regionBox.addItem((char)a);}//æ·»åŠ A~I
 				
 				
 				JTextField classField = new JTextField();
@@ -125,23 +125,23 @@ public class textOfTable extends JTextPane{
 	}
 	
 	public textOfTable(Color backcolor,String startTime,String times) {
-		this.setBackground(backcolor);//ÉèÖÃ±³¾°ÑÕÉ«
-		this.setEditable(false);//ÉèÖÃÎŞ·¨±à¼­
+		this.setBackground(backcolor);//è®¾ç½®èƒŒæ™¯é¢œè‰²
+		this.setEditable(false);//è®¾ç½®æ˜¯å¦å¯ç¼–è¾‘
 		
-		//ÉèÖÃµÚÒ»ĞĞÎÄ±¾ÑùÊ½
-		SimpleAttributeSet font1 = new SimpleAttributeSet();//´´½¨ÑùÊ½±äÁ¿
-		StyleConstants.setForeground(font1, Color.black);//ÉèÖÃÎÄ±¾ÑÕÉ«
-		StyleConstants.setFontSize(font1, 12);//ÉèÖÃÎÄ±¾×ÖÌå´óĞ¡
-		StyleConstants.setAlignment(font1, StyleConstants.ALIGN_CENTER);//ÉèÖÃÎÄ±¾¾ÓÖĞÏÔÊ¾
+		//è®¾ç½®ç¬¬ä¸€è¡Œæ–‡æœ¬æ ¼å¼
+		SimpleAttributeSet font1 = new SimpleAttributeSet();//åˆ›å»ºæ ¼å¼å˜é‡
+		StyleConstants.setForeground(font1, Color.black);//è®¾ç½®æ–‡æœ¬é¢œè‰²
+		StyleConstants.setFontSize(font1, 12);//è®¾ç½®å­—ä½“å¤§å°
+		StyleConstants.setAlignment(font1, StyleConstants.ALIGN_CENTER);//è®¾ç½®æ–‡æœ¬å±…ä¸­
 		
-		//ÉèÖÃµÚ¶şĞĞÎÄ±¾ÑùÊ½
+		//è®¾ç½®ç¬¬äºŒè¡Œæ–‡æœ¬æ ¼å¼
 		SimpleAttributeSet font2 = new SimpleAttributeSet();
 		StyleConstants.setForeground(font2, Color.black);
 		StyleConstants.setFontSize(font2, 14);
-		StyleConstants.setBold(font2, true);//ÉèÖÃ×ÖÌå¼Ó´Ö
+		StyleConstants.setBold(font2, true);//è®¾ç½®æ–‡æœ¬åŠ ç²—
 		StyleConstants.setAlignment(font2, StyleConstants.ALIGN_CENTER);
 		
-		//Ìí¼ÓµÚÒ»ĞĞÎÄ±¾
+		//æ·»åŠ ç¬¬ä¸€è¡Œæ–‡å­—
 		StyledDocument text1 = this.getStyledDocument();
 		text1.setParagraphAttributes(0, text1.getLength(), font1, false);		
 		try {
@@ -151,7 +151,7 @@ public class textOfTable extends JTextPane{
 			e.printStackTrace();
 		}
 		
-		//Ìí¼ÓµÚ¶şĞĞÎÄ±¾
+		//æ·»åŠ ç¬¬äºŒè¡Œæ–‡å­—
 		StyledDocument text2 = this.getStyledDocument();
 		text2.setParagraphAttributes(text1.getLength(), text2.getLength(), font2, true);
 		try {

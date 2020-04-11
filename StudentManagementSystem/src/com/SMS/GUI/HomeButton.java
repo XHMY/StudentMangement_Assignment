@@ -42,27 +42,27 @@ public class HomeButton extends JLabel{
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(getText() == "学生资料")	{
+				if(getText() == "瀛︾敓璧勬枡")	{
 					Frame.homeFrame.main.removeAll();
 					Frame.homeFrame.main.updateUI();
 					Frame.StuDataPanel();
 				}
-				if(getText() == "学生日程")	{
+				if(getText() == "瀛︾敓鏃ョ▼")	{
 					Frame.homeFrame.main.removeAll();
 					Frame.homeFrame.main.updateUI();
 					Frame.StuSchedule();
 				}
-				if(getText() == "导入") {
+				if(getText() == "瀵煎叆") {
 					Frame.homeFrame.main.removeAll();
 					Frame.homeFrame.main.updateUI();
 					Frame.Input();
 				}
-				if(getText() == "导出") {
+				if(getText() == "瀵煎嚭") {
 					Frame.homeFrame.main.removeAll();
 					Frame.homeFrame.main.updateUI();
 					Frame.Output();
 				}
-				if(getText() == "社团管理") {
+				if(getText() == "绀惧洟绠＄悊") {
 					Frame.homeFrame.main.removeAll();
 					Frame.homeFrame.main.updateUI();
 					Frame.UnionManage();

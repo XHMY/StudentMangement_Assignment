@@ -8,6 +8,13 @@
             "type": "java",
             "name": "CodeLens (Launch) - Frame",
             "request": "launch",
+            "mainClass": "GUI.Frame",
+            "projectName": "StudentMangement_Assignment_6a78fc9e"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Frame",
+            "request": "launch",
             "mainClass": "Code.GUI.Frame",
             "projectName": "StudentMangement_Assignment_6a78fc9e"
         },

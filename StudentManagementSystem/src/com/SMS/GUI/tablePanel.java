@@ -22,16 +22,16 @@ public class tablePanel extends JPanel{
 		setLayout(null);
 		setBackground(Color.white);
 		
-		//´´½¨ÖÜÊıÏÔÊ¾
+		//æ·»åŠ å‘¨æ•°ä¸‹æ‹‰åˆ—è¡¨
 		JComboBox<String> week = new JComboBox<>();
-		for(int a=1;a<=9;a++)week.addItem("µÚ"+a+"ÖÜ");
+		for(int a=1;a<=9;a++)week.addItem("ç¬¬"+a+"å‘¨");
 		week.setBackground(new Color(68,114,196));
 		week.setForeground(Color.white);
 		week.setBorder(null);
 		this.add(week);
 		week.setBounds(0, 0, lwidth, lheight);
 		
-		//´´½¨±íÍ·
+		//æ·»åŠ è¡¨å¤´
 		labelOfTable mon = new labelOfTable("MON");
 		this.add(mon);
 		mon.setBounds(lwidth+2,0,lwidth, lheight);
@@ -60,7 +60,7 @@ public class tablePanel extends JPanel{
 		this.add(sun);
 		sun.setBounds(space_x*7, 0, lwidth, lheight);
 		
-		//´´½¨Ê±¼ä¶Î
+		//æ·»åŠ æ—¶é—´æ®µ
 		textOfTable t1 = new textOfTable(color1,"8:20","1~2");
 		this.add(t1);
 		t1.setBounds(0, lheight+4, lwidth, lheight);
@@ -85,11 +85,11 @@ public class tablePanel extends JPanel{
 		this.add(t6);
 		t6.setBounds(0, lheight+4+space_y*5, lwidth, lheight);
 		
-		//´´½¨¿Î³Ì±í
-		int b = 0;//yÖáÎ»ÖÃ±äÁ¿
+		//è¡Œæ•°ä½ç½®å¸¸é‡
+		int b = 0;//yè½´ä½ç½®
 		
-			//µÚÒ»ĞĞ
-		int a = 1;//xÖáÎ»ÖÃ±äÁ¿
+			//åˆ—æ•°ä½ç½®å¸¸é‡
+		int a = 1;//xè½´ä½ç½®
 		
 		textOfTable s11 = new textOfTable(color1);
 		s11.setText(null);
@@ -133,7 +133,7 @@ public class tablePanel extends JPanel{
 		s17.setBounds(space_x*a, lheight+4+space_y*b, lwidth, lheight);
 		b++;
 
-			//µÚ¶şĞĞ
+			//ç¬¬äºŒè¡Œ
 		a = 1;
 		
 		textOfTable s21 = new textOfTable(color2);
@@ -178,7 +178,7 @@ public class tablePanel extends JPanel{
 		s27.setBounds(space_x*a, lheight+4+space_y*b, lwidth, lheight);
 		b++;
 		
-			//µÚÈıĞĞ
+			//ç¬¬ä¸‰è¡Œ
 		a = 1;
 		
 		textOfTable s31 = new textOfTable(color1);
@@ -223,7 +223,7 @@ public class tablePanel extends JPanel{
 		s37.setBounds(space_x*a, lheight+4+space_y*b, lwidth, lheight);
 		b++;
 		
-			//µÚËÄĞĞ
+			//ç¬¬å››è¡Œ
 		a = 1;
 		
 		textOfTable s41 = new textOfTable(color2);
@@ -268,7 +268,7 @@ public class tablePanel extends JPanel{
 		s47.setBounds(space_x*a, lheight+4+space_y*b, lwidth, lheight);
 		b++;
 		
-			//µÚÎåĞĞ
+			//ç¬¬äº”è¡Œ
 		a = 1;
 		
 		textOfTable s51 = new textOfTable(color1);
@@ -313,7 +313,7 @@ public class tablePanel extends JPanel{
 		s57.setBounds(space_x*a, lheight+4+space_y*b, lwidth, lheight);
 		b++;
 		
-			//µÚÁùĞĞ
+			//ç¬¬å…­è¡Œ
 		a = 1;
 		
 		textOfTable s61 = new textOfTable(color2);
@@ -362,16 +362,16 @@ public class tablePanel extends JPanel{
 		setLayout(null);
 		setBackground(Color.white);
 		
-		//´´½¨ÖÜÊıÏÔÊ¾
+		//æ·»åŠ å‘¨æ•°ä¸‹æ‹‰åˆ—è¡¨
 		JComboBox<String> week = new JComboBox<>();
-		for(int a=1;a<=9;a++)week.addItem("µÚ"+a+"ÖÜ");
+		for(int a=1;a<=9;a++)week.addItem("ç¬¬"+a+"å‘¨");
 		week.setBackground(new Color(68,114,196));
 		week.setForeground(Color.white);
 		week.setBorder(null);
 		this.add(week);
 		week.setBounds(0, 0, lwidth, lheight);
 		
-		//´´½¨±íÍ·
+		//æ·»åŠ è¡¨å¤´
 		labelOfTable mon = new labelOfTable("MON");
 		this.add(mon);
 		mon.setBounds(lwidth+2,0,lwidth, lheight);
@@ -400,7 +400,7 @@ public class tablePanel extends JPanel{
 		this.add(sun);
 		sun.setBounds(space_x*7, 0, lwidth, lheight);
 		
-		//´´½¨Ê±¼ä¶Î
+		//æ·»åŠ äº‹ä»¶æ®µ
 		textOfTable t1 = new textOfTable(color1,"8:20","1~2");
 		this.add(t1);
 		t1.setBounds(0, lheight+4, lwidth, lheight);
@@ -425,11 +425,11 @@ public class tablePanel extends JPanel{
 		this.add(t6);
 		t6.setBounds(0, lheight+4+space_y*5, lwidth, lheight);
 		
-		//´´½¨¿Î³Ì±í
-		int b = 0;//yÖáÎ»ÖÃ±äÁ¿
+		//è¡Œæ•°ä½ç½®å˜é‡
+		int b = 0;//yä½ç½®
 		
-			//µÚÒ»ĞĞ
-		int a = 1;//xÖáÎ»ÖÃ±äÁ¿
+			//åˆ—æ•°ä½ç½®å˜é‡
+		int a = 1;//xä½ç½®
 		
 		textOfTable s11 = new textOfTable(color1,0);
 		s11.setText(null);
@@ -473,7 +473,7 @@ public class tablePanel extends JPanel{
 		s17.setBounds(space_x*a, lheight+4+space_y*b, lwidth, lheight);
 		b++;
 
-			//µÚ¶şĞĞ
+			//ç¬¬äºŒè¡Œ
 		a = 1;
 		
 		textOfTable s21 = new textOfTable(color2,0);
@@ -518,7 +518,7 @@ public class tablePanel extends JPanel{
 		s27.setBounds(space_x*a, lheight+4+space_y*b, lwidth, lheight);
 		b++;
 		
-			//µÚÈıĞĞ
+			//ç¬¬ä¸‰è¡Œ
 		a = 1;
 		
 		textOfTable s31 = new textOfTable(color1,0);
@@ -563,7 +563,7 @@ public class tablePanel extends JPanel{
 		s37.setBounds(space_x*a, lheight+4+space_y*b, lwidth, lheight);
 		b++;
 		
-			//µÚËÄĞĞ
+			//ç¬¬å››è¡Œ
 		a = 1;
 		
 		textOfTable s41 = new textOfTable(color2,0);
@@ -608,7 +608,7 @@ public class tablePanel extends JPanel{
 		s47.setBounds(space_x*a, lheight+4+space_y*b, lwidth, lheight);
 		b++;
 		
-			//µÚÎåĞĞ
+			//ç¬¬äº”è¡Œ
 		a = 1;
 		
 		textOfTable s51 = new textOfTable(color1,0);
@@ -653,7 +653,7 @@ public class tablePanel extends JPanel{
 		s57.setBounds(space_x*a, lheight+4+space_y*b, lwidth, lheight);
 		b++;
 		
-			//µÚÁùĞĞ
+			//ç¬¬å…­è¡Œ
 		a = 1;
 		
 		textOfTable s61 = new textOfTable(color2,0);
