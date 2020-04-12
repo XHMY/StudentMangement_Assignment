@@ -5,7 +5,7 @@ import com.SMS.lib.algs4.LinearProbingHashST;
 
 public class Authentication {
 
-    private LinearProbingHashST<String, String> user_database;
+    private final LinearProbingHashST<String, String> user_database;
 
     public Authentication() {
         user_database = new LinearProbingHashST<String, String>();
@@ -18,6 +18,8 @@ public class Authentication {
     }
 
     public boolean check_user(String acc, String pas) {
-        return user_database.get(acc).equals(pas);
+        String ri_pas = user_database.get(acc);
+        if(ri_pas ==null) return false;
+        return ri_pas.equals(pas);
     }
 }
