@@ -8,28 +8,34 @@ import java.io.IOException;
 import java.util.Date;
 
 public class StudentManagement {
-    private Authentication atc;
-    private Stu_Database stuD;
-    private Uni_Database uniD;
-    private StuSysIO ssIO;
-    private Schedule schD;
+    private final Authentication atc;
+    private final Stu_Database stuD;
+    private final Uni_Database uniD;
+    private final StuSysIO ssIO;
+    private final Schedule schD;
 
-    public StudentManagement() throws IOException {
+    public StudentManagement(boolean need_import) throws IOException {
         atc = new Authentication();
         stuD = new Stu_Database();
         uniD = new Uni_Database();
         ssIO = new StuSysIO();
         schD = new Schedule();
-        if (!StuSysIO.createFile("data/stu.csv")) {
-            ssIO.sysImport(stuD, "data/stu.csv");
+        if (need_import) {
+            if (!StuSysIO.createFile("data/stu.csv")) {
+                ssIO.sysImport(stuD, "data/stu.csv");
+            }
+            if (!StuSysIO.createFile("data/uni.csv")) {
+                StuSysIO.createFile("data/unimem.csv");
+                ssIO.sysImport(uniD, "data/uni.csv", "data/unimem.csv");
+            }
+            if (!StuSysIO.createFile("data/cour.csv")) {
+                ssIO.sysImport(schD, "data/cour.csv");
+            }
         }
-        if (!StuSysIO.createFile("data/uni.csv")) {
-            StuSysIO.createFile("data/unimem.csv");
-            ssIO.sysImport(uniD, "data/uni.csv", "data/unimem.csv");
-        }
-        if (!StuSysIO.createFile("data/cour.csv")) {
-            ssIO.sysImport(schD, "data/cour.csv");
-        }
+    }
+
+    public StudentManagement() throws IOException {
+        this(true);
     }
 
     public static void main(String[] args) throws IOException {
