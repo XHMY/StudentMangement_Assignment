@@ -32,7 +32,10 @@ public class Frame {
 	static BackgroundFrame homeFrame = new BackgroundFrame(cfx, cfy, cfwidth, cfheight,true);
 	static JPanel secmain = new JPanel();
 
+	//学生对象
+	static Student student = new Student();
 
+	static int test = 0;
 
 	//登录界面
 	public static void LoginFrame() throws IOException {
@@ -131,6 +134,7 @@ public class Frame {
 				// TODO Auto-generated method stub			
 				if(account.getText().length() == 0 || password.getPassword().length == 0) {	
 					tips.setBounds(215,40,150,30);
+					tips2.setBounds(225, 40, 0, 0);
 				}
 				else {
 					if(studentManage.Login(account.getText(),String.valueOf(password.getPassword()))) {
@@ -138,7 +142,10 @@ public class Frame {
 						
 						Home();
 					}
-					else	tips2.setBounds(225, 40, 150, 30);
+					else {
+						tips2.setBounds(225, 40, 150, 30);
+						tips.setBounds(215,40,0,0);
+					}
 				}
 			}
 		});
@@ -188,13 +195,17 @@ public class Frame {
 				if(e.getKeyCode()==KeyEvent.VK_ENTER) {
 					if(account.getText().length() == 0 || password.getPassword().length == 0) {
 						tips.setBounds(215,40,150,30);
+						tips2.setBounds(225, 40, 0, 0);
 					}
 					else{
 						if(studentManage.Login(account.getText(),String.valueOf(password.getPassword()))) {
 							login.dispose();
 							Home();
 						}
-						else	tips2.setBounds(225, 40, 150, 30);
+						else {
+							tips2.setBounds(225, 40, 150, 30);
+							tips.setBounds(215,40,0,0);
+						}
 					}					
 				}				
 			}
@@ -268,8 +279,10 @@ public class Frame {
 	//学生资料界面
 	public static void StuDataPanel() throws IOException {
 		StudentManagement studentManage = new StudentManagement();
-		final Student[] student = {new Student()};
-		student[0] = null;//学生对象初始化
+		if(test == 0) {
+			student = null;//学生对象初始化
+			test++;
+		}
 
 		//创建主面板		
 		JPanel stuDataPanel = new JPanel();
@@ -395,7 +408,7 @@ public class Frame {
 		box1.setFont(new Font(type,0,18));
 		box1.setBackground(Color.white);
 		box1.setForeground(fc);
-		box1.setSelected(true);
+//		box1.setSelected(true);
 		search.add(box1);
 		box1.setBounds(73, 71, 83, 26);
 		
@@ -403,7 +416,7 @@ public class Frame {
 		box2.setFont(new Font(type,0,18));
 		box2.setBackground(Color.white);
 		box2.setForeground(fc);
-		box2.setSelected(false);
+//		box2.setSelected(false);
 		search.add(box2);
 		box2.setBounds(180, 71, 83, 26);
 			//设置复选框单选
@@ -450,10 +463,24 @@ public class Frame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(box1.isSelected() == true){
-					student[0] = studentManage.Get_stu(Integer.parseInt(input.getText()));
+					student = studentManage.Get_stu(Integer.parseInt(input.getText()));
+//					try {
+//						secmain.removeAll();
+//						secmain.updateUI();
+//						StuDataPanel();
+//					} catch (IOException ioException) {
+//						ioException.printStackTrace();
+//					}
 				}
-				if(box2.isSelected() == false){
-					student[0] = studentManage.Get_stu(Integer.parseInt(input.getText()));
+				if(box2.isSelected() == true){
+					student = studentManage.Get_stu(Integer.parseInt(input.getText()));
+//					try {
+//						secmain.removeAll();
+//						secmain.updateUI();
+//						StuDataPanel();
+//					} catch (IOException ioException) {
+//						ioException.printStackTrace();
+//					}
 				}
 
 			}
@@ -488,12 +515,12 @@ public class Frame {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(student[0] != null) {
+				if(student != null) {
 					//清除面板重新加载
 					secmain.removeAll();
 
 					//创建个人信息表并显示学生对象信息
-					DataPanel panel1 = new DataPanel(true, student[0]);
+					DataPanel panel1 = new DataPanel(true, student);
 					createDataPanel(panel1);
 
 					//添加确认和取消按钮
@@ -547,7 +574,7 @@ public class Frame {
 							secmain.removeAll();
 
 							//创建不可编辑表格并显示未改变的学生对象信息
-							DataPanel panel2 = new DataPanel(false, student[0]);
+							DataPanel panel2 = new DataPanel(false, student);
 							createDataPanel(panel2);
 
 						}
@@ -593,7 +620,7 @@ public class Frame {
 							student1.setWechat(panel1.wechatField.getText());//更新微信
 							student1.setYear(Integer.parseInt(panel1.yearField.getText()));//更新入学年份
 							student1.setDorm(panel1.dormField.getText());//更新宿舍
-							studentManage.Modify_stu(student[0],student1);
+							studentManage.Modify_stu(student,student1);
 
 							//删除确认取消按钮
 							homeFrame.main.remove(cancel);
@@ -618,7 +645,7 @@ public class Frame {
 		homeFrame.main.add(secmain);
 		secmain.setBounds(DataPanel.width+10, 210, DataPanel.space_x+DataPanel.width+10+DataPanel.fieldWidth, DataPanel.space_y*4+DataPanel.height);
 
-		DataPanel panel = new DataPanel(false,student[0]);
+		DataPanel panel = new DataPanel(false,student);
 		createDataPanel(panel);
 	}
 	
@@ -1536,8 +1563,8 @@ public class Frame {
 	//主函数
 	public static void main(String[] args) throws IOException {
 		
-		LoginFrame();
-//		Home();
+//		LoginFrame();
+		Home();
 //		StuDataPanel();
 //		StuSchedule();
 //		Input();

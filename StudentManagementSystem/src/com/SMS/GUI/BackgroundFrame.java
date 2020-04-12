@@ -1,9 +1,12 @@
 package com.SMS.GUI;
 
+import com.SMS.StudentManagement;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
 public class BackgroundFrame extends JFrame{
     JPanel main = new JPanel();
@@ -342,6 +345,18 @@ public class BackgroundFrame extends JFrame{
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				StudentManagement studentManagement = null;
+				try {
+					studentManagement = new StudentManagement();
+				} catch (IOException ioException) {
+					ioException.printStackTrace();
+				}
+				try {
+					studentManagement.call_when_exit();
+				} catch (IOException ioException) {
+					ioException.printStackTrace();
+				}
+
 				System.exit(0);
 				
 			}
