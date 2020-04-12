@@ -106,3 +106,7 @@ StudentManagementSystem/out/production/StudentManagementSystem/com/SMS/base/Sche
 StudentManagementSystem/out/production/StudentManagementSystem/com/SMS/base/Course.class
 StudentManagementSystem/out/production/StudentManagementSystem/com/SMS/base/Authentication.class
 StudentManagementSystem/out/production/StudentManagementSystem/com/SMS/Main.class
+StudentManagementSystem/data/unimem.csv
+StudentManagementSystem/data/uni.csv
+StudentManagementSystem/data/stu.csv
+StudentManagementSystem/data/cour.csv
