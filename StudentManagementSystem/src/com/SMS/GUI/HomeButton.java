@@ -5,6 +5,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
 public class HomeButton extends JLabel{
     public HomeButton(String name,Color color,ImageIcon icon1,ImageIcon icon2) {
@@ -42,7 +43,11 @@ public class HomeButton extends JLabel{
 				if(getText() == "学生资料")	{
 					Frame.homeFrame.main.removeAll();
 					Frame.homeFrame.main.updateUI();
-					Frame.StuDataPanel();
+					try {
+						Frame.StuDataPanel();
+					} catch (IOException ioException) {
+						ioException.printStackTrace();
+					}
 				}
 				if(getText() == "学生日程")	{
 					Frame.homeFrame.main.removeAll();

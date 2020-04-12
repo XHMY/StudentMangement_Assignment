@@ -7,6 +7,10 @@ import java.awt.event.MouseListener;
 
 public class BackgroundFrame extends JFrame{
     JPanel main = new JPanel();
+
+    //检测是否点击confirm按钮
+	static int check = 0;
+	static int t = check;
 	
 	//窗口标题宽度常量
 	static int d = 43;
@@ -117,7 +121,6 @@ public class BackgroundFrame extends JFrame{
 	//添加修改框
 	public BackgroundFrame(int x,int y,int width,int height,int a) {
 		
-		
 		//窗口创建
 		setUndecorated(true);
 		setBounds(x,y,width,height);		
@@ -219,8 +222,9 @@ public class BackgroundFrame extends JFrame{
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Frame.confirmClickedEvent(BackgroundFrame.this);
-				
+//				Frame.confirmClickedEvent(BackgroundFrame.this);
+				check++;
+				dispose();
 			}
 		});
 		
