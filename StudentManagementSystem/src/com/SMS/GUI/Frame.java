@@ -2,12 +2,17 @@ package com.SMS.GUI;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import com.SMS.StudentManagement;
+import com.SMS.base.Student;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.IOException;
 
 public class Frame {
 	
@@ -26,10 +31,13 @@ public class Frame {
 		
 	static BackgroundFrame homeFrame = new BackgroundFrame(cfx, cfy, cfwidth, cfheight,true);
 	static JPanel secmain = new JPanel();
-	
+
+
+
 	//登录界面
-	public static void Login() {
+	public static void LoginFrame() throws IOException {
 		BackgroundFrame login = new BackgroundFrame(530,250,500,320,new Color(45,85,151));
+		StudentManagement studentManage = new StudentManagement();
 		
 		//添加标签
 		JLabel label1 = new JLabel("账号");
@@ -125,7 +133,7 @@ public class Frame {
 					tips.setBounds(215,40,150,30);
 				}
 				else {
-					if(true) {							
+					if(studentManage.Login(account.getText(),String.valueOf(password.getPassword()))) {
 						login.dispose();
 						
 						Home();
@@ -151,7 +159,7 @@ public class Frame {
 						tips.setBounds(215,40,150,30);
 					}
 					else{
-						if(true) {
+						if(studentManage.Login(account.getText(),String.valueOf(password.getPassword()))) {
 							login.dispose();
 							Home();
 						}
@@ -182,7 +190,7 @@ public class Frame {
 						tips.setBounds(215,40,150,30);
 					}
 					else{
-						if(true) {	
+						if(studentManage.Login(account.getText(),String.valueOf(password.getPassword()))) {
 							login.dispose();
 							Home();
 						}
@@ -258,7 +266,11 @@ public class Frame {
 	} 
 	
 	//学生资料界面
-	public static void StuDataPanel() {
+	public static void StuDataPanel() throws IOException {
+		StudentManagement studentManage = new StudentManagement();
+		final Student[] student = {new Student()};
+		student[0] = null;//学生对象初始化
+
 		//创建主面板		
 		JPanel stuDataPanel = new JPanel();
 		stuDataPanel.setLayout(null);
@@ -308,7 +320,7 @@ public class Frame {
 				Home();
 			}
 		});
-		
+
 		//创建添加按钮
 		JLabel add = new JLabel("添加");
 		add.setFont(new Font(type,0,18));
@@ -346,10 +358,14 @@ public class Frame {
 			public void mouseClicked(MouseEvent e) {
 				BackgroundFrame addFrame = new BackgroundFrame(cfx+50,cfy+100,cfwidth,cfheight-158,0);
 				addFrame.setTitle("stu");
-				DataPanel panel = new DataPanel(true);
+				DataPanel panel = new DataPanel();
 				panel.setBackground(bc);
 				addFrame.main.add(panel);
 				panel.setBounds(DataPanel.width + 10, 30, DataPanel.space_x + DataPanel.width + 10 + DataPanel.fieldWidth, DataPanel.space_y * 4 + DataPanel.height);
+
+				if(addFrame.check != addFrame.t){
+
+				}
 			}
 		});
 
@@ -390,7 +406,7 @@ public class Frame {
 		box2.setSelected(false);
 		search.add(box2);
 		box2.setBounds(180, 71, 83, 26);
-		//设置复选框单选
+			//设置复选框单选
 		box1.addActionListener((e) -> {
 			if (box1.isSelected() == true) box2.setSelected(false);
 		});
@@ -433,7 +449,12 @@ public class Frame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
+				if(box1.isSelected() == true){
+					student[0] = studentManage.Get_stu(Integer.parseInt(input.getText()));
+				}
+				if(box2.isSelected() == false){
+					student[0] = studentManage.Get_stu(Integer.parseInt(input.getText()));
+				}
 
 			}
 		});
@@ -467,98 +488,128 @@ public class Frame {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//清除面板重新加载
-				secmain.removeAll();
-				createDataPanel(true);
+				if(student[0] != null) {
+					//清除面板重新加载
+					secmain.removeAll();
 
-				//添加确认和取消按钮
-				JLabel confirm = new JLabel();
-				confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirm.png"));
-				homeFrame.main.add(confirm);
-				confirm.setBounds(cfwidth / 2 + 28, cfheight - 90, 50, 27);
-				confirm.setOpaque(true);
+					//创建个人信息表并显示学生对象信息
+					DataPanel panel1 = new DataPanel(true, student[0]);
+					createDataPanel(panel1);
 
-				JLabel cancel = new JLabel();
-				cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancel.png"));
-				homeFrame.main.add(cancel);
-				cancel.setBounds(cfwidth / 2 - 84, cfheight - 90, 50, 27);
-				cancel.setOpaque(true);
+					//添加确认和取消按钮
+					JLabel confirm = new JLabel();
+					confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirm.png"));
+					homeFrame.main.add(confirm);
+					confirm.setBounds(cfwidth / 2 + 28, cfheight - 90, 50, 27);
+					confirm.setOpaque(true);
 
-				//添加鼠标监听器
-				cancel.addMouseListener(new MouseListener() {
+					JLabel cancel = new JLabel();
+					cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancel.png"));
+					homeFrame.main.add(cancel);
+					cancel.setBounds(cfwidth / 2 - 84, cfheight - 90, 50, 27);
+					cancel.setOpaque(true);
 
-					@Override
-					public void mouseReleased(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void mousePressed(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void mouseExited(MouseEvent e) {
-						cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancel.png"));
+					//添加鼠标监听器
+					cancel.addMouseListener(new MouseListener() {
 
-					}
-					
-					@Override
-					public void mouseEntered(MouseEvent e) {
-						cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancelEntered.png"));
+						@Override
+						public void mouseReleased(MouseEvent e) {
+							// TODO Auto-generated method stub
 
-					}
-					
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						homeFrame.main.remove(cancel);
-						homeFrame.main.remove(confirm);
-						homeFrame.main.updateUI();
-						secmain.removeAll();
-						createDataPanel(false);
-						
-					}
-				});
-				
-				confirm.addMouseListener(new MouseListener() {
-					
-					@Override
-					public void mouseReleased(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void mousePressed(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void mouseExited(MouseEvent e) {
-						confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirm.png"));
+						}
 
-					}
-					
-					@Override
-					public void mouseEntered(MouseEvent e) {
-						confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirmEntered.png"));
+						@Override
+						public void mousePressed(MouseEvent e) {
+							// TODO Auto-generated method stub
 
-					}
-					
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						homeFrame.main.remove(cancel);
-						homeFrame.main.remove(confirm);
-						homeFrame.main.updateUI();
-						secmain.removeAll();
-						createDataPanel(false);
-					}
-				});
-				
-				
+						}
+
+						@Override
+						public void mouseExited(MouseEvent e) {
+							cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancel.png"));
+
+						}
+
+						@Override
+						public void mouseEntered(MouseEvent e) {
+							cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancelEntered.png"));
+
+						}
+
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							//删除确定取消键
+							homeFrame.main.remove(cancel);
+							homeFrame.main.remove(confirm);
+							homeFrame.main.updateUI();
+
+							//去掉原有可编辑表格
+							secmain.removeAll();
+
+							//创建不可编辑表格并显示未改变的学生对象信息
+							DataPanel panel2 = new DataPanel(false, student[0]);
+							createDataPanel(panel2);
+
+						}
+					});
+
+					confirm.addMouseListener(new MouseListener() {
+
+						@Override
+						public void mouseReleased(MouseEvent e) {
+							// TODO Auto-generated method stub
+
+						}
+
+						@Override
+						public void mousePressed(MouseEvent e) {
+							// TODO Auto-generated method stub
+
+						}
+
+						@Override
+						public void mouseExited(MouseEvent e) {
+							confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirm.png"));
+
+						}
+
+						@Override
+						public void mouseEntered(MouseEvent e) {
+							confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirmEntered.png"));
+
+						}
+
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							//更新个人信息
+							Student student1 = new Student();
+							student1.setName(panel1.nameField.getText());//更新名字
+							student1.setSex(DataPanel.judgeSex(panel1.sexBox.getSelectedIndex()));//更新性别
+							student1.setNum(Integer.parseInt(panel1.numField.getText()));//更新学号
+							student1.setClas(Integer.parseInt(panel1.classnumField.getText()));//更新班别
+							student1.setColle(panel1.collegeField.getText());//更新学院
+							student1.setTel(Long.parseLong(panel1.telnumField.getText()));//更新电话
+							student1.setProf(panel1.majorField.getText());//更新专业
+							student1.setWechat(panel1.wechatField.getText());//更新微信
+							student1.setYear(Integer.parseInt(panel1.yearField.getText()));//更新入学年份
+							student1.setDorm(panel1.dormField.getText());//更新宿舍
+							studentManage.Modify_stu(student[0],student1);
+
+							//删除确认取消按钮
+							homeFrame.main.remove(cancel);
+							homeFrame.main.remove(confirm);
+							homeFrame.main.updateUI();
+
+							//清空信息面板
+							secmain.removeAll();
+
+							//添加更新后的个人信息
+							DataPanel panel3 = new DataPanel(false, student1);
+							createDataPanel(panel3);
+						}
+					});
+
+				}
 			}
 		});
 	
@@ -567,12 +618,13 @@ public class Frame {
 		homeFrame.main.add(secmain);
 		secmain.setBounds(DataPanel.width+10, 210, DataPanel.space_x+DataPanel.width+10+DataPanel.fieldWidth, DataPanel.space_y*4+DataPanel.height);
 
-		createDataPanel(false);		
+		DataPanel panel = new DataPanel(false,student[0]);
+		createDataPanel(panel);
 	}
 	
 	//创建学生信息表
-	public static  void createDataPanel(boolean a) {
-		DataPanel panel = new DataPanel(a);
+	public static  void createDataPanel(DataPanel panel) {
+//		DataPanel panel = new DataPanel(a,student);
 		panel.setBackground(bc);
 		secmain.add(panel);
 		panel.setBounds(0, 0, DataPanel.space_x+DataPanel.width+10+DataPanel.fieldWidth, DataPanel.space_y*4+DataPanel.height);
@@ -1453,7 +1505,8 @@ public class Frame {
 	//添加修改框保存事件
 	public static void confirmClickedEvent(BackgroundFrame frame) {
 		if(frame.getTitle() == "stu") {
-//			Student a = new Student(frame.panel.nameField.getText());
+
+
 			frame.dispose();
 		}
 		if(frame.getTitle() == "lesson") {
@@ -1479,10 +1532,11 @@ public class Frame {
 		
 		return file.getAbsolutePath();
 	}
-	
-	public static void main(String[] args) {
+
+	//主函数
+	public static void main(String[] args) throws IOException {
 		
-		Login();
+		LoginFrame();
 //		Home();
 //		StuDataPanel();
 //		StuSchedule();
