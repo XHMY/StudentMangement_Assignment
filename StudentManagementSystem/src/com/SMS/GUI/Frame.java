@@ -7,10 +7,7 @@ import com.SMS.StudentManagement;
 import com.SMS.base.Student;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -34,8 +31,11 @@ public class Frame {
 
 	//学生对象
 	static Student student = new Student();
+	static Student studentX = new Student();
 
 	static int test = 0;
+	static boolean judge1 = true;
+	static boolean judge2 = false;
 
 	//登录界面
 	public static void LoginFrame() throws IOException {
@@ -279,12 +279,14 @@ public class Frame {
 	//学生资料界面
 	public static void StuDataPanel() throws IOException {
 		StudentManagement studentManage = new StudentManagement();
+
 		if(test == 0) {
 			student = null;//学生对象初始化
-			test++;
 		}
+		test++;
+		studentX = student;
 
-		//创建主面板		
+		//创建主面板
 		JPanel stuDataPanel = new JPanel();
 		stuDataPanel.setLayout(null);
 		stuDataPanel.setBackground(bc);
@@ -299,74 +301,149 @@ public class Frame {
 		backButton.setFont(new Font(type, 0, 18));
 		stuDataPanel.add(backButton);
 		backButton.setBounds(13, 15, 73, 30);
-		//添加鼠标监听器
-		backButton.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-				
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				homeFrame.main.removeAll();
-				secmain.removeAll();
-				Home();
-			}
-		});
 
 		//创建添加按钮
 		JLabel add = new JLabel("添加");
 		add.setFont(new Font(type,0,18));
 		add.setForeground(fc);
 		stuDataPanel.add(add);
-		add.setBounds(458, 15, 40, 30);		
-			//添加鼠标监视器
-		add.addMouseListener(new MouseListener() {
-			
+		add.setBounds(458, 15, 40, 30);
+
+		//创建查找栏
+		JLabel searchFrame = new JLabel();
+		searchFrame.setLayout(null);
+		searchFrame.setIcon(new ImageIcon("src/com/SMS/GUI/image/searchFrame.png"));
+		stuDataPanel.add(searchFrame);
+		searchFrame.setBounds(20, 57, 488, 120);
+			//在查找栏上创建面板
+		JPanel search = new JPanel();
+		search.setLayout(null);
+		search.setOpaque(false);
+		searchFrame.add(search);
+		search.setBounds(0, 0, 488, 120);
+
+		//创建复选框
+		JCheckBox box1 = new JCheckBox("按学号");
+		box1.setFont(new Font(type,0,18));
+		box1.setBackground(Color.white);
+		box1.setForeground(fc);
+		box1.setSelected(judge1);
+		search.add(box1);
+		box1.setBounds(73, 71, 83, 26);
+
+		JCheckBox box2 = new JCheckBox("按姓名");
+		box2.setFont(new Font(type,0,18));
+		box2.setBackground(Color.white);
+		box2.setForeground(fc);
+		box2.setSelected(judge2);
+		search.add(box2);
+		box2.setBounds(180, 71, 83, 26);
+
+		//创建输入框
+		JTextField input = new JTextField();
+		if(judge1 == true)input.setText("请输入学号");
+		if(judge2 == true)input.setText("请输入姓名");
+		search.add(input);
+		input.setFont(new Font(type,0,16));
+		input.setForeground(fc);
+		input.setBounds(73, 30, 190, 36);
+
+		//创建查找按钮
+		JLabel searchButton = new JLabel();
+		searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/searchButton.png"));
+		search.add(searchButton);
+		searchButton.setBounds(280, 30, 82, 60);
+		searchButton.setOpaque(true);
+
+		//创建修改按钮
+		JLabel fixButton = new JLabel();
+		fixButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/fixButton.png"));
+		search.add(fixButton);
+		fixButton.setBounds(380, 30, 82, 60);
+		fixButton.setOpaque(true);
+
+		//创建信息表
+		secmain.setLayout(null);
+		homeFrame.main.add(secmain);
+		secmain.setBounds(DataPanel.width+10, 210, DataPanel.space_x+DataPanel.width+10+DataPanel.fieldWidth, DataPanel.space_y*4+DataPanel.height);
+
+		DataPanel panel = new DataPanel(false,student);
+		createDataPanel(panel);
+
+		//创建查无此人提示
+		JLabel warn = new JLabel("查无此人");
+		warn.setForeground(Color.red);
+		warn.setFont(new Font(type,0,16));
+		search.add(warn);
+
+		//返回按钮添加鼠标监听器
+		backButton.addMouseListener(new MouseListener() {
+
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//退出学生资料界面恢复成员变量原有值
+				judge1 = true;
+				judge2 = false;
+				test = 0;
+
+				student = null;
+				homeFrame.main.removeAll();
+				secmain.removeAll();
+				Home();
+			}
+		});
+
+		//添加按钮添加鼠标监视器
+		add.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				add.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-				
+
 			}
-			
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				BackgroundFrame addFrame = new BackgroundFrame(cfx+50,cfy+100,cfwidth,cfheight-158,0);
@@ -382,137 +459,91 @@ public class Frame {
 			}
 		});
 
+		//输入框添加焦点监听器
+		input.addFocusListener(new FocusListener() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				input.setText(null);
+			}
 
-		//创建查找栏
-		JLabel searchFrame = new JLabel();
-		searchFrame.setLayout(null);
-		searchFrame.setIcon(new ImageIcon("src/com/SMS/GUI/image/searchFrame.png"));
-		stuDataPanel.add(searchFrame);
-		searchFrame.setBounds(20, 57, 488, 120);
-		//在查找栏上创建面板
-		JPanel search = new JPanel();
-		search.setLayout(null);
-		search.setOpaque(false);
-		searchFrame.add(search);
-		search.setBounds(0, 0, 488, 120);
+			@Override
+			public void focusLost(FocusEvent e) {
+				if(judge1 == true)input.setText("请输入学号");
+				if(judge2 == true)input.setText("请输入姓名");
+			}
+		});
 
-		//创建输入框
-		JTextField input = new JTextField();
-		search.add(input);
-		input.setFont(new Font(type,0,16));
-		input.setForeground(fc);
-		input.setBounds(73, 30, 190, 36);
-		
-		//创建复选框
-		JCheckBox box1 = new JCheckBox("按学号");
-		box1.setFont(new Font(type,0,18));
-		box1.setBackground(Color.white);
-		box1.setForeground(fc);
-//		box1.setSelected(true);
-		search.add(box1);
-		box1.setBounds(73, 71, 83, 26);
-		
-		JCheckBox box2 = new JCheckBox("按姓名");
-		box2.setFont(new Font(type,0,18));
-		box2.setBackground(Color.white);
-		box2.setForeground(fc);
-//		box2.setSelected(false);
-		search.add(box2);
-		box2.setBounds(180, 71, 83, 26);
-			//设置复选框单选
+		//输入框添加键盘监听器
+		input.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+					if(input.getText() != null) {
+						if (box1.isSelected() == true) {
+							student = studentManage.Get_stu(Integer.parseInt(input.getText()));
+							judge1 = true;
+							judge2 = false;
+						}
+						if (box2.isSelected() == true) {
+							student = studentManage.Get_stu(input.getText());
+							judge1 = false;
+							judge2 = true;
+						}
+
+						if (student != null) {
+							homeFrame.main.removeAll();
+							homeFrame.main.updateUI();
+							try {
+								StuDataPanel();
+							} catch (IOException ioException) {
+								ioException.printStackTrace();
+							}
+						}else{warn.setBounds(83,0,90,30);}
+
+					}
+				}
+			}
+		});
+
+		//复选框添加事件监听器
 		box1.addActionListener((e) -> {
-			if (box1.isSelected() == true) box2.setSelected(false);
+			if (box1.isSelected() == true) {box2.setSelected(false);input.setText("请输入学号");}
 		});
 		box2.addActionListener((e) -> {
-			if (box2.isSelected() == true) box1.setSelected(false);
+			if (box2.isSelected() == true) {box1.setSelected(false);input.setText("请输入姓名");}
 		});
 
-		//创建查找按钮
-		JLabel searchButton = new JLabel();
-		searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/searchButton.png"));
-		search.add(searchButton);
-		searchButton.setBounds(280, 30, 82, 60);
-		searchButton.setOpaque(true);
-		//添加鼠标监听器
-		searchButton.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/searchButton.png"));
-
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/searchButtonEntered.png"));
-
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(box1.isSelected() == true){
-					student = studentManage.Get_stu(Integer.parseInt(input.getText()));
-//					try {
-//						secmain.removeAll();
-//						secmain.updateUI();
-//						StuDataPanel();
-//					} catch (IOException ioException) {
-//						ioException.printStackTrace();
-//					}
-				}
-				if(box2.isSelected() == true){
-					student = studentManage.Get_stu(Integer.parseInt(input.getText()));
-//					try {
-//						secmain.removeAll();
-//						secmain.updateUI();
-//						StuDataPanel();
-//					} catch (IOException ioException) {
-//						ioException.printStackTrace();
-//					}
-				}
-
-			}
-		});
-
-		//创建修改按钮
-		JLabel fixButton = new JLabel();
-		fixButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/fixButton.png"));
-		search.add(fixButton);
-		fixButton.setBounds(380, 30, 82, 60);
-		fixButton.setOpaque(true);
-		//添加鼠标监听器
+		//修改按钮添加鼠标监听器
 		fixButton.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
 			}
-			
+
 			@Override
 			public void mousePressed(MouseEvent e) {
 			}
-			
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				fixButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/fixButton.png"));
 			}
-			
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				fixButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/fixButtonEntered.png"));
 			}
-			
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(student != null) {
@@ -639,14 +670,63 @@ public class Frame {
 				}
 			}
 		});
-	
-		//创建信息表
-		secmain.setLayout(null);
-		homeFrame.main.add(secmain);
-		secmain.setBounds(DataPanel.width+10, 210, DataPanel.space_x+DataPanel.width+10+DataPanel.fieldWidth, DataPanel.space_y*4+DataPanel.height);
 
-		DataPanel panel = new DataPanel(false,student);
-		createDataPanel(panel);
+		//查找按钮添加鼠标监听器
+		searchButton.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/searchButton.png"));
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/searchButtonEntered.png"));
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(input.getText() != null) {
+					if (box1.isSelected() == true) {
+						student = studentManage.Get_stu(Integer.parseInt(input.getText()));
+						judge1 = true;
+						judge2 = false;
+					}
+					if (box2.isSelected() == true) {
+						student = studentManage.Get_stu(input.getText());
+						judge1 = false;
+						judge2 = true;
+					}
+
+					if (student != null) {
+						homeFrame.main.removeAll();
+						homeFrame.main.updateUI();
+						try {
+							StuDataPanel();
+						} catch (IOException ioException) {
+							ioException.printStackTrace();
+						}
+					}else{warn.setBounds(83,0,90,30);}
+
+				}
+			}
+		});
+
+		System.out.println(test);
 	}
 	
 	//创建学生信息表

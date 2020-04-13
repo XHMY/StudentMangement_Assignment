@@ -110,3 +110,4 @@ StudentManagementSystem/data/unimem.csv
 StudentManagementSystem/data/uni.csv
 StudentManagementSystem/data/stu.csv
 StudentManagementSystem/data/cour.csv
+*.class
