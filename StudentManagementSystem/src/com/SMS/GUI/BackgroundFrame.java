@@ -122,7 +122,7 @@ public class BackgroundFrame extends JFrame{
 	}
 	
 	//添加修改框
-	public BackgroundFrame(int x,int y,int width,int height,int a) {
+	public BackgroundFrame(int x,int y,int width,int height) {
 		
 		//窗口创建
 		setUndecorated(true);
@@ -149,93 +149,12 @@ public class BackgroundFrame extends JFrame{
 		main.setLayout(null);
 		main.setBounds(0, d, width, height - d);
 		main.setBackground(new Color(242, 242, 242));
-
-		//添加确认和取消按钮
-		JLabel confirm = new JLabel();
-		confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirm.png"));
-		main.add(confirm);
-		confirm.setBounds(width / 2 + 28, height - 100, 50, 27);
-		confirm.setOpaque(true);
-
-		JLabel cancel = new JLabel();
-		cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancel.png"));
-		main.add(cancel);
-		cancel.setBounds(width / 2 - 84, height - 100, 50, 27);
-		cancel.setOpaque(true);
-
-		//添加鼠标监听器
-		cancel.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancel.png"));
-
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancelEntered.png"));
-
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				dispose();
-				
-			}
-		});
-		
-		confirm.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirm.png"));
-
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirmEntered.png"));
-
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-//				Frame.confirmClickedEvent(BackgroundFrame.this);
-				check++;
-				dispose();
-			}
-		});
 		
 		//作为代码最后一行
 		setVisible(true);
 	}
 
-	//提示框
+	//系统关闭提示框
 	public BackgroundFrame(int x,int y,int width,int height,String text) {
 		//窗口创建
 		setUndecorated(true);
@@ -345,19 +264,8 @@ public class BackgroundFrame extends JFrame{
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				StudentManagement studentManagement = null;
-				try {
-					studentManagement = new StudentManagement();
-				} catch (IOException ioException) {
-					ioException.printStackTrace();
-				}
-				try {
-					studentManagement.call_when_exit();
-				} catch (IOException ioException) {
-					ioException.printStackTrace();
-				}
 
-				System.exit(0);
+				Frame.exitSystem();
 				
 			}
 		});

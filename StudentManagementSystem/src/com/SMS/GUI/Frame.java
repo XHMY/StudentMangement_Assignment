@@ -31,7 +31,16 @@ public class Frame {
 
 	//学生对象
 	static Student student = new Student();
-	static Student studentX = new Student();
+	static StudentManagement studentManage;
+
+	static {
+		try {
+			studentManage = new StudentManagement();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 
 	static int test = 0;
 	static boolean judge1 = true;
@@ -278,13 +287,12 @@ public class Frame {
 	
 	//学生资料界面
 	public static void StuDataPanel() throws IOException {
-		StudentManagement studentManage = new StudentManagement();
+//		StudentManagement studentManage = new StudentManagement();
 
 		if(test == 0) {
 			student = null;//学生对象初始化
 		}
 		test++;
-		studentX = student;
 
 		//创建主面板
 		JPanel stuDataPanel = new JPanel();
@@ -328,6 +336,7 @@ public class Frame {
 		box1.setBackground(Color.white);
 		box1.setForeground(fc);
 		box1.setSelected(judge1);
+		box1.setEnabled(judge2);
 		search.add(box1);
 		box1.setBounds(73, 71, 83, 26);
 
@@ -336,6 +345,7 @@ public class Frame {
 		box2.setBackground(Color.white);
 		box2.setForeground(fc);
 		box2.setSelected(judge2);
+		box2.setEnabled(judge1);
 		search.add(box2);
 		box2.setBounds(180, 71, 83, 26);
 
@@ -410,7 +420,7 @@ public class Frame {
 				judge2 = false;
 				test = 0;
 
-				student = null;
+
 				homeFrame.main.removeAll();
 				secmain.removeAll();
 				Home();
@@ -446,16 +456,127 @@ public class Frame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				BackgroundFrame addFrame = new BackgroundFrame(cfx+50,cfy+100,cfwidth,cfheight-158,0);
-				addFrame.setTitle("stu");
-				DataPanel panel = new DataPanel();
-				panel.setBackground(bc);
-				addFrame.main.add(panel);
-				panel.setBounds(DataPanel.width + 10, 30, DataPanel.space_x + DataPanel.width + 10 + DataPanel.fieldWidth, DataPanel.space_y * 4 + DataPanel.height);
+				BackgroundFrame addFrame = new BackgroundFrame(cfx+50,cfy+100,cfwidth,cfheight-158);
+				addFrame.setTitle("stu");//命名为stu
+				DataPanel panelOfAdd = new DataPanel();
+				panelOfAdd.setBackground(bc);
+				addFrame.main.add(panelOfAdd);
+				panelOfAdd.setBounds(DataPanel.width + 10, 30, DataPanel.space_x + DataPanel.width + 10 + DataPanel.fieldWidth, DataPanel.space_y * 4 + DataPanel.height);
 
-				if(addFrame.check != addFrame.t){
+				//添加确认和取消按钮
+				JLabel confirm = new JLabel();
+				confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirm.png"));
+				addFrame.main.add(confirm);
+				confirm.setBounds(cfwidth / 2 + 28, cfheight-158 - 100, 50, 27);
+				confirm.setOpaque(true);
 
-				}
+				JLabel cancel = new JLabel();
+				cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancel.png"));
+				addFrame.main.add(cancel);
+				cancel.setBounds(cfwidth / 2 - 84, cfheight-158 - 100, 50, 27);
+				cancel.setOpaque(true);
+
+				//添加鼠标监听器
+				cancel.addMouseListener(new MouseListener() {
+
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void mousePressed(MouseEvent e) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void mouseExited(MouseEvent e) {
+						cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancel.png"));
+
+					}
+
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancelEntered.png"));
+
+					}
+
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						addFrame.dispose();
+
+					}
+				});
+
+				confirm.addMouseListener(new MouseListener() {
+
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void mousePressed(MouseEvent e) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void mouseExited(MouseEvent e) {
+						confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirm.png"));
+
+					}
+
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirmEntered.png"));
+
+					}
+
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						if(panelOfAdd.nameField.getText().equals("请输入姓名") || panelOfAdd.numField.getText().equals("请输入学号")
+								|| panelOfAdd.classnumField.getText().equals("请输入班级序号,如 1") || panelOfAdd.collegeField.getText().equals("请输入学院名称")
+								|| panelOfAdd.telnumField.getText().equals("请输入号码") || panelOfAdd.majorField.getText().equals("请输入专业名称")
+								|| panelOfAdd.wechatField.getText().equals("请输入微信号") || panelOfAdd.yearField.getText().equals("请输入入学年份")
+								|| panelOfAdd.dormField.getText().equals("请输入宿舍号")) {
+
+							JLabel confirmWithNull = new JLabel("请完善信息");
+							confirmWithNull.setForeground(Color.red);
+							confirmWithNull.setFont(new Font(type, 0, 14));
+							addFrame.main.add(confirmWithNull);
+							confirmWithNull.setBounds((cfwidth - 90) / 2, 0, 90, 30);
+						}
+						else{
+							if (panelOfAdd.nameField.getText().length() != 0 && panelOfAdd.numField.getText().length() != 0 && panelOfAdd.classnumField.getText().length() != 0 && panelOfAdd.collegeField.getText().length() != 0 && panelOfAdd.telnumField.getText().length() != 0 && panelOfAdd.majorField.getText().length() != 0 && panelOfAdd.wechatField.getText().length() != 0 && panelOfAdd.yearField.getText().length() != 0 && panelOfAdd.dormField.getText().length() != 0) {
+								Student student2 = new Student();//创建学生对象
+								student2.setName(panelOfAdd.nameField.getText());//获得名字
+								student2.setSex(DataPanel.judgeSex(panelOfAdd.sexBox.getSelectedIndex()));//获得性别
+								student2.setNum(Integer.parseInt(panelOfAdd.numField.getText()));//获得学号
+								student2.setClas(Integer.parseInt(panelOfAdd.classnumField.getText()));//获得班别
+								student2.setColle(panelOfAdd.collegeField.getText());//获得学院
+								student2.setTel(Long.parseLong(panelOfAdd.telnumField.getText()));//获得电话
+								student2.setProf(panelOfAdd.majorField.getText());//获得专业
+								student2.setWechat(panelOfAdd.wechatField.getText());//获得微信
+								student2.setYear(Integer.parseInt(panelOfAdd.yearField.getText()));//获得入学年份
+								student2.setDorm(panelOfAdd.dormField.getText());//获得宿舍
+								studentManage.Add_stu(student2);//添加学生对象到数据库
+								addFrame.dispose();
+							} else {
+								JLabel confirmWithNull = new JLabel("请完善信息");
+								confirmWithNull.setForeground(Color.red);
+								confirmWithNull.setFont(new Font(type, 0, 14));
+								addFrame.main.add(confirmWithNull);
+								confirmWithNull.setBounds((cfwidth - 90) / 2, 0, 90, 30);
+							}
+						}
+
+
+					}
+				});
 			}
 		});
 
@@ -463,13 +584,16 @@ public class Frame {
 		input.addFocusListener(new FocusListener() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				input.setText(null);
+				if(input.getText().equals("请输入学号") ||input.getText().equals("请输入姓名"))
+					input.setText(null);
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				if(judge1 == true)input.setText("请输入学号");
-				if(judge2 == true)input.setText("请输入姓名");
+				if(input.getText().length() == 0) {
+					if (judge1 == true) input.setText("请输入学号");
+					if (judge2 == true) input.setText("请输入姓名");
+				}
 			}
 		});
 
@@ -517,10 +641,10 @@ public class Frame {
 
 		//复选框添加事件监听器
 		box1.addActionListener((e) -> {
-			if (box1.isSelected() == true) {box2.setSelected(false);input.setText("请输入学号");}
+			if (box1.isSelected() == true) {box1.setEnabled(false);box2.setEnabled(true);box2.setSelected(false);input.setText("请输入学号");}
 		});
 		box2.addActionListener((e) -> {
-			if (box2.isSelected() == true) {box1.setSelected(false);input.setText("请输入姓名");}
+			if (box2.isSelected() == true) {box2.setEnabled(false);box1.setEnabled(true);box1.setSelected(false);input.setText("请输入姓名");}
 		});
 
 		//修改按钮添加鼠标监听器
@@ -567,6 +691,8 @@ public class Frame {
 					cancel.setBounds(cfwidth / 2 - 84, cfheight - 90, 50, 27);
 					cancel.setOpaque(true);
 
+					secmain.updateUI();
+
 					//添加鼠标监听器
 					cancel.addMouseListener(new MouseListener() {
 
@@ -603,6 +729,7 @@ public class Frame {
 
 							//去掉原有可编辑表格
 							secmain.removeAll();
+							secmain.updateUI();
 
 							//创建不可编辑表格并显示未改变的学生对象信息
 							DataPanel panel2 = new DataPanel(false, student);
@@ -651,7 +778,7 @@ public class Frame {
 							student1.setWechat(panel1.wechatField.getText());//更新微信
 							student1.setYear(Integer.parseInt(panel1.yearField.getText()));//更新入学年份
 							student1.setDorm(panel1.dormField.getText());//更新宿舍
-							studentManage.Modify_stu(student,student1);
+							studentManage.Modify_stu(studentManage.Get_stu(student.getNum()),new Student(student1.getNum(),student1.getName(),student1.getSex(),student1.getClas(),student1.getProf(),student1.getColle(),student1.getTel(),student1.getWechat(),student1.getYear(),student1.getDorm()));
 
 							//删除确认取消按钮
 							homeFrame.main.remove(cancel);
@@ -721,12 +848,11 @@ public class Frame {
 							ioException.printStackTrace();
 						}
 					}else{warn.setBounds(83,0,90,30);}
-
 				}
 			}
 		});
 
-		System.out.println(test);
+
 	}
 	
 	//创建学生信息表
@@ -1640,9 +1766,19 @@ public class Frame {
 		return file.getAbsolutePath();
 	}
 
+	//程序结束调用
+	public static void exitSystem(){
+		try {
+			studentManage.call_when_exit();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.exit(0);
+	}
+
 	//主函数
 	public static void main(String[] args) throws IOException {
-		
+
 //		LoginFrame();
 		Home();
 //		StuDataPanel();

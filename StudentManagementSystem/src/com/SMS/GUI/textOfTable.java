@@ -69,7 +69,7 @@ public class textOfTable extends JTextPane{
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				BackgroundFrame add = new BackgroundFrame( 580, 300, 350, 262 ,0);
+				BackgroundFrame add = new BackgroundFrame( 580, 300, 350, 262 );
 				
 				//添加文本项
 				JLabel name = new JLabel("课程名:");
