@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.SMS.StudentManagement;
+import com.SMS.base.Course;
+import com.SMS.base.Schedule;
 import com.SMS.base.Student;
 
 import java.awt.*;
@@ -28,11 +30,12 @@ public class Frame {
 		
 	static BackgroundFrame homeFrame = new BackgroundFrame(cfx, cfy, cfwidth, cfheight,true);
 	static JPanel secmain = new JPanel();
+	static CardLayout cl = new CardLayout();
+	static JPanel cardpanel = new JPanel(cl);
 
 	//学生对象
 	static Student student = new Student();
 	static StudentManagement studentManage;
-
 	static {
 		try {
 			studentManage = new StudentManagement();
@@ -40,7 +43,8 @@ public class Frame {
 			e.printStackTrace();
 		}
 	}
-
+	static Schedule schedule = new Schedule();
+	static int w = 1;//计算周数
 
 	static int test = 0;
 	static boolean judge1 = true;
@@ -865,7 +869,7 @@ public class Frame {
 	
 	//学生日程界面
 	public static void StuSchedule() {
-//		homeFrame.setVisible(true);
+		homeFrame.setVisible(true);
 
 		//创建主面板		
 		JPanel stuSchedule = new JPanel();
@@ -882,40 +886,6 @@ public class Frame {
 		backButton.setFont(new Font(type, 0, 18));
 		stuSchedule.add(backButton);
 		backButton.setBounds(13, 15, 73, 30);
-		//添加鼠标监听器
-		backButton.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void mousePressed(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void mouseExited(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void mouseEntered(MouseEvent e) {
-						backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-						
-					}
-					
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						homeFrame.main.removeAll();
-						secmain.removeAll();
-						Home();
-					}
-		});
 
 		//创建查找栏
 		JLabel searchFrame = new JLabel();
@@ -935,7 +905,8 @@ public class Frame {
 		box1.setFont(new Font(type,0,18));
 		box1.setForeground(fc);
 		box1.setBackground(Color.white);
-		box1.setSelected(true);
+		box1.setSelected(false);
+		box1.setEnabled(true);
 		search.add(box1);
 		box1.setBounds(30, 31, 83, 26);
 		
@@ -943,12 +914,10 @@ public class Frame {
 		box2.setFont(new Font(type,0,18));
 		box2.setForeground(fc);
 		box2.setBackground(Color.white);
-		box2.setSelected(false);
+		box2.setSelected(true);
+		box2.setEnabled(false);
 		search.add(box2);
 		box2.setBounds(30, 68, 83, 26);
-		
-		box1.addActionListener((e)->{if(box1.isSelected() == true)box2.setSelected(false);});
-		box2.addActionListener((e)->{if(box2.isSelected() == true)box1.setSelected(false);});
 		
 		//创建下拉列表
 		JComboBox<String> major = new JComboBox<>();
@@ -970,54 +939,599 @@ public class Frame {
 		//创建查找按钮
 		JLabel searchButton = new JLabel();
 		searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/search.png"));
-//		searchButton.setBackground(Color.black);
 		search.add(searchButton);
 		searchButton.setBounds(377, 43, 80, 37);
 		searchButton.setOpaque(true);
-		//添加鼠标监听器
-		searchButton.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/search.png"));
-
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/searchEntered.png"));
-
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
 
 		//创建表格
 		secmain.setLayout(null);
 		secmain.setBackground(Color.black);
 		homeFrame.main.add(secmain);
 		secmain.setBounds(9, 195, cfwidth-18, 336);
-		tablePanel table = new tablePanel();
+		tablePanel table = new tablePanel();//日程表底部面版
 		secmain.add(table);
 		table.setBounds(0, 0, cfwidth-18, 336);
 		
 		homeFrame.main.updateUI();
+
+		//添加输入提醒
+		JLabel warn = new JLabel();
+		warn.setBackground(bc);
+		warn.setFont(new Font(type,0,16));
+		warn.setForeground(Color.red);
+		homeFrame.main.add(warn);
+		warn.setBounds((cfwidth-100)/2,0,100,30);
+		warn.setOpaque(true);
+
+		//返回按钮添加鼠标监听器
+		backButton.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				homeFrame.main.removeAll();
+				secmain.removeAll();
+				Home();
+			}
+		});
+
+		//复选框添加事件监视器
+		box1.addActionListener((e)->{if(box1.isSelected() == true)box1.setEnabled(false);box2.setEnabled(true);box2.setSelected(false);});
+		box2.addActionListener((e)->{if(box2.isSelected() == true)box1.setEnabled(true);box2.setEnabled(false);box1.setSelected(false);});
+
+		//查找按钮添加鼠标监听器
+		searchButton.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/search.png"));
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/searchEntered.png"));
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				if(box2.isSelected()){
+					if(numInput.getText().length() != 0 && studentManage.Get_course(Integer.parseInt(numInput.getText())) != null) {
+						warn.setText(null);//查找成功去掉提醒
+						textOfTable.stu_num = Integer.parseInt(numInput.getText());
+
+						//清空所有面板
+						secmain.removeAll();
+						secmain.updateUI();
+						cardpanel.removeAll();
+						cardpanel.updateUI();
+
+						w = 1;//计算周数
+						int a = 0;
+						int b = 0;//判断周数是否改变
+
+						//计算周数
+						for (Course c : studentManage.Get_course(Integer.parseInt(numInput.getText()))) {
+							a = c.week;
+							if (a != b) w++;
+							b = a;
+						}
+
+						//添加表头到secmain
+						tablePanel tableTop = new tablePanel(w);
+						secmain.add(tableTop);
+						tableTop.setBounds(0, 0, cfwidth - 18, 336);
+
+						//创建卡片面板到表头
+						tableTop.add(cardpanel);
+						cardpanel.setBounds(tablePanel.space_x, tablePanel.lheight+4, tablePanel.space_x*7,
+								tablePanel.space_x*5);
+
+						//创建面板
+						for (int t = 0; t < w; t++) {
+							//创建周数相等的面板添加到卡片面板
+							tablePanel panel = new tablePanel("第"+(t+1)+"周");
+							cardpanel.add(panel,"第"+(t+1)+"周");
+							panel.setSize(tablePanel.space_x*7, tablePanel.space_x*5);//System.out.println(panel.getName());
+
+							//获得布局好一周课程的面板
+							for(Course s:studentManage.Get_course(Integer.parseInt(numInput.getText()))){
+								if(s.week == t){
+									if(s.day == 0){
+										if(s.time == 0){panel.s11.setText(s.name);panel.s11.setToolTipText("课室"+s.pos+s.clasroom);panel.s11.rg = s.pos;panel.s11.classnum = s.clasroom;}
+										if(s.time == 1){panel.s21.setText(s.name);panel.s21.setToolTipText("课室"+s.pos+s.clasroom);panel.s21.rg = s.pos;panel.s21.classnum = s.clasroom;}
+										if(s.time == 2){panel.s31.setText(s.name);panel.s31.setToolTipText("课室"+s.pos+s.clasroom);panel.s31.rg = s.pos;panel.s31.classnum = s.clasroom;}
+										if(s.time == 3){panel.s41.setText(s.name);panel.s41.setToolTipText("课室"+s.pos+s.clasroom);panel.s41.rg = s.pos;panel.s41.classnum = s.clasroom;}
+										if(s.time == 4){panel.s51.setText(s.name);panel.s51.setToolTipText("课室"+s.pos+s.clasroom);panel.s51.rg = s.pos;panel.s51.classnum = s.clasroom;}
+										if(s.time == 5){panel.s61.setText(s.name);panel.s61.setToolTipText("课室"+s.pos+s.clasroom);panel.s61.rg = s.pos;panel.s61.classnum = s.clasroom;}
+									}
+									if(s.day == 1){
+										if(s.time == 0){panel.s12.setText(s.name);panel.s12.setToolTipText("课室"+s.pos+s.clasroom);panel.s12.rg = s.pos;panel.s12.classnum = s.clasroom;}
+										if(s.time == 1){panel.s22.setText(s.name);panel.s22.setToolTipText("课室"+s.pos+s.clasroom);panel.s22.rg = s.pos;panel.s22.classnum = s.clasroom;}
+										if(s.time == 2){panel.s32.setText(s.name);panel.s32.setToolTipText("课室"+s.pos+s.clasroom);panel.s32.rg = s.pos;panel.s32.classnum = s.clasroom;}
+										if(s.time == 3){panel.s42.setText(s.name);panel.s42.setToolTipText("课室"+s.pos+s.clasroom);panel.s42.rg = s.pos;panel.s42.classnum = s.clasroom;}
+										if(s.time == 4){panel.s52.setText(s.name);panel.s52.setToolTipText("课室"+s.pos+s.clasroom);panel.s52.rg = s.pos;panel.s52.classnum = s.clasroom;}
+										if(s.time == 5){panel.s62.setText(s.name);panel.s62.setToolTipText("课室"+s.pos+s.clasroom);panel.s62.rg = s.pos;panel.s62.classnum = s.clasroom;}
+									}
+									if(s.day == 2){
+										if(s.time == 0){panel.s13.setText(s.name);panel.s13.setToolTipText("课室"+s.pos+s.clasroom);panel.s13.rg = s.pos;panel.s13.classnum = s.clasroom;}
+										if(s.time == 1){panel.s23.setText(s.name);panel.s23.setToolTipText("课室"+s.pos+s.clasroom);panel.s23.rg = s.pos;panel.s23.classnum = s.clasroom;}
+										if(s.time == 2){panel.s33.setText(s.name);panel.s33.setToolTipText("课室"+s.pos+s.clasroom);panel.s33.rg = s.pos;panel.s33.classnum = s.clasroom;}
+										if(s.time == 3){panel.s43.setText(s.name);panel.s43.setToolTipText("课室"+s.pos+s.clasroom);panel.s43.rg = s.pos;panel.s43.classnum = s.clasroom;}
+										if(s.time == 4){panel.s53.setText(s.name);panel.s53.setToolTipText("课室"+s.pos+s.clasroom);panel.s53.rg = s.pos;panel.s53.classnum = s.clasroom;}
+										if(s.time == 5){panel.s63.setText(s.name);panel.s63.setToolTipText("课室"+s.pos+s.clasroom);panel.s63.rg = s.pos;panel.s63.classnum = s.clasroom;}
+									}
+									if(s.day == 3){
+										if(s.time == 0){panel.s14.setText(s.name);panel.s14.setToolTipText("课室"+s.pos+s.clasroom);panel.s14.rg = s.pos;panel.s14.classnum = s.clasroom;}
+										if(s.time == 1){panel.s24.setText(s.name);panel.s24.setToolTipText("课室"+s.pos+s.clasroom);panel.s24.rg = s.pos;panel.s24.classnum = s.clasroom;}
+										if(s.time == 2){panel.s34.setText(s.name);panel.s34.setToolTipText("课室"+s.pos+s.clasroom);panel.s34.rg = s.pos;panel.s34.classnum = s.clasroom;}
+										if(s.time == 3){panel.s44.setText(s.name);panel.s44.setToolTipText("课室"+s.pos+s.clasroom);panel.s44.rg = s.pos;panel.s44.classnum = s.clasroom;}
+										if(s.time == 4){panel.s54.setText(s.name);panel.s54.setToolTipText("课室"+s.pos+s.clasroom);panel.s54.rg = s.pos;panel.s54.classnum = s.clasroom;}
+										if(s.time == 5){panel.s64.setText(s.name);panel.s64.setToolTipText("课室"+s.pos+s.clasroom);panel.s64.rg = s.pos;panel.s64.classnum = s.clasroom;}
+									}
+									if(s.day == 4){
+										if(s.time == 0){panel.s15.setText(s.name);panel.s15.setToolTipText("课室"+s.pos+s.clasroom);panel.s15.rg = s.pos;panel.s15.classnum = s.clasroom;}
+										if(s.time == 1){panel.s25.setText(s.name);panel.s25.setToolTipText("课室"+s.pos+s.clasroom);panel.s25.rg = s.pos;panel.s25.classnum = s.clasroom;}
+										if(s.time == 2){panel.s35.setText(s.name);panel.s35.setToolTipText("课室"+s.pos+s.clasroom);panel.s35.rg = s.pos;panel.s35.classnum = s.clasroom;}
+										if(s.time == 3){panel.s45.setText(s.name);panel.s45.setToolTipText("课室"+s.pos+s.clasroom);panel.s45.rg = s.pos;panel.s45.classnum = s.clasroom;}
+										if(s.time == 4){panel.s55.setText(s.name);panel.s55.setToolTipText("课室"+s.pos+s.clasroom);panel.s55.rg = s.pos;panel.s55.classnum = s.clasroom;}
+										if(s.time == 5){panel.s65.setText(s.name);panel.s65.setToolTipText("课室"+s.pos+s.clasroom);panel.s65.rg = s.pos;panel.s65.classnum = s.clasroom;}
+									}
+									if(s.day == 5){
+										if(s.time == 0){panel.s16.setText(s.name);panel.s16.setToolTipText("课室"+s.pos+s.clasroom);panel.s16.rg = s.pos;panel.s16.classnum = s.clasroom;}
+										if(s.time == 1){panel.s26.setText(s.name);panel.s26.setToolTipText("课室"+s.pos+s.clasroom);panel.s26.rg = s.pos;panel.s26.classnum = s.clasroom;}
+										if(s.time == 2){panel.s36.setText(s.name);panel.s36.setToolTipText("课室"+s.pos+s.clasroom);panel.s36.rg = s.pos;panel.s36.classnum = s.clasroom;}
+										if(s.time == 3){panel.s46.setText(s.name);panel.s46.setToolTipText("课室"+s.pos+s.clasroom);panel.s46.rg = s.pos;panel.s46.classnum = s.clasroom;}
+										if(s.time == 4){panel.s56.setText(s.name);panel.s56.setToolTipText("课室"+s.pos+s.clasroom);panel.s56.rg = s.pos;panel.s56.classnum = s.clasroom;}
+										if(s.time == 5){panel.s66.setText(s.name);panel.s66.setToolTipText("课室"+s.pos+s.clasroom);panel.s66.rg = s.pos;panel.s66.classnum = s.clasroom;}
+									}
+									if(s.day == 6){
+										if(s.time == 0){panel.s17.setText(s.name);panel.s17.setToolTipText("课室"+s.pos+s.clasroom);panel.s17.rg = s.pos;panel.s17.classnum = s.clasroom;}
+										if(s.time == 1){panel.s27.setText(s.name);panel.s27.setToolTipText("课室"+s.pos+s.clasroom);panel.s27.rg = s.pos;panel.s27.classnum = s.clasroom;}
+										if(s.time == 2){panel.s37.setText(s.name);panel.s37.setToolTipText("课室"+s.pos+s.clasroom);panel.s37.rg = s.pos;panel.s37.classnum = s.clasroom;}
+										if(s.time == 3){panel.s47.setText(s.name);panel.s47.setToolTipText("课室"+s.pos+s.clasroom);panel.s47.rg = s.pos;panel.s47.classnum = s.clasroom;}
+										if(s.time == 4){panel.s57.setText(s.name);panel.s57.setToolTipText("课室"+s.pos+s.clasroom);panel.s57.rg = s.pos;panel.s57.classnum = s.clasroom;}
+										if(s.time == 5){panel.s67.setText(s.name);panel.s67.setToolTipText("课室"+s.pos+s.clasroom);panel.s67.rg = s.pos;panel.s67.classnum = s.clasroom;}
+									}
+								}
+							}
+						}
+
+						textOfTable.week = 0;//第一周
+
+						tableTop.week.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								int select = tableTop.week.getSelectedIndex()+1;//获得所选周
+								cl.show(cardpanel,"第"+select+"周");//切换到所选周
+
+								textOfTable.week = tableTop.week.getSelectedIndex();//切换周数时传递切换后的周数
+							}
+						});
+					}
+					else{
+						if(numInput.getText().length() == 0){warn.setText("请输入学号");}
+						else{warn.setText("对象不存在");}
+					}
+				}
+
+			}
+		});
+
+
+
+	}
+
+	//更新课程面板
+	public static void StuSchedule(String text,int week) {
+		//创建主面板
+		JPanel stuSchedule = new JPanel();
+		stuSchedule.setLayout(null);
+		stuSchedule.setBackground(bc);
+		homeFrame.main.add(stuSchedule);
+		stuSchedule.setBounds(0, 0, cfwidth, 177);
+
+		//创建返回按钮
+		JLabel backButton = new JLabel();
+		backButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/back.png"));
+		backButton.setText(" 返回");
+		backButton.setForeground(new Color(68, 114, 196));
+		backButton.setFont(new Font(type, 0, 18));
+		stuSchedule.add(backButton);
+		backButton.setBounds(13, 15, 73, 30);
+
+		//创建查找栏
+		JLabel searchFrame = new JLabel();
+		searchFrame.setLayout(null);
+		searchFrame.setIcon(new ImageIcon("src/com/SMS/GUI/image/searchFrame2.png"));
+		stuSchedule.add(searchFrame);
+		searchFrame.setBounds(20, 57, 488, 120);
+		//在查找栏上创建面板
+		JPanel search = new JPanel();
+		search.setLayout(null);
+		search.setOpaque(false);
+		searchFrame.add(search);
+		search.setBounds(0, 0, 488, 120);
+
+		//创建复选框
+		JCheckBox box1 = new JCheckBox("按专业");
+		box1.setFont(new Font(type,0,18));
+		box1.setForeground(fc);
+		box1.setBackground(Color.white);
+		box1.setSelected(false);
+		box1.setEnabled(true);
+		search.add(box1);
+		box1.setBounds(30, 31, 83, 26);
+
+		JCheckBox box2 = new JCheckBox("按学号");
+		box2.setFont(new Font(type,0,18));
+		box2.setForeground(fc);
+		box2.setBackground(Color.white);
+		box2.setSelected(true);
+		box2.setEnabled(false);
+		search.add(box2);
+		box2.setBounds(30, 68, 83, 26);
+
+		//创建下拉列表
+		JComboBox<String> major = new JComboBox<>();
+		major.setFont(new Font(type,0,14));
+		major.setBackground(Color.white);
+		major.setForeground(fc);
+		major.addItem("数据科学与大数据技术");
+		search.add(major);
+		major.setBounds(160, 21, 180, 36);
+
+		//创建输入框
+		JTextField numInput = new JTextField();
+		numInput.setText(text);
+		numInput.setBorder(BorderFactory.createLineBorder(fc, 1, false));
+		numInput.setForeground(fc);
+		numInput.setFont(new Font(type, 0, 18));
+		search.add(numInput);
+		numInput.setBounds(160, 68, 180, 36);
+
+		//创建查找按钮
+		JLabel searchButton = new JLabel();
+		searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/search.png"));
+		search.add(searchButton);
+		searchButton.setBounds(377, 43, 80, 37);
+		searchButton.setOpaque(true);
+
+		//清除面板
+		secmain.removeAll();
+		secmain.updateUI();
+		homeFrame.main.add(secmain);
+		secmain.setBounds(9, 195, cfwidth-18, 336);
+		cardpanel.removeAll();
+		cardpanel.updateUI();
+
+		//添加表头
+		tablePanel tableTop2 = new tablePanel(w);
+		secmain.add(tableTop2);
+		tableTop2.setBounds(0, 0, cfwidth - 18, 336);
+
+		tableTop2.add(cardpanel);
+		cardpanel.setBounds(tablePanel.space_x, tablePanel.lheight+4, tablePanel.space_x*7,
+				tablePanel.space_x*5);
+
+		for (int t = 0; t < w; t++) {
+			//创建周数相等的面板添加到卡片面板
+			tablePanel panel = new tablePanel("第"+(t+1)+"周");
+			cardpanel.add(panel,"第"+(t+1)+"周");
+			panel.setSize(tablePanel.space_x*7, tablePanel.space_x*5);
+
+			//获得布局好一周课程的面板
+			for(Course s:studentManage.Get_course(Integer.parseInt(numInput.getText()))){
+				if(s.week == t){
+					if(s.day == 0){
+						if(s.time == 0){panel.s11.setText(s.name);panel.s11.setToolTipText("课室"+s.pos+s.clasroom);panel.s11.rg = s.pos;panel.s11.classnum = s.clasroom;}
+						if(s.time == 1){panel.s21.setText(s.name);panel.s21.setToolTipText("课室"+s.pos+s.clasroom);panel.s21.rg = s.pos;panel.s21.classnum = s.clasroom;}
+						if(s.time == 2){panel.s31.setText(s.name);panel.s31.setToolTipText("课室"+s.pos+s.clasroom);panel.s31.rg = s.pos;panel.s31.classnum = s.clasroom;}
+						if(s.time == 3){panel.s41.setText(s.name);panel.s41.setToolTipText("课室"+s.pos+s.clasroom);panel.s41.rg = s.pos;panel.s41.classnum = s.clasroom;}
+						if(s.time == 4){panel.s51.setText(s.name);panel.s51.setToolTipText("课室"+s.pos+s.clasroom);panel.s51.rg = s.pos;panel.s51.classnum = s.clasroom;}
+						if(s.time == 5){panel.s61.setText(s.name);panel.s61.setToolTipText("课室"+s.pos+s.clasroom);panel.s61.rg = s.pos;panel.s61.classnum = s.clasroom;}
+					}
+					if(s.day == 1){
+						if(s.time == 0){panel.s12.setText(s.name);panel.s12.setToolTipText("课室"+s.pos+s.clasroom);panel.s12.rg = s.pos;panel.s12.classnum = s.clasroom;}
+						if(s.time == 1){panel.s22.setText(s.name);panel.s22.setToolTipText("课室"+s.pos+s.clasroom);panel.s22.rg = s.pos;panel.s22.classnum = s.clasroom;}
+						if(s.time == 2){panel.s32.setText(s.name);panel.s32.setToolTipText("课室"+s.pos+s.clasroom);panel.s32.rg = s.pos;panel.s32.classnum = s.clasroom;}
+						if(s.time == 3){panel.s42.setText(s.name);panel.s42.setToolTipText("课室"+s.pos+s.clasroom);panel.s42.rg = s.pos;panel.s42.classnum = s.clasroom;}
+						if(s.time == 4){panel.s52.setText(s.name);panel.s52.setToolTipText("课室"+s.pos+s.clasroom);panel.s52.rg = s.pos;panel.s52.classnum = s.clasroom;}
+						if(s.time == 5){panel.s62.setText(s.name);panel.s62.setToolTipText("课室"+s.pos+s.clasroom);panel.s62.rg = s.pos;panel.s62.classnum = s.clasroom;}
+					}
+					if(s.day == 2){
+						if(s.time == 0){panel.s13.setText(s.name);panel.s13.setToolTipText("课室"+s.pos+s.clasroom);panel.s13.rg = s.pos;panel.s13.classnum = s.clasroom;}
+						if(s.time == 1){panel.s23.setText(s.name);panel.s23.setToolTipText("课室"+s.pos+s.clasroom);panel.s23.rg = s.pos;panel.s23.classnum = s.clasroom;}
+						if(s.time == 2){panel.s33.setText(s.name);panel.s33.setToolTipText("课室"+s.pos+s.clasroom);panel.s33.rg = s.pos;panel.s33.classnum = s.clasroom;}
+						if(s.time == 3){panel.s43.setText(s.name);panel.s43.setToolTipText("课室"+s.pos+s.clasroom);panel.s43.rg = s.pos;panel.s43.classnum = s.clasroom;}
+						if(s.time == 4){panel.s53.setText(s.name);panel.s53.setToolTipText("课室"+s.pos+s.clasroom);panel.s53.rg = s.pos;panel.s53.classnum = s.clasroom;}
+						if(s.time == 5){panel.s63.setText(s.name);panel.s63.setToolTipText("课室"+s.pos+s.clasroom);panel.s63.rg = s.pos;panel.s63.classnum = s.clasroom;}
+					}
+					if(s.day == 3){
+						if(s.time == 0){panel.s14.setText(s.name);panel.s14.setToolTipText("课室"+s.pos+s.clasroom);panel.s14.rg = s.pos;panel.s14.classnum = s.clasroom;}
+						if(s.time == 1){panel.s24.setText(s.name);panel.s24.setToolTipText("课室"+s.pos+s.clasroom);panel.s24.rg = s.pos;panel.s24.classnum = s.clasroom;}
+						if(s.time == 2){panel.s34.setText(s.name);panel.s34.setToolTipText("课室"+s.pos+s.clasroom);panel.s34.rg = s.pos;panel.s34.classnum = s.clasroom;}
+						if(s.time == 3){panel.s44.setText(s.name);panel.s44.setToolTipText("课室"+s.pos+s.clasroom);panel.s44.rg = s.pos;panel.s44.classnum = s.clasroom;}
+						if(s.time == 4){panel.s54.setText(s.name);panel.s54.setToolTipText("课室"+s.pos+s.clasroom);panel.s54.rg = s.pos;panel.s54.classnum = s.clasroom;}
+						if(s.time == 5){panel.s64.setText(s.name);panel.s64.setToolTipText("课室"+s.pos+s.clasroom);panel.s64.rg = s.pos;panel.s64.classnum = s.clasroom;}
+					}
+					if(s.day == 4){
+						if(s.time == 0){panel.s15.setText(s.name);panel.s15.setToolTipText("课室"+s.pos+s.clasroom);panel.s15.rg = s.pos;panel.s15.classnum = s.clasroom;}
+						if(s.time == 1){panel.s25.setText(s.name);panel.s25.setToolTipText("课室"+s.pos+s.clasroom);panel.s25.rg = s.pos;panel.s25.classnum = s.clasroom;}
+						if(s.time == 2){panel.s35.setText(s.name);panel.s35.setToolTipText("课室"+s.pos+s.clasroom);panel.s35.rg = s.pos;panel.s35.classnum = s.clasroom;}
+						if(s.time == 3){panel.s45.setText(s.name);panel.s45.setToolTipText("课室"+s.pos+s.clasroom);panel.s45.rg = s.pos;panel.s45.classnum = s.clasroom;}
+						if(s.time == 4){panel.s55.setText(s.name);panel.s55.setToolTipText("课室"+s.pos+s.clasroom);panel.s55.rg = s.pos;panel.s55.classnum = s.clasroom;}
+						if(s.time == 5){panel.s65.setText(s.name);panel.s65.setToolTipText("课室"+s.pos+s.clasroom);panel.s65.rg = s.pos;panel.s65.classnum = s.clasroom;}
+					}
+					if(s.day == 5){
+						if(s.time == 0){panel.s16.setText(s.name);panel.s16.setToolTipText("课室"+s.pos+s.clasroom);panel.s16.rg = s.pos;panel.s16.classnum = s.clasroom;}
+						if(s.time == 1){panel.s26.setText(s.name);panel.s26.setToolTipText("课室"+s.pos+s.clasroom);panel.s26.rg = s.pos;panel.s26.classnum = s.clasroom;}
+						if(s.time == 2){panel.s36.setText(s.name);panel.s36.setToolTipText("课室"+s.pos+s.clasroom);panel.s36.rg = s.pos;panel.s36.classnum = s.clasroom;}
+						if(s.time == 3){panel.s46.setText(s.name);panel.s46.setToolTipText("课室"+s.pos+s.clasroom);panel.s46.rg = s.pos;panel.s46.classnum = s.clasroom;}
+						if(s.time == 4){panel.s56.setText(s.name);panel.s56.setToolTipText("课室"+s.pos+s.clasroom);panel.s56.rg = s.pos;panel.s56.classnum = s.clasroom;}
+						if(s.time == 5){panel.s66.setText(s.name);panel.s66.setToolTipText("课室"+s.pos+s.clasroom);panel.s66.rg = s.pos;panel.s66.classnum = s.clasroom;}
+					}
+					if(s.day == 6){
+						if(s.time == 0){panel.s17.setText(s.name);panel.s17.setToolTipText("课室"+s.pos+s.clasroom);panel.s17.rg = s.pos;panel.s17.classnum = s.clasroom;}
+						if(s.time == 1){panel.s27.setText(s.name);panel.s27.setToolTipText("课室"+s.pos+s.clasroom);panel.s27.rg = s.pos;panel.s27.classnum = s.clasroom;}
+						if(s.time == 2){panel.s37.setText(s.name);panel.s37.setToolTipText("课室"+s.pos+s.clasroom);panel.s37.rg = s.pos;panel.s37.classnum = s.clasroom;}
+						if(s.time == 3){panel.s47.setText(s.name);panel.s47.setToolTipText("课室"+s.pos+s.clasroom);panel.s47.rg = s.pos;panel.s47.classnum = s.clasroom;}
+						if(s.time == 4){panel.s57.setText(s.name);panel.s57.setToolTipText("课室"+s.pos+s.clasroom);panel.s57.rg = s.pos;panel.s57.classnum = s.clasroom;}
+						if(s.time == 5){panel.s67.setText(s.name);panel.s67.setToolTipText("课室"+s.pos+s.clasroom);panel.s67.rg = s.pos;panel.s67.classnum = s.clasroom;}
+					}
+				}
+			}
+		}
+
+		tableTop2.week.setSelectedIndex(week);
+		cl.show(cardpanel,"第2周");
+
+		tableTop2.week.addActionListener((e) -> {
+			int select = tableTop2.week.getSelectedIndex()+1;//获得所选周
+			cl.show(cardpanel,"第"+select+"周");//切换到所选周
+		});
+
+		homeFrame.main.updateUI();
+
+		//添加输入提醒
+		JLabel warn = new JLabel();
+		warn.setBackground(bc);
+		warn.setFont(new Font(type,0,16));
+		warn.setForeground(Color.red);
+		homeFrame.main.add(warn);
+		warn.setBounds((cfwidth-100)/2,0,100,30);
+		warn.setOpaque(true);
+
+
+
+		//返回按钮添加鼠标监听器
+		backButton.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				homeFrame.main.removeAll();
+				secmain.removeAll();
+				Home();
+			}
+		});
+
+		//复选框添加事件监视器
+		box1.addActionListener((e)->{if(box1.isSelected() == true)box1.setEnabled(false);box2.setEnabled(true);box2.setSelected(false);});
+		box2.addActionListener((e)->{if(box2.isSelected() == true)box1.setEnabled(true);box2.setEnabled(false);box1.setSelected(false);});
+
+		//查找按钮添加鼠标监听器
+		searchButton.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/search.png"));
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/searchEntered.png"));
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				if(box2.isSelected()){
+					if(numInput.getText().length() != 0 && studentManage.Get_course(Integer.parseInt(numInput.getText())) != null) {
+						warn.setText(null);//查找成功去掉提醒
+						textOfTable.stu_num = Integer.parseInt(numInput.getText());
+
+						//清空所有面板
+						secmain.removeAll();
+						secmain.updateUI();
+						cardpanel.removeAll();
+						cardpanel.updateUI();
+
+						w = 1;//计算周数
+						int a = 0;
+						int b = 0;//判断周数是否改变
+
+						//计算周数
+						for (Course c : studentManage.Get_course(Integer.parseInt(numInput.getText()))) {
+							a = c.week;
+							if (a != b) w++;
+							b = a;
+						}
+
+						//添加表头到secmain
+						tablePanel tableTop = new tablePanel(w);
+						secmain.add(tableTop);
+						tableTop.setBounds(0, 0, cfwidth - 18, 336);
+
+						//创建卡片面板到表头
+						tableTop.add(cardpanel);
+						cardpanel.setBounds(tablePanel.space_x, tablePanel.lheight+4, tablePanel.space_x*7,
+								tablePanel.space_x*5);
+
+						//创建面板
+						for (int t = 0; t < w; t++) {
+							//创建周数相等的面板添加到卡片面板
+							tablePanel panel = new tablePanel("第"+(t+1)+"周");
+							cardpanel.add(panel,"第"+(t+1)+"周");
+							panel.setSize(tablePanel.space_x*7, tablePanel.space_x*5);//System.out.println(panel.getName());
+
+							//获得布局好一周课程的面板
+							for(Course s:studentManage.Get_course(Integer.parseInt(numInput.getText()))){
+								if(s.week == t){
+									if(s.day == 0){
+										if(s.time == 0){panel.s11.setText(s.name);panel.s11.setToolTipText("课室"+s.pos+s.clasroom);panel.s11.rg = s.pos;panel.s11.classnum = s.clasroom;}
+										if(s.time == 1){panel.s21.setText(s.name);panel.s21.setToolTipText("课室"+s.pos+s.clasroom);panel.s21.rg = s.pos;panel.s21.classnum = s.clasroom;}
+										if(s.time == 2){panel.s31.setText(s.name);panel.s31.setToolTipText("课室"+s.pos+s.clasroom);panel.s31.rg = s.pos;panel.s31.classnum = s.clasroom;}
+										if(s.time == 3){panel.s41.setText(s.name);panel.s41.setToolTipText("课室"+s.pos+s.clasroom);panel.s41.rg = s.pos;panel.s41.classnum = s.clasroom;}
+										if(s.time == 4){panel.s51.setText(s.name);panel.s51.setToolTipText("课室"+s.pos+s.clasroom);panel.s51.rg = s.pos;panel.s51.classnum = s.clasroom;}
+										if(s.time == 5){panel.s61.setText(s.name);panel.s61.setToolTipText("课室"+s.pos+s.clasroom);panel.s61.rg = s.pos;panel.s61.classnum = s.clasroom;}
+									}
+									if(s.day == 1){
+										if(s.time == 0){panel.s12.setText(s.name);panel.s12.setToolTipText("课室"+s.pos+s.clasroom);panel.s12.rg = s.pos;panel.s12.classnum = s.clasroom;}
+										if(s.time == 1){panel.s22.setText(s.name);panel.s22.setToolTipText("课室"+s.pos+s.clasroom);panel.s22.rg = s.pos;panel.s22.classnum = s.clasroom;}
+										if(s.time == 2){panel.s32.setText(s.name);panel.s32.setToolTipText("课室"+s.pos+s.clasroom);panel.s32.rg = s.pos;panel.s32.classnum = s.clasroom;}
+										if(s.time == 3){panel.s42.setText(s.name);panel.s42.setToolTipText("课室"+s.pos+s.clasroom);panel.s42.rg = s.pos;panel.s42.classnum = s.clasroom;}
+										if(s.time == 4){panel.s52.setText(s.name);panel.s52.setToolTipText("课室"+s.pos+s.clasroom);panel.s52.rg = s.pos;panel.s52.classnum = s.clasroom;}
+										if(s.time == 5){panel.s62.setText(s.name);panel.s62.setToolTipText("课室"+s.pos+s.clasroom);panel.s62.rg = s.pos;panel.s62.classnum = s.clasroom;}
+									}
+									if(s.day == 2){
+										if(s.time == 0){panel.s13.setText(s.name);panel.s13.setToolTipText("课室"+s.pos+s.clasroom);panel.s13.rg = s.pos;panel.s13.classnum = s.clasroom;}
+										if(s.time == 1){panel.s23.setText(s.name);panel.s23.setToolTipText("课室"+s.pos+s.clasroom);panel.s23.rg = s.pos;panel.s23.classnum = s.clasroom;}
+										if(s.time == 2){panel.s33.setText(s.name);panel.s33.setToolTipText("课室"+s.pos+s.clasroom);panel.s33.rg = s.pos;panel.s33.classnum = s.clasroom;}
+										if(s.time == 3){panel.s43.setText(s.name);panel.s43.setToolTipText("课室"+s.pos+s.clasroom);panel.s43.rg = s.pos;panel.s43.classnum = s.clasroom;}
+										if(s.time == 4){panel.s53.setText(s.name);panel.s53.setToolTipText("课室"+s.pos+s.clasroom);panel.s53.rg = s.pos;panel.s53.classnum = s.clasroom;}
+										if(s.time == 5){panel.s63.setText(s.name);panel.s63.setToolTipText("课室"+s.pos+s.clasroom);panel.s63.rg = s.pos;panel.s63.classnum = s.clasroom;}
+									}
+									if(s.day == 3){
+										if(s.time == 0){panel.s14.setText(s.name);panel.s14.setToolTipText("课室"+s.pos+s.clasroom);panel.s14.rg = s.pos;panel.s14.classnum = s.clasroom;}
+										if(s.time == 1){panel.s24.setText(s.name);panel.s24.setToolTipText("课室"+s.pos+s.clasroom);panel.s24.rg = s.pos;panel.s24.classnum = s.clasroom;}
+										if(s.time == 2){panel.s34.setText(s.name);panel.s34.setToolTipText("课室"+s.pos+s.clasroom);panel.s34.rg = s.pos;panel.s34.classnum = s.clasroom;}
+										if(s.time == 3){panel.s44.setText(s.name);panel.s44.setToolTipText("课室"+s.pos+s.clasroom);panel.s44.rg = s.pos;panel.s44.classnum = s.clasroom;}
+										if(s.time == 4){panel.s54.setText(s.name);panel.s54.setToolTipText("课室"+s.pos+s.clasroom);panel.s54.rg = s.pos;panel.s54.classnum = s.clasroom;}
+										if(s.time == 5){panel.s64.setText(s.name);panel.s64.setToolTipText("课室"+s.pos+s.clasroom);panel.s64.rg = s.pos;panel.s64.classnum = s.clasroom;}
+									}
+									if(s.day == 4){
+										if(s.time == 0){panel.s15.setText(s.name);panel.s15.setToolTipText("课室"+s.pos+s.clasroom);panel.s15.rg = s.pos;panel.s15.classnum = s.clasroom;}
+										if(s.time == 1){panel.s25.setText(s.name);panel.s25.setToolTipText("课室"+s.pos+s.clasroom);panel.s25.rg = s.pos;panel.s25.classnum = s.clasroom;}
+										if(s.time == 2){panel.s35.setText(s.name);panel.s35.setToolTipText("课室"+s.pos+s.clasroom);panel.s35.rg = s.pos;panel.s35.classnum = s.clasroom;}
+										if(s.time == 3){panel.s45.setText(s.name);panel.s45.setToolTipText("课室"+s.pos+s.clasroom);panel.s45.rg = s.pos;panel.s45.classnum = s.clasroom;}
+										if(s.time == 4){panel.s55.setText(s.name);panel.s55.setToolTipText("课室"+s.pos+s.clasroom);panel.s55.rg = s.pos;panel.s55.classnum = s.clasroom;}
+										if(s.time == 5){panel.s65.setText(s.name);panel.s65.setToolTipText("课室"+s.pos+s.clasroom);panel.s65.rg = s.pos;panel.s65.classnum = s.clasroom;}
+									}
+									if(s.day == 5){
+										if(s.time == 0){panel.s16.setText(s.name);panel.s16.setToolTipText("课室"+s.pos+s.clasroom);panel.s16.rg = s.pos;panel.s16.classnum = s.clasroom;}
+										if(s.time == 1){panel.s26.setText(s.name);panel.s26.setToolTipText("课室"+s.pos+s.clasroom);panel.s26.rg = s.pos;panel.s26.classnum = s.clasroom;}
+										if(s.time == 2){panel.s36.setText(s.name);panel.s36.setToolTipText("课室"+s.pos+s.clasroom);panel.s36.rg = s.pos;panel.s36.classnum = s.clasroom;}
+										if(s.time == 3){panel.s46.setText(s.name);panel.s46.setToolTipText("课室"+s.pos+s.clasroom);panel.s46.rg = s.pos;panel.s46.classnum = s.clasroom;}
+										if(s.time == 4){panel.s56.setText(s.name);panel.s56.setToolTipText("课室"+s.pos+s.clasroom);panel.s56.rg = s.pos;panel.s56.classnum = s.clasroom;}
+										if(s.time == 5){panel.s66.setText(s.name);panel.s66.setToolTipText("课室"+s.pos+s.clasroom);panel.s66.rg = s.pos;panel.s66.classnum = s.clasroom;}
+									}
+									if(s.day == 6){
+										if(s.time == 0){panel.s17.setText(s.name);panel.s17.setToolTipText("课室"+s.pos+s.clasroom);panel.s17.rg = s.pos;panel.s17.classnum = s.clasroom;}
+										if(s.time == 1){panel.s27.setText(s.name);panel.s27.setToolTipText("课室"+s.pos+s.clasroom);panel.s27.rg = s.pos;panel.s27.classnum = s.clasroom;}
+										if(s.time == 2){panel.s37.setText(s.name);panel.s37.setToolTipText("课室"+s.pos+s.clasroom);panel.s37.rg = s.pos;panel.s37.classnum = s.clasroom;}
+										if(s.time == 3){panel.s47.setText(s.name);panel.s47.setToolTipText("课室"+s.pos+s.clasroom);panel.s47.rg = s.pos;panel.s47.classnum = s.clasroom;}
+										if(s.time == 4){panel.s57.setText(s.name);panel.s57.setToolTipText("课室"+s.pos+s.clasroom);panel.s57.rg = s.pos;panel.s57.classnum = s.clasroom;}
+										if(s.time == 5){panel.s67.setText(s.name);panel.s67.setToolTipText("课室"+s.pos+s.clasroom);panel.s67.rg = s.pos;panel.s67.classnum = s.clasroom;}
+									}
+								}
+							}
+						}
+
+						textOfTable.week = 0;//第一周
+
+						tableTop.week.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								int select = tableTop.week.getSelectedIndex()+1;//获得所选周
+								cl.show(cardpanel,"第"+select+"周");//切换到所选周
+
+								textOfTable.week = tableTop.week.getSelectedIndex();//切换周数时传递切换后的周数
+							}
+						});
+					}
+					else{
+						if(numInput.getText().length() == 0){warn.setText("请输入学号");}
+						else{warn.setText("对象不存在");}
+					}
+				}
+
+			}
+		});
 	}
 	
 	//导入界面
@@ -1776,16 +2290,27 @@ public class Frame {
 		System.exit(0);
 	}
 
+	//test
+	public static void test(){
+		Course receive = new Course();
+		for(Course c:studentManage.Get_course(83994618)){
+			receive = c;
+			System.out.println();
+
+		}
+	}
+
 	//主函数
 	public static void main(String[] args) throws IOException {
 
 //		LoginFrame();
-		Home();
+//		Home();
 //		StuDataPanel();
-//		StuSchedule();
+		StuSchedule();
 //		Input();
 //		Output();
 //		UnionManage();
 //		CheckFreeFrame();
+//		test();
 	}
 }
