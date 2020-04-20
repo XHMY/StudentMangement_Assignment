@@ -1,13 +1,13 @@
 //学生数据库：在数据库中管理学生
 package com.SMS.base;
-import com.SMS.lib.algs4.LinearProbingHashST;
-import com.SMS.lib.algs4.Queue;
-import com.SMS.lib.algs4.RedBlackBST;
+import com.SMS.lib.algs4.*;
+
+import java.util.Random;
 
 public class Stu_Database {
 
-    private RedBlackBST<Integer, Student> stu_num_data;
-    private LinearProbingHashST<String, Student> stu_name_data;
+    private final RedBlackBST<Integer, Student> stu_num_data;
+    private final LinearProbingHashST<String, Student> stu_name_data;
 
     public Stu_Database() {
         stu_num_data = new RedBlackBST<Integer, Student>();
@@ -55,4 +55,15 @@ public class Stu_Database {
         stu_name_data.put(stu.name, stu);
     }
 
+    public static void main(String[] args) {
+        final Stu_Database std = new Stu_Database();
+        Random R = new Random(1234);
+        StopwatchCPU stopwatch = new StopwatchCPU();
+        Student temp_stu = new Student();
+        for(int i = 0; i<100000000;i++){
+            std.stu_num_data.put(R.nextInt(1000000000),null);
+        }
+        double finish_add = stopwatch.elapsedTime();
+        StdOut.println(finish_add);
+    }
 }
