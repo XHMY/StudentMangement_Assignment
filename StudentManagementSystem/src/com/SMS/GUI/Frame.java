@@ -1538,7 +1538,7 @@ public class Frame {
 	
 	//导入界面
 	public static void Input() {
-		homeFrame.setVisible(true);
+//		homeFrame.setVisible(true);
 
 		//创建返回按键
 		JLabel backButton = new JLabel();
@@ -1552,6 +1552,7 @@ public class Frame {
 		//创建复选框
 		JCheckBox box1 = new JCheckBox("导入个人信息");
 		box1.setSelected(true);
+		box1.setEnabled(false);
 		box1.setForeground(fc);
 		box1.setFont(new Font(type,0,18));
 		box1.setBackground(bc);
@@ -1652,23 +1653,38 @@ public class Frame {
 				}
 
 				//导入个人资料
-				if(box1.isSelected()){
-					try {
-						studentManage.Import_stu(addressField.getText());
-					} catch (IOException ioException) {
-						ioException.printStackTrace();
+				if(box1.isSelected() && addressField.getText().length() != 0){
+					if(addressField.getText() != "请选择文件地址") {
+						try {
+							studentManage.Import_stu(addressField.getText());
+						} catch (IOException ioException) {
+							ioException.printStackTrace();
+						}
+					}
+				}
+
+				//导入学生日程
+				if(box2.isSelected() && addressField.getText().length() != 0){
+					if(addressField.getText() != "请x选择文件地址") {
+						try {
+							studentManage.Import_course(addressField.getText());
+						} catch (IOException ioException) {
+							ioException.printStackTrace();
+						}
 					}
 				}
 
 				//判断输入是否为空 导入社团
 				if(box3.isSelected()){
-					if(addressField.getText().length() == 0){addressField.setText("请输入地址");}
-					if(addressField2.getText().length() == 0){addressField2.setText("请输入文件地址");}
+					if(addressField.getText().length() == 0){addressField.setText("请选择文件地址");}
+					if(addressField2.getText().length() == 0){addressField2.setText("请选择文件地址");}
 					if(addressField.getText().length() != 0 && addressField2.getText().length() != 0){
-						try {
-							studentManage.Import_uni(addressField.getText(),addressField2.getText());
-						} catch (IOException ioException) {
-							ioException.printStackTrace();
+						if(addressField.getText() != "请选择文件地址" && addressField2.getText() != "请选择文件地址") {
+							try {
+								studentManage.Import_uni(addressField.getText(), addressField2.getText());
+							} catch (IOException ioException) {
+								ioException.printStackTrace();
+							}
 						}
 					}
 				}
@@ -1714,8 +1730,13 @@ public class Frame {
 		//复选框设置单选和复选框状态事件
 		box1.addActionListener((e)->{
 			if(box1.isSelected() == true) {
+				box1.setEnabled(false);
+				box2.setEnabled(true);
+				box3.setEnabled(true);
+
 				box2.setSelected(false);
 				box3.setSelected(false);
+
 				addressField2.setBounds(120, 218+35+10, 0, 0);
 				fileButton2.setBounds(420, 218+35+10, 0, 0);
 				fileButton.setToolTipText(null);
@@ -1723,8 +1744,13 @@ public class Frame {
 		});
 		box2.addActionListener((e)->{
 			if(box2.isSelected() == true) {
+				box2.setEnabled(false);
+				box1.setEnabled(true);
+				box3.setEnabled(true);
+
 				box1.setSelected(false);
 				box3.setSelected(false);
+
 				addressField2.setBounds(120, 218+35+10, 0, 0);
 				fileButton2.setBounds(420, 218+35+10, 0, 0);
 				fileButton.setToolTipText(null);
@@ -1732,8 +1758,13 @@ public class Frame {
 		});
 		box3.addActionListener((e)->{
 			if(box3.isSelected() == true) {
+				box1.setEnabled(true);
+				box2.setEnabled(true);
+				box3.setEnabled(false);
+
 				box1.setSelected(false);
 				box2.setSelected(false);
+
 				addressField2.setBounds(120, 218+35+10, 300, 35);
 				fileButton2.setBounds(420, 218+35+10, 35, 35);
 				fileButton.setToolTipText("选择社团列表文件");
@@ -1814,7 +1845,7 @@ public class Frame {
 
 	//导出界面
 	public static void Output() {
-//		homeFrame.setVisible(true);
+		homeFrame.setVisible(true);
 
 		//创建返回按键
 		JLabel backButton = new JLabel();
@@ -1824,44 +1855,11 @@ public class Frame {
 		backButton.setFont(new Font(type, 0, 18));
 		homeFrame.main.add(backButton);
 		backButton.setBounds(13, 15, 73, 30);
-		//添加鼠标监听器
-		backButton.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void mousePressed(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void mouseExited(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void mouseEntered(MouseEvent e) {
-						backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-						
-					}
-					
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						homeFrame.main.removeAll();
-						secmain.removeAll();
-						Home();
-					}
-				});
 	
 		//创建复选框
-		JCheckBox box1 = new JCheckBox("导出个人信息");
+		JCheckBox box1 = new JCheckBox("导出全部学生");
 		box1.setSelected(true);
+		box1.setEnabled(false);
 		box1.setForeground(fc);
 		box1.setFont(new Font(type,0,18));
 		box1.setBackground(bc);
@@ -1903,39 +1901,6 @@ public class Frame {
 		fileButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/fileSelect.png"));
 		homeFrame.main.add(fileButton);
 		fileButton.setBounds(120 + 300, 218, 35, 35);
-		//添加鼠标监听器
-		fileButton.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				fileButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-				
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				addressField.setText(fileSelectedFrame());
-				
-			}
-		});
 
 		//社团专属额外文件栏
 		//文件地址输入框
@@ -1951,79 +1916,15 @@ public class Frame {
 		fileButton2.setToolTipText("保存社团成员列表文件");
 		fileButton2.setOpaque(true);
 		homeFrame.main.add(fileButton2);
-		//添加鼠标监听器
-		fileButton2.addMouseListener(new MouseListener() {
 
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				fileButton2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-				
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				addressField2.setText(fileSelectedFrame());
-				
-			}
-		});
-		
-		//设置单选和复选框状态事件
-		box1.addActionListener((e)->{
-			if(box1.isSelected() == true) {
-				box2.setSelected(false);
-				box3.setSelected(false);
-				addressField2.setBounds(120, 218+35+10, 0, 0);
-				fileButton2.setBounds(420, 218+35+10, 0, 0);
-				fileButton.setToolTipText(null);
-			}
-		});
-		box2.addActionListener((e)->{
-			if(box2.isSelected() == true) {
-				box1.setSelected(false);
-				box3.setSelected(false);
-				addressField2.setBounds(120, 218+35+10, 0, 0);
-				fileButton2.setBounds(420, 218+35+10, 0, 0);
-				fileButton.setToolTipText(null);
-			}
-		});
-		box3.addActionListener((e)->{
-			if(box3.isSelected() == true) {
-				box1.setSelected(false);
-				box2.setSelected(false);
-				addressField2.setBounds(120, 218+35+10, 300, 35);
-				fileButton2.setBounds(420, 218+35+10, 35, 35);
-				fileButton.setToolTipText("保存社团列表文件");
-			} else {
-				addressField2.setBounds(120, 218 + 35 + 10, 0, 0);//设置大小为0以隐藏组件
-				fileButton2.setBounds(420, 218 + 35 + 10, 0, 0);
-			}
-		});
-
-		//添加导入按钮
+		//添加导出按钮
 		JLabel outputButton = new JLabel();
 		outputButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/output.png"));
 		outputButton.setOpaque(true);
 		homeFrame.main.add(outputButton);
 		outputButton.setBounds((cfwidth - 48 * 3 / 2) / 2, cfheight - 200, 48 * 3 / 2, 22 * 3 / 2);
-		//添加鼠标监听器
+
+		//导出按钮添加鼠标监听器
 		outputButton.addMouseListener(new MouseListener() {
 
 			@Override
@@ -2052,8 +1953,198 @@ public class Frame {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				//判断输入是否为空
+				if(box1.isSelected() || box2.isSelected()){
+					if(addressField.getText().length() == 0){
+						addressField.setText("请输入存储文件地址");
+					}
+				}
+
+				//导出全部学生
+				if(box1.isSelected() && addressField.getText().length() != 0){
+					if(addressField.getText() != "请选择文件存储地址") {
+						try {
+							studentManage.Export_stu(addressField.getText());
+						} catch (IOException ioException) {
+							ioException.printStackTrace();
+						}
+					}
+				}
+
+				//导出日程
+				if(box2.isSelected() && addressField.getText().length() != 0){
+					if(addressField.getText() != "请选择文件存储地址") {
+						try {
+							studentManage.Export_course(addressField.getText());
+						} catch (IOException ioException) {
+							ioException.printStackTrace();
+						}
+					}
+				}
+
+				//导出社团所有信息
+				if(box3.isSelected()){
+					if(addressField.getText().length() == 0){addressField.setText("请选择文件存储地址");}
+					if(addressField2.getText().length() == 0){addressField2.setText("请选择文件存储地址");}
+					if(addressField.getText().length()  != 0 && addressField2.getText().length() != 0){
+						if(addressField.getText() != "请选择文件存储地址" && addressField2.getText() != "请选择文件存储地址") {
+							try {
+								studentManage.Export_uni(addressField.getText(), addressField2.getText());
+							} catch (IOException ioException) {
+								ioException.printStackTrace();
+							}
+						}
+					}
+				}
+			}
+		});
+
+		//添加鼠标监听器
+		backButton.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				homeFrame.main.removeAll();
+				secmain.removeAll();
+				Home();
+			}
+		});
+
+		//设置单选和复选框状态事件
+		box1.addActionListener((e)->{
+			if(box1.isSelected() == true) {
+				box1.setEnabled(false);
+				box2.setEnabled(true);
+				box3.setEnabled(true);
+
+				box2.setSelected(false);
+				box3.setSelected(false);
+
+				addressField2.setBounds(120, 218+35+10, 0, 0);
+				fileButton2.setBounds(420, 218+35+10, 0, 0);
+				fileButton.setToolTipText(null);
+			}
+		});
+		box2.addActionListener((e)->{
+			if(box2.isSelected() == true) {
+				box1.setEnabled(true);
+				box2.setEnabled(false);
+				box3.setEnabled(true);
+
+				box1.setSelected(false);
+				box3.setSelected(false);
+
+				addressField2.setBounds(120, 218+35+10, 0, 0);
+				fileButton2.setBounds(420, 218+35+10, 0, 0);
+				fileButton.setToolTipText(null);
+			}
+		});
+		box3.addActionListener((e)->{
+			if(box3.isSelected() == true) {
+				box1.setEnabled(true);
+				box2.setEnabled(true);
+				box3.setEnabled(false);
+
+				box1.setSelected(false);
+				box2.setSelected(false);
+				addressField2.setBounds(120, 218+35+10, 300, 35);
+				fileButton2.setBounds(420, 218+35+10, 35, 35);
+				fileButton.setToolTipText("保存社团列表文件");
+			} else {
+				addressField2.setBounds(120, 218 + 35 + 10, 0, 0);//设置大小为0以隐藏组件
+				fileButton2.setBounds(420, 218 + 35 + 10, 0, 0);
+			}
+		});
+
+		//添加地址按钮1添加鼠标监听器
+		fileButton.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				fileButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				addressField.setText(outPutFileSelectedFrame());
+
+			}
+		});
+
+		//添加社团成员列表按钮添加鼠标监听器
+		fileButton2.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				fileButton2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				addressField2.setText(outPutFileSelectedFrame());
+
 			}
 		});
 	}
@@ -2431,20 +2522,8 @@ public class Frame {
 			text.setBackground(bc);
 		}
 	}
-	
-	//添加修改框保存事件
-	public static void confirmClickedEvent(BackgroundFrame frame) {
-		if(frame.getTitle() == "stu") {
-
-
-			frame.dispose();
-		}
-		if(frame.getTitle() == "lesson") {
-			
-		}
-	}
 		
-	//文件选择框
+	//导入文件选择框
 	public static String fileSelectedFrame() {
 		JFileChooser chooser = new JFileChooser();
 		File file = null;
@@ -2463,6 +2542,25 @@ public class Frame {
 		return file.getAbsolutePath();
 	}
 
+	//导出文件选择框
+	public static String outPutFileSelectedFrame(){
+		JFileChooser jfc = new JFileChooser();
+
+		jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES );
+
+		jfc.showDialog(new JLabel(), "选择");
+
+		File file=jfc.getSelectedFile();
+		if(file.isDirectory()){
+			System.out.println("文件夹:"+file.getAbsolutePath());
+		}else if(file.isFile()){
+			System.out.println("文件:"+file.getAbsolutePath());
+		}
+		System.out.println(jfc.getSelectedFile().getName());
+
+		return file.getAbsolutePath();
+	}
+
 	//程序结束调用
 	public static void exitSystem(){
 		try {
@@ -2477,11 +2575,11 @@ public class Frame {
 	public static void main(String[] args) throws IOException {
 
 //		Frame start = new Frame();
-//		start.LoginFrame();
+		start.LoginFrame();
 //		start.Home();
 //		start.StuDataPanel();
 //		start.StuSchedule();
-		start.Input();
+//		start.Input();
 //		start.Output();
 //		start.UnionManage();
 //		test();
