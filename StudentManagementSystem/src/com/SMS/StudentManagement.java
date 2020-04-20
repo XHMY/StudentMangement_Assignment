@@ -40,9 +40,14 @@ public class StudentManagement {
 
     public static void main(String[] args) throws IOException {
         StudentManagement sm = new StudentManagement();
-        for (String s : sm.Get_union_name()) {
-            StdOut.println(s);
-        }
+        Student stu = sm.Get_stu(13520824);
+        StdOut.println(stu);
+        sm.Modify_stu(stu,new Student(13520824, "张全蛋", false, 9, "电气工程及其自动化","篮翔智能研究院", 13454566, "ktbur", 2019,"c93"));
+        StdOut.println(stu);
+        StdOut.println(sm.Get_stu(13520824));
+//        for (String s : sm.Get_union_name()) {
+//            StdOut.println(s);
+//        }
     }
 
     // 登陆界面

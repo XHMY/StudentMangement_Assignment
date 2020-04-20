@@ -111,6 +111,8 @@ StudentManagementSystem/data/uni.csv
 StudentManagementSystem/data/stu.csv
 StudentManagementSystem/data/cour.csv
 *.class
+StudentManagementSystem/out/production/StudentManagementSystem/com/SMS/StudentManagement.class
+*.class
 *.class
 *.class
 *.class
