@@ -67,7 +67,7 @@ public class HomeButton extends JLabel{
 				if(getText() == "社团管理") {
 					Frame.homeFrame.main.removeAll();
 					Frame.homeFrame.main.updateUI();
-					Frame.UnionManage();
+					Frame.start.UnionManage();
 				}
 			}
 		});

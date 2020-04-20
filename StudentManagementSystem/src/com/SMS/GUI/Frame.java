@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Frame {
-	
+	static Frame start = new Frame();
 	
 	//一般窗口常量
 	static int cfx = 510;
@@ -31,6 +31,7 @@ public class Frame {
 	static JPanel secmain = new JPanel();
 	static CardLayout cl = new CardLayout();
 	static JPanel cardpanel = new JPanel(cl);
+	private tablePanel topForAll ;//通用表头
 
 	//学生对象
 	static Student student = new Student();
@@ -48,6 +49,8 @@ public class Frame {
 	static int test = 0;
 	static boolean judge1 = true;
 	static boolean judge2 = false;
+
+
 
 	//登录界面
 	public static void LoginFrame() throws IOException {
@@ -1545,40 +1548,6 @@ public class Frame {
 		backButton.setFont(new Font(type, 0, 18));
 		homeFrame.main.add(backButton);
 		backButton.setBounds(13, 15, 73, 30);
-		//添加鼠标监听器
-		backButton.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void mousePressed(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void mouseExited(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void mouseEntered(MouseEvent e) {
-						backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-						
-					}
-					
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						homeFrame.main.removeAll();
-						secmain.removeAll();
-						Home();
-					}
-				});
 	
 		//创建复选框
 		JCheckBox box1 = new JCheckBox("导入个人信息");
@@ -1624,39 +1593,6 @@ public class Frame {
 		fileButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/fileSelect.png"));
 		homeFrame.main.add(fileButton);
 		fileButton.setBounds(120 + 300, 218, 35, 35);
-		//添加鼠标监听器
-		fileButton.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				fileButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-				
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				addressField.setText(fileSelectedFrame());
-				
-			}
-		});
 
 		//社团专属额外文件栏
 		//文件地址输入框
@@ -1672,8 +1608,16 @@ public class Frame {
 		fileButton2.setToolTipText("选择社团成员列表文件");
 		fileButton2.setOpaque(true);
 		homeFrame.main.add(fileButton2);
-		//添加鼠标监听器
-		fileButton2.addMouseListener(new MouseListener() {
+
+		//添加导入按钮
+		JLabel inputButton = new JLabel();
+		inputButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/input.png"));
+		inputButton.setOpaque(true);
+		homeFrame.main.add(inputButton);
+		inputButton.setBounds((cfwidth - 48 * 3 / 2) / 2, cfheight - 200, 48 * 3 / 2, 22 * 3 / 2);
+
+		//导入按钮添加鼠标监听器
+		inputButton.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -1689,24 +1633,85 @@ public class Frame {
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
+				inputButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/input.png"));
+
 			}
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				fileButton2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-				
+				inputButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/inputEntered.png"));
+
 			}
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				addressField2.setText(fileSelectedFrame());
-				
+				// TODO Auto-generated method stub
+				//判断输入是否为空
+				if(box1.isSelected() || box2.isSelected()){
+					if(addressField.getText().length() == 0){addressField.setText("请选择文件地址");}
+				}
+
+				//导入个人资料
+				if(box1.isSelected()){
+					try {
+						studentManage.Import_stu(addressField.getText());
+					} catch (IOException ioException) {
+						ioException.printStackTrace();
+					}
+				}
+
+				//判断输入是否为空 导入社团
+				if(box3.isSelected()){
+					if(addressField.getText().length() == 0){addressField.setText("请输入地址");}
+					if(addressField2.getText().length() == 0){addressField2.setText("请输入文件地址");}
+					if(addressField.getText().length() != 0 && addressField2.getText().length() != 0){
+						try {
+							studentManage.Import_uni(addressField.getText(),addressField2.getText());
+						} catch (IOException ioException) {
+							ioException.printStackTrace();
+						}
+					}
+				}
+
 			}
 		});
-		
-		//设置单选和复选框状态事件
+
+		//返回按钮添加鼠标监听器
+		backButton.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				homeFrame.main.removeAll();
+				secmain.removeAll();
+				Home();
+			}
+		});
+
+		//复选框设置单选和复选框状态事件
 		box1.addActionListener((e)->{
 			if(box1.isSelected() == true) {
 				box2.setSelected(false);
@@ -1738,43 +1743,71 @@ public class Frame {
 			}
 		});
 
-		//添加导入按钮
-		JLabel inputButton = new JLabel();
-		inputButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/input.png"));
-		inputButton.setOpaque(true);
-		homeFrame.main.add(inputButton);
-		inputButton.setBounds((cfwidth - 48 * 3 / 2) / 2, cfheight - 200, 48 * 3 / 2, 22 * 3 / 2);
-		//添加鼠标监听器
-		inputButton.addMouseListener(new MouseListener() {
+		//添加文件按钮1添加鼠标监听器
+		fileButton.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void mouseExited(MouseEvent e) {
-				inputButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/input.png"));
+				// TODO Auto-generated method stub
 
 			}
-			
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				inputButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/inputEntered.png"));
+				fileButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 			}
-			
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				addressField.setText(fileSelectedFrame());
+
+			}
+		});
+
+		//添加文件按钮2添加鼠标监听器
+		fileButton2.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				fileButton2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				addressField2.setText(fileSelectedFrame());
+
 			}
 		});
 	}
@@ -2026,7 +2059,7 @@ public class Frame {
 	}
 
 	//社团管理界面
-	public static void UnionManage() {
+	public void UnionManage() {
 		homeFrame.setVisible(true);
 
 		//创建返回按钮
@@ -2177,6 +2210,7 @@ public class Frame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				if(box.getSelectedItem() != null)
 				CheckFreeFrame(String.valueOf(box.getSelectedItem()));
 
 			}
@@ -2209,7 +2243,7 @@ public class Frame {
 	}
 	
 	//社团查空界面
-	public static void CheckFreeFrame(String unionname){
+	public void CheckFreeFrame(String unionname){
 		BackgroundFrame checkFrame = new BackgroundFrame(600,200,cfwidth,457,false);
 		checkFrame.setVisible(true);
 		
@@ -2226,6 +2260,8 @@ public class Frame {
 		box1.setForeground(fc);
 		box1.setBackground(bc);
 		box1.setFont(new Font(type,0,18));
+		box1.setSelected(true);
+		box1.setEnabled(false);
 		checkFrame.main.add(box1);
 		box1.setBounds(35, 18, 105, 25);
 		
@@ -2235,8 +2271,6 @@ public class Frame {
 		box2.setFont(new Font(type,0,18));
 		checkFrame.main.add(box2);
 		box2.setBounds(35+105+15, 18, 105, 25);
-			//设置单选及对应事件
-		box1.setSelected(true);
 
 		//检测最大周数
 		w = 1;
@@ -2249,12 +2283,12 @@ public class Frame {
 		}
 
 		//添加课程表头
-		tablePanel top = new tablePanel(w);
-		checkFrame.main.add(top);
-		top.setBounds(9, 63, cfwidth-18, 336);
+		topForAll = new tablePanel(w);
+		checkFrame.main.add(topForAll);
+		topForAll.setBounds(9, 63, cfwidth-18, 336);
 
 		//表头添加卡片面板
-		top.add(cardpanel);
+		topForAll.add(cardpanel);
 		cardpanel.setBounds(tablePanel.space_x, tablePanel.lheight+4, tablePanel.space_x*7,
 				tablePanel.space_x*5);
 
@@ -2272,6 +2306,7 @@ public class Frame {
 		//复选框添加事件监听器实现单选
 		box1.addActionListener((e)->{
 			if(box1.isSelected() == true) {
+				start.CheckFreeFrame(unionname);
 				box1.setEnabled(false);
 				box2.setEnabled(true);
 				box2.setSelected(false);
@@ -2288,8 +2323,8 @@ public class Frame {
 		});
 
 		//下拉列表添加事件监听器
-		top.week.addActionListener(e -> {
-			int select = top.week.getSelectedIndex()+1;//获得所选周
+		topForAll.week.addActionListener(e -> {
+			int select = topForAll.week.getSelectedIndex()+1;//获得所选周
 			cl.show(cardpanel,"第"+select+"周");//切换到所选周
 		});
 
@@ -2324,10 +2359,9 @@ public class Frame {
 						if(judge){
 							//初始化
 							w = 0;
-							checkFrame.main.remove(top);
-							cardpanel.removeAll();
-							checkFrame.main.updateUI();
-							cardpanel.updateUI();
+
+							checkFrame.main.remove(topForAll);checkFrame.main.updateUI();
+							cardpanel.removeAll();cardpanel.updateUI();
 
 							//创建学号数组
 							int stu = 0;//记录学生数量
@@ -2339,33 +2373,38 @@ public class Frame {
 									for(Course cour : studentManage.Get_course(Integer.parseInt(s))){
 										if(cour.week+1 > w){w++;}
 									}
-									stu++;
+									stu++;System.out.println(s);
 									bag.add(Integer.parseInt(s));
 									s = "";
 								}else s+=c;
 							}
 
 							//更新表头
-							tablePanel top1 = new tablePanel(w);
-							checkFrame.main.add(top1);
-							top1.setBounds(9, 63, cfwidth-18, 336);
+							topForAll = new tablePanel(w);
+							checkFrame.main.add(topForAll);
+							topForAll.setBounds(9, 63, cfwidth-18, 336);
 
 							//表头添加卡片面板
-							top1.add(cardpanel);
+							topForAll.add(cardpanel);
 							cardpanel.setBounds(tablePanel.space_x, tablePanel.lheight+4, tablePanel.space_x*7,
 									tablePanel.space_x*5);
 
 							//添加表体
-							for(int w_circle = 0;w_circle < w;w++){
+							for(int w_circle = 0;w_circle < w;w_circle++){
 								tablePanel body = new tablePanel(bag,w_circle,stu);
 								cardpanel.add(body,"第"+(w_circle+1)+"周");
 								body.setSize(tablePanel.space_x*7, tablePanel.space_x*5);
 							}
 
-							top1.week.addActionListener(new ActionListener() {
+							//刷新
+							topForAll.updateUI();
+							cardpanel.updateUI();
+
+							//周数下拉列表添加事件监听器
+							topForAll.week.addActionListener(new ActionListener() {
 								@Override
 								public void actionPerformed(ActionEvent e) {
-									int select = top.week.getSelectedIndex()+1;//获得所选周
+									int select = topForAll.week.getSelectedIndex()+1;//获得所选周
 									cl.show(cardpanel,"第"+select+"周");//切换到所选周
 								}
 							});
@@ -2434,26 +2473,17 @@ public class Frame {
 		System.exit(0);
 	}
 
-	//test
-	public static void test(){
-		Course receive = new Course();
-		for(Course c:studentManage.Get_course(83994618)){
-			receive = c;
-			System.out.println();
-
-		}
-	}
-
 	//主函数
 	public static void main(String[] args) throws IOException {
 
-//		LoginFrame();
-//		Home();
-//		StuDataPanel();
-//		StuSchedule();
-//		Input();
-//		Output();
-		UnionManage();
+//		Frame start = new Frame();
+//		start.LoginFrame();
+//		start.Home();
+//		start.StuDataPanel();
+//		start.StuSchedule();
+		start.Input();
+//		start.Output();
+//		start.UnionManage();
 //		test();
 //		System.out.println(studentManage.Get_union_name());
 	}

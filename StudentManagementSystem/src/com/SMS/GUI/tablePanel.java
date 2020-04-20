@@ -782,8 +782,8 @@ public class tablePanel extends JPanel{
 						if(c.time == 4){l57++;}
 						if(c.time == 5){l67++;}
 					}
-				}num++;
-			}
+				}
+			}num++;
 		}
 
 		//行数位置常量
@@ -1109,17 +1109,17 @@ public class tablePanel extends JPanel{
 		int free[][][] = Frame.studentManage.Get_free(bag);
 
 		//第一行
-		int l11 = free[a1][0][0];int l12 = free[a1][0][1];int l13 = free[a1][0][2];int l14 = free[a1][0][3];int l15 = free[a1][0][4];int l16 = free[a1][0][5];int l17 = free[a1][0][6];
+		int l11 = free[a1][0][0];int l12 = free[a1][1][0];int l13 = free[a1][2][0];int l14 = free[a1][3][0];int l15 = free[a1][4][0];int l16 = free[a1][5][0];int l17 = free[a1][6][0];
 		//第二行
-		int l21 = free[a1][1][0];int l22 = free[a1][1][1];int l23 = free[a1][1][2];int l24 = free[a1][1][3];int l25 = free[a1][1][4];int l26 = free[a1][1][5];int l27 = free[a1][1][6];
+		int l21 = free[a1][0][1];int l22 = free[a1][1][1];int l23 = free[a1][2][1];int l24 = free[a1][3][1];int l25 = free[a1][4][1];int l26 = free[a1][5][1];int l27 = free[a1][6][1];
 		//第三行
-		int l31 = free[a1][2][0];int l32 = free[a1][2][1];int l33 = free[a1][2][2];int l34 = free[a1][2][3];int l35 = free[a1][2][4];int l36 = free[a1][2][5];int l37 = free[a1][2][6];
+		int l31 = free[a1][0][2];int l32 = free[a1][1][2];int l33 = free[a1][2][2];int l34 = free[a1][3][2];int l35 = free[a1][4][2];int l36 = free[a1][5][2];int l37 = free[a1][6][2];
 		//第四行
-		int l41 = free[a1][3][0];int l42 = free[a1][3][1];int l43 = free[a1][3][2];int l44 = free[a1][3][3];int l45 = free[a1][3][4];int l46 = free[a1][3][5];int l47 = free[a1][3][6];
+		int l41 = free[a1][0][3];int l42 = free[a1][1][3];int l43 = free[a1][2][3];int l44 = free[a1][3][3];int l45 = free[a1][4][3];int l46 = free[a1][5][3];int l47 = free[a1][6][3];
 		//第五行
-		int l51 = free[a1][4][0];int l52 = free[a1][4][1];int l53 = free[a1][4][2];int l54 = free[a1][4][3];int l55 = free[a1][4][4];int l56 = free[a1][4][5];int l57 = free[a1][4][6];
+		int l51 = free[a1][0][4];int l52 = free[a1][1][4];int l53 = free[a1][2][4];int l54 = free[a1][3][4];int l55 = free[a1][4][4];int l56 = free[a1][5][4];int l57 = free[a1][6][4];
 		//第六行
-		int l61 = free[a1][5][0];int l62 = free[a1][5][1];int l63 = free[a1][5][2];int l64 = free[a1][5][3];int l65 = free[a1][5][4];int l66 = free[a1][5][5];int l67 = free[a1][5][6];
+		int l61 = free[a1][0][5];int l62 = free[a1][1][5];int l63 = free[a1][2][5];int l64 = free[a1][3][5];int l65 = free[a1][4][5];int l66 = free[a1][5][5];int l67 = free[a1][6][5];
 
 		//行数位置常量
 		int b = 0;//y轴位置
@@ -1438,11 +1438,35 @@ public class tablePanel extends JPanel{
 
 	//判断颜色
 	private void checkCrowded(textOfTable s,int l,int total){
-		if(l > total/2){s.setBackground(Color.red);s.setToolTipText(l+"人有课");}
-		if(l > total/3 && l < total/2){s.setBackground(Color.orange);s.setToolTipText(l+"人有课");}
-		if(l > total/6 && l < total/3){s.setBackground(Color.yellow);s.setToolTipText(l+"人有课");}
-		if(l < total/6 && l != total){s.setBackground(Color.green);s.setToolTipText(l+"人有课");}
-		if(l == total){s.setToolTipText("无缺席");}
+		if(total != 1) {
+			//数据预处理
+//			if((total)
+
+			//判断
+			if (l >= total / 2.0) {
+				s.setBackground(Color.red);
+				s.setToolTipText(l + "人有课"+"\n"+"总人数为:"+total);
+			}
+			if (l >= total / 3.0 && l < total / 2.0) {
+				s.setBackground(Color.orange);
+				s.setToolTipText(l + "人有课"+"\n"+"总人数为:"+total);
+			}
+			if (l >= total / 6.0 && l < total / 3.0) {
+				s.setBackground(Color.yellow);
+				s.setToolTipText(l + "人有课"+"\n"+"总人数为:"+total);
+			}
+			if (l < total / 6.0 && l != 0) {
+				s.setBackground(Color.green);
+				s.setToolTipText(l + "人有课"+"\n"+"总人数为:"+total);
+			}
+			if (l == 0) {
+				s.setToolTipText("无缺席"+"\n"+"总人数为:"+total);
+			}
+		}else{
+			if(l ==total){
+				s.setBackground(Color.red);s.setToolTipText(l+"人有课"+"\n"+"总人数为:"+total);
+			}else s.setToolTipText("无缺席"+"\n"+"总人数为:"+total);
+		}
 	}
 //	public static void main(String[] args){
 //		Bag<Integer> bag1 = new Bag<Integer>();
