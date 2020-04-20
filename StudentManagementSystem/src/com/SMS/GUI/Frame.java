@@ -4,9 +4,8 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.SMS.StudentManagement;
-import com.SMS.base.Course;
-import com.SMS.base.Schedule;
-import com.SMS.base.Student;
+import com.SMS.base.*;
+import com.SMS.lib.algs4.Bag;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -869,7 +868,7 @@ public class Frame {
 	
 	//学生日程界面
 	public static void StuSchedule() {
-		homeFrame.setVisible(true);
+//		homeFrame.setVisible(true);
 
 		//创建主面板		
 		JPanel stuSchedule = new JPanel();
@@ -1536,7 +1535,7 @@ public class Frame {
 	
 	//导入界面
 	public static void Input() {
-//		homeFrame.setVisible(true);
+		homeFrame.setVisible(true);
 
 		//创建返回按键
 		JLabel backButton = new JLabel();
@@ -2038,40 +2037,6 @@ public class Frame {
 		backButton.setFont(new Font(type, 0, 18));
 		homeFrame.main.add(backButton);
 		backButton.setBounds(13, 15, 73, 30);
-		//添加鼠标监听器
-		backButton.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void mousePressed(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void mouseExited(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void mouseEntered(MouseEvent e) {
-						backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-						
-					}
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				homeFrame.main.removeAll();
-				secmain.removeAll();
-				Home();
-			}
-		});
 
 		//添加查找栏
 		JLabel search = new JLabel();
@@ -2083,8 +2048,10 @@ public class Frame {
 
 		//添加下拉列表
 		JComboBox<String> box = new JComboBox<>();
-		box.setForeground(bc);
+		box.setForeground(fc);
 		box.setFont(new Font(type, 0, 20));
+		for(String u : studentManage.Get_union_name()){box.addItem(u);}//添加列表成员
+		box.setSelectedItem(null);
 		search.add(box);
 		box.setBounds(175, 25, 235, 35);
 		
@@ -2135,55 +2102,114 @@ public class Frame {
 		checkFree.setOpaque(true);
 		homeFrame.main.add(checkFree);
 		checkFree.setBounds(55 + 270 + 50, 167 + 10, 102, 42);
-		//添加鼠标监听器
+		
+		//添加社团成员列表
+			//创建成员列表
+		panelOfList top = new panelOfList();//表头
+		homeFrame.main.add(top);
+		top.setBounds((cfwidth-513)/2, 331, 513, 31+3);
+
+		JScrollPane listPanel = new JScrollPane();
+
+		homeFrame.main.updateUI();
+
+		//返回按钮添加鼠标监听器
+		backButton.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				homeFrame.main.removeAll();
+				secmain.removeAll();
+				Home();
+			}
+		});
+
+		//查空按钮添加鼠标监听器
 		checkFree.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				checkFree.setIcon(new ImageIcon("src/com/SMS/GUI/image/checkFree.png"));
 
 			}
-			
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				checkFree.setIcon(new ImageIcon("src/com/SMS/GUI/image/checkFreeEntered.png"));
 
 			}
-			
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				CheckFreeFrame();
-				
+				CheckFreeFrame(String.valueOf(box.getSelectedItem()));
+
 			}
 		});
-		
-		//添加社团成员列表
-			//创建成员列表
-		
+
+		//下拉列表添加事件监听器
+		box.addActionListener(e->{
+			int m = 0;
+			Union union = studentManage.Get_Union(box.getItemAt(box.getSelectedIndex()));
+			nameField.setText(union.uniName);//获得社团名字
+			belongField.setText(union.from);//获得社团所属
+			unionTypeField.setText(union.type);//获得社团类型
+			for(Integer a : union.getAllMemberNum()){m++;}
+			amountField.setText(Integer.toString(m));//获得社团人数
+
+			panelOfList member = new panelOfList(String.valueOf(box.getSelectedItem()));//成员名单
+			member.setPreferredSize(new Dimension(513,panelOfList.space_y*panelOfList.b));
+			member.setBounds(0,0,513,panelOfList.space_y*panelOfList.a);
+
 			//创建滚动面板并添加组件
-		JScrollPane listPanel = new JScrollPane();
-		homeFrame.main.add(listPanel);
-		listPanel.setBounds((cfwidth-513)/2, 331, 513, 200);
-		
-		
-		
-		homeFrame.main.updateUI();
+			listPanel.setViewportView(member);
+			listPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+			listPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+			listPanel.setWheelScrollingEnabled(true);
+			homeFrame.main.add(listPanel);
+			listPanel.setBounds((cfwidth-513)/2, 331+31+3, 513, 200-31);
+
+			member.updateUI();
+		});
 	}
 	
 	//社团查空界面
-	public static void CheckFreeFrame(){
+	public static void CheckFreeFrame(String unionname){
 		BackgroundFrame checkFrame = new BackgroundFrame(600,200,cfwidth,457,false);
 		checkFrame.setVisible(true);
 		
@@ -2211,27 +2237,145 @@ public class Frame {
 		box2.setBounds(35+105+15, 18, 105, 25);
 			//设置单选及对应事件
 		box1.setSelected(true);
+
+		//检测最大周数
+		w = 1;
+		for(Union.member m : studentManage.Get_union_stu(unionname)){
+			int a1 = 0;
+			for(Course c : studentManage.Get_course(m.getStu_num())){
+				a1 = c.week;
+				if(a1+1 > w){w++;}
+			}
+		}
+
+		//添加课程表头
+		tablePanel top = new tablePanel(w);
+		checkFrame.main.add(top);
+		top.setBounds(9, 63, cfwidth-18, 336);
+
+		//表头添加卡片面板
+		top.add(cardpanel);
+		cardpanel.setBounds(tablePanel.space_x, tablePanel.lheight+4, tablePanel.space_x*7,
+				tablePanel.space_x*5);
+
+		//卡片布局初始化
+		cardpanel.removeAll();
+		cardpanel.updateUI();
+
+		//添加表体
+		for(int a = 0;a < w ;a++) {
+			tablePanel body = new tablePanel(unionname, a);
+			cardpanel.add(body,"第"+(a+1)+"周");
+			body.setSize(tablePanel.space_x*7, tablePanel.space_x*5);
+		}
+
+		//复选框添加事件监听器实现单选
 		box1.addActionListener((e)->{
-			if(box1.isSelected() == true) {	
+			if(box1.isSelected() == true) {
 				box1.setEnabled(false);
 				box2.setEnabled(true);
-				box2.setSelected(false);	
+				box2.setSelected(false);
 				text.setEditable(false);
 			}
 		});
 		box2.addActionListener((e)->{
-			if(box2.isSelected() == true) {	
+			if(box2.isSelected() == true) {
 				box2.setEnabled(false);
 				box1.setEnabled(true);
-				box1.setSelected(false);	
+				box1.setSelected(false);
 				text.setEditable(true);
 			}
 		});
-		
-		//添加课程表查空情况
-		tablePanel panel = new tablePanel(0);
-		checkFrame.main.add(panel);
-		panel.setBounds(9, 63, cfwidth-18, 336);
+
+		//下拉列表添加事件监听器
+		top.week.addActionListener(e -> {
+			int select = top.week.getSelectedIndex()+1;//获得所选周
+			cl.show(cardpanel,"第"+select+"周");//切换到所选周
+		});
+
+		//输入框添加键盘监听器
+		text.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					if(text.getText().length() != 0 && box2.isSelected() == true) {
+						boolean judge = true;//判断输入学号是否存在
+						String s_mark = "";//记录分开的学号
+						String s_deal = text.getText()+",";//处理输入输入学号
+						for(int i = 0;i < s_deal.length();i++){
+							char c = s_deal.charAt(i);
+							if(c == ',' || c == '，' ){
+								Student checkstu = studentManage.Get_stu(Integer.parseInt(s_mark));
+								if(checkstu == null){judge = false;}
+								s_mark = "";
+							}
+							else s_mark+=c;
+						}
+						if(judge){
+							//初始化
+							w = 0;
+							checkFrame.main.remove(top);
+							cardpanel.removeAll();
+							checkFrame.main.updateUI();
+							cardpanel.updateUI();
+
+							//创建学号数组
+							int stu = 0;//记录学生数量
+							Bag<Integer> bag = new Bag<Integer>();
+							String s = "";String s1 = text.getText()+",";
+							for(int i = 0;i < s1.length();i++){
+								char c = s1.charAt(i);
+								if(c == ',' || c == '，' ){
+									for(Course cour : studentManage.Get_course(Integer.parseInt(s))){
+										if(cour.week+1 > w){w++;}
+									}
+									stu++;
+									bag.add(Integer.parseInt(s));
+									s = "";
+								}else s+=c;
+							}
+
+							//更新表头
+							tablePanel top1 = new tablePanel(w);
+							checkFrame.main.add(top1);
+							top1.setBounds(9, 63, cfwidth-18, 336);
+
+							//表头添加卡片面板
+							top1.add(cardpanel);
+							cardpanel.setBounds(tablePanel.space_x, tablePanel.lheight+4, tablePanel.space_x*7,
+									tablePanel.space_x*5);
+
+							//添加表体
+							for(int w_circle = 0;w_circle < w;w++){
+								tablePanel body = new tablePanel(bag,w_circle,stu);
+								cardpanel.add(body,"第"+(w_circle+1)+"周");
+								body.setSize(tablePanel.space_x*7, tablePanel.space_x*5);
+							}
+
+							top1.week.addActionListener(new ActionListener() {
+								@Override
+								public void actionPerformed(ActionEvent e) {
+									int select = top.week.getSelectedIndex()+1;//获得所选周
+									cl.show(cardpanel,"第"+select+"周");//切换到所选周
+								}
+							});
+
+						}
+
+					}
+				}
+			}
+		});
 	}
 	
 	//信息显示格式
@@ -2267,7 +2411,7 @@ public class Frame {
 		File file = null;
 		
 		//筛选出目标文件类型
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("数据文件","png");//"png"为例子
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("数据文件","csv");//"png"为例子
 		chooser.setFileFilter(filter);
 		
 		//显示对话框
@@ -2306,11 +2450,11 @@ public class Frame {
 //		LoginFrame();
 //		Home();
 //		StuDataPanel();
-		StuSchedule();
+//		StuSchedule();
 //		Input();
 //		Output();
-//		UnionManage();
-//		CheckFreeFrame();
+		UnionManage();
 //		test();
+//		System.out.println(studentManage.Get_union_name());
 	}
 }

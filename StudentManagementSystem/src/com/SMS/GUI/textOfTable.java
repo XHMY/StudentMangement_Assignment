@@ -12,7 +12,9 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-
+/*
+用于学生日程表
+ */
 
 public class textOfTable extends JTextPane{
 	private StyledDocument text ;

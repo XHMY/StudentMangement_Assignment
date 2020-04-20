@@ -14,4 +14,12 @@ public class labelOfTable extends JLabel{
 		setOpaque(true);
 	}
 
+	public  labelOfTable(String name,Color color) {
+		setText(name);
+		setBackground(color);
+		setFont(new Font("Frame.type",0,14));
+		setForeground(Frame.fc);
+		setHorizontalAlignment(CENTER);
+		setOpaque(true);
+	}
 }
