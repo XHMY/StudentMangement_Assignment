@@ -1,0 +1,19 @@
+<changelist name="Uncommitted_changes_before_Update_at_2020_4_21,_20_08_[Default_Changelist]" date="1587470932257" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2020_4_21,_20_08_[Default_Changelist]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 2020/4/21, 20:08 [Default Changelist]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/StudentManagementSystem/com/SMS/PerformanceTest.class" />
+    <option name="AFTER_PATH" value="out/production/StudentManagementSystem/com/SMS/PerformanceTest.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2020_4_21,_20_08_[Default_Changelist]/PerformanceTest.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/StudentManagementSystem/com/SMS/base/Stu_Database.class" />
+    <option name="AFTER_PATH" value="out/production/StudentManagementSystem/com/SMS/base/Stu_Database.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2020_4_21,_20_08_[Default_Changelist]/Stu_Database.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/StudentManagementSystem/com/SMS/StudentManagement.class" />
+    <option name="AFTER_PATH" value="out/production/StudentManagementSystem/com/SMS/StudentManagement.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2020_4_21,_20_08_[Default_Changelist]/StudentManagement.class" />
+  </binary>
+</changelist>

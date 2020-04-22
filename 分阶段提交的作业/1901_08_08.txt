@@ -1,0 +1,51 @@
+类的分层结构
+java.lang.Object
+•	com.SMS.base.Authentication
+•	com.SMS.lib.algs4.Bag<Item> (implements java.lang.Iterable<T>)
+•	com.SMS.lib.algs4.BST<Key, Value>
+•	com.SMS.CommandLineUI
+•	java.awt.Component (implements java.awt.image.ImageObserver, java.awt.MenuContainer, java.io.Serializable)
+•	java.awt.Container
+•	javax.swing.JComponent (implements java.io.Serializable)
+•	javax.swing.JLabel (implements javax.accessibility.Accessible, javax.swing.SwingConstants)
+•	com.SMS.GUI.HomeButton
+•	com.SMS.GUI.labelOfTable
+•	javax.swing.JPanel (implements javax.accessibility.Accessible)
+•	com.SMS.GUI.DataPanel
+•	com.SMS.GUI.panelOfList
+•	com.SMS.GUI.tablePanel
+•	javax.swing.text.JTextComponent (implements javax.accessibility.Accessible, javax.swing.Scrollable)
+•	javax.swing.JEditorPane
+•	javax.swing.JTextPane
+•	com.SMS.GUI.textOfTable
+•	java.awt.Window (implements javax.accessibility.Accessible)
+•	java.awt.Frame (implements java.awt.MenuContainer)
+•	javax.swing.JFrame (implements javax.accessibility.Accessible, javax.swing.RootPaneContainer, javax.swing.WindowConstants)
+•	com.SMS.GUI.BackgroundFrame
+•	com.SMS.base.Course (implements java.lang.Comparable<T>)
+•	com.SMS.GUI.Frame
+•	com.SMS.lib.algs4.LinearProbingHashST<Key, Value>
+•	com.SMS.Main
+•	java.awt.event.MouseAdapter (implements java.awt.event.MouseListener, java.awt.event.MouseMotionListener, java.awt.event.MouseWheelListener)
+•	com.SMS.GUI.FrameListener
+•	com.SMS.PerformanceTest
+•	com.SMS.lib.algs4.Queue<Item> (implements java.lang.Iterable<T>)
+•	com.SMS.lib.algs4.RedBlackBST<Key, Value>
+•	com.SMS.base.Schedule
+•	com.SMS.lib.algs4.SET<Key> (implements java.lang.Iterable<T>)
+•	com.SMS.lib.algs4.StdIn
+•	com.SMS.lib.algs4.StdOut
+•	com.SMS.lib.algs4.StopwatchCPU
+•	com.SMS.base.Stu_Database
+•	com.SMS.base.Student
+•	com.SMS.StudentManagement
+•	com.SMS.base.StuSysIO
+•	com.SMS.base.Uni_Database
+•	com.SMS.base.Union
+•	com.SMS.base.Union.member
+
+说明
+com.SMS 包中所放的是综合所有模块的程序，包括性能测试与调试等。
+com.SMS.base 包中是所有后台较底层的程序，例如学生数据库等。
+com.SMS.GUI 包中是图形界面有关的所有程序。
+com.SMS.lib.lags4 是从外部引用的实现数据结构的程序，非我们原创的代码

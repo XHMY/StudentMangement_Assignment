@@ -4,6 +4,10 @@
 
 ## 如何使用
 
+**双击 `StudentManagementSystem_jar/StudentManagementSystem.jar` 即可启动图形界面程序**
+
+**默认账号: root   默认密码: toor**
+
 GUI：运行 `StudentManagementSystem/src/com/SMS/GUI/Frame.java`
 
 包含所有API的类：`StudentManagementSystem/src/com/SMS/StudentManagement.java`

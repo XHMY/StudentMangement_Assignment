@@ -132,13 +132,13 @@ public class textOfTable extends JTextPane{
 
 				//添加确认和取消按钮
 				JLabel confirm = new JLabel();
-				confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirm.png"));
+				confirm.setIcon(new ImageIcon("image/confirm.png"));
 				add.main.add(confirm);
 				confirm.setBounds((350+112)/2-30, 262-27*3, 50, 27);
 				confirm.setOpaque(true);
 
 				JLabel cancel = new JLabel();
-				cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancel.png"));
+				cancel.setIcon(new ImageIcon("image/cancel.png"));
 				add.main.add(cancel);
 				cancel.setBounds((350-112)/2-30, 262-27*3, 50, 27);
 				cancel.setOpaque(true);
@@ -218,13 +218,13 @@ public class textOfTable extends JTextPane{
 
 					@Override
 					public void mouseExited(MouseEvent e) {
-						cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancel.png"));
+						cancel.setIcon(new ImageIcon("image/cancel.png"));
 
 					}
 
 					@Override
 					public void mouseEntered(MouseEvent e) {
-						cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancelEntered.png"));
+						cancel.setIcon(new ImageIcon("image/cancelEntered.png"));
 
 					}
 
@@ -252,13 +252,13 @@ public class textOfTable extends JTextPane{
 
 					@Override
 					public void mouseExited(MouseEvent e) {
-						confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirm.png"));
+						confirm.setIcon(new ImageIcon("image/confirm.png"));
 
 					}
 
 					@Override
 					public void mouseEntered(MouseEvent e) {
-						confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirmEntered.png"));
+						confirm.setIcon(new ImageIcon("image/confirmEntered.png"));
 
 					}
 

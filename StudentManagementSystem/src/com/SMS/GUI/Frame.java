@@ -98,7 +98,7 @@ public class Frame {
 		password.setFont(new Font(type, 0, 14));
 
 		//添加登录按钮
-		ImageIcon icon1 = new ImageIcon("src/com/SMS/GUI/image/lgButton3.png");
+		ImageIcon icon1 = new ImageIcon("image/lgButton3.png");
 		JLabel button = new JLabel();
 		button.setIcon(icon1);
 		login.main.add(button);
@@ -260,32 +260,32 @@ public class Frame {
 		home.setBounds(0, 0, cfwidth, cpheight);
 
 		//创建学生资料按钮
-		HomeButton stuData = new HomeButton("学生资料", new Color(91, 155, 213), new ImageIcon("src/com/SMS/GUI/image/学生资料.png"), new ImageIcon("src/com/SMS/GUI/image/学生资料2.png"));
+		HomeButton stuData = new HomeButton("学生资料", new Color(91, 155, 213), new ImageIcon("image/学生资料.png"), new ImageIcon("image/学生资料2.png"));
 		home.add(stuData);
 		stuData.setBounds(x1, y1, d, d);
 
 		//创建学生日程按钮
-		HomeButton stuSchedule = new HomeButton("学生日程", new Color(0, 176, 80), new ImageIcon("src/com/SMS/GUI/image/学生日程.png"), new ImageIcon("src/com/SMS/GUI/image/学生日程2.png"));
+		HomeButton stuSchedule = new HomeButton("学生日程", new Color(0, 176, 80), new ImageIcon("image/学生日程.png"), new ImageIcon("image/学生日程2.png"));
 		home.add(stuSchedule);
 		stuSchedule.setBounds(x2, y1, d * 5 / 12, d);
 
 		//创建其他按钮
-		HomeButton other = new HomeButton("其他", new Color(237, 125, 49), new ImageIcon("src/com/SMS/GUI/image/其他.png"), new ImageIcon("src/com/SMS/GUI/image/其他2.png"));
+		HomeButton other = new HomeButton("其他", new Color(237, 125, 49), new ImageIcon("image/其他.png"), new ImageIcon("image/其他2.png"));
 		home.add(other);
 		other.setBounds(x2 + d * 7 / 12 - 2, y1, d * 5 / 12, d);
 
 		//创建导入按钮
-		HomeButton input = new HomeButton("导入", new Color(255, 192, 0), new ImageIcon("src/com/SMS/GUI/image/导入.png"), new ImageIcon("src/com/SMS/GUI/image/导入2.png"));
+		HomeButton input = new HomeButton("导入", new Color(255, 192, 0), new ImageIcon("image/导入.png"), new ImageIcon("image/导入2.png"));
 		home.add(input);
 		input.setBounds(x1, y2 + 2, d, d * 5 / 12);
 
 		//创建导出按钮
-		HomeButton output = new HomeButton("导出", new Color(68, 114, 196), new ImageIcon("src/com/SMS/GUI/image/导出.png"), new ImageIcon("src/com/SMS/GUI/image/导出2.png"));
+		HomeButton output = new HomeButton("导出", new Color(68, 114, 196), new ImageIcon("image/导出.png"), new ImageIcon("image/导出2.png"));
 		home.add(output);
 		output.setBounds(x1, y2 + d * 7 / 12 - 2, d, d * 5 / 12);
 
 		//创建社团管理按钮
-		HomeButton unionManage = new HomeButton("社团管理", new Color(112, 48, 160), new ImageIcon("src/com/SMS/GUI/image/社团管理.png"), new ImageIcon("src/com/SMS/GUI/image/社团管理2.png"));
+		HomeButton unionManage = new HomeButton("社团管理", new Color(112, 48, 160), new ImageIcon("image/社团管理.png"), new ImageIcon("image/社团管理2.png"));
 		home.add(unionManage);
 		unionManage.setBounds(x2, y2, d, d);
 
@@ -309,7 +309,7 @@ public class Frame {
 
 		//创建返回按钮
 		JLabel backButton = new JLabel();
-		backButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/back.png"));
+		backButton.setIcon(new ImageIcon("image/back.png"));
 		backButton.setText(" 返回");
 		backButton.setForeground(new Color(68, 114, 196));
 		backButton.setFont(new Font(type, 0, 18));
@@ -326,7 +326,7 @@ public class Frame {
 		//创建查找栏
 		JLabel searchFrame = new JLabel();
 		searchFrame.setLayout(null);
-		searchFrame.setIcon(new ImageIcon("src/com/SMS/GUI/image/searchFrame.png"));
+		searchFrame.setIcon(new ImageIcon("image/searchFrame.png"));
 		stuDataPanel.add(searchFrame);
 		searchFrame.setBounds(20, 57, 488, 120);
 			//在查找栏上创建面板
@@ -366,14 +366,14 @@ public class Frame {
 
 		//创建查找按钮
 		JLabel searchButton = new JLabel();
-		searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/searchButton.png"));
+		searchButton.setIcon(new ImageIcon("image/searchButton.png"));
 		search.add(searchButton);
 		searchButton.setBounds(280, 30, 82, 60);
 		searchButton.setOpaque(true);
 
 		//创建修改按钮
 		JLabel fixButton = new JLabel();
-		fixButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/fixButton.png"));
+		fixButton.setIcon(new ImageIcon("image/fixButton.png"));
 		search.add(fixButton);
 		fixButton.setBounds(380, 30, 82, 60);
 		fixButton.setOpaque(true);
@@ -471,13 +471,13 @@ public class Frame {
 
 				//添加确认和取消按钮
 				JLabel confirm = new JLabel();
-				confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirm.png"));
+				confirm.setIcon(new ImageIcon("image/confirm.png"));
 				addFrame.main.add(confirm);
 				confirm.setBounds(cfwidth / 2 + 28, cfheight-158 - 100, 50, 27);
 				confirm.setOpaque(true);
 
 				JLabel cancel = new JLabel();
-				cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancel.png"));
+				cancel.setIcon(new ImageIcon("image/cancel.png"));
 				addFrame.main.add(cancel);
 				cancel.setBounds(cfwidth / 2 - 84, cfheight-158 - 100, 50, 27);
 				cancel.setOpaque(true);
@@ -499,13 +499,13 @@ public class Frame {
 
 					@Override
 					public void mouseExited(MouseEvent e) {
-						cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancel.png"));
+						cancel.setIcon(new ImageIcon("image/cancel.png"));
 
 					}
 
 					@Override
 					public void mouseEntered(MouseEvent e) {
-						cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancelEntered.png"));
+						cancel.setIcon(new ImageIcon("image/cancelEntered.png"));
 
 					}
 
@@ -532,13 +532,13 @@ public class Frame {
 
 					@Override
 					public void mouseExited(MouseEvent e) {
-						confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirm.png"));
+						confirm.setIcon(new ImageIcon("image/confirm.png"));
 
 					}
 
 					@Override
 					public void mouseEntered(MouseEvent e) {
-						confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirmEntered.png"));
+						confirm.setIcon(new ImageIcon("image/confirmEntered.png"));
 
 					}
 
@@ -666,12 +666,12 @@ public class Frame {
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				fixButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/fixButton.png"));
+				fixButton.setIcon(new ImageIcon("image/fixButton.png"));
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				fixButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/fixButtonEntered.png"));
+				fixButton.setIcon(new ImageIcon("image/fixButtonEntered.png"));
 			}
 
 			@Override
@@ -686,13 +686,13 @@ public class Frame {
 
 					//添加确认和取消按钮
 					JLabel confirm = new JLabel();
-					confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirm.png"));
+					confirm.setIcon(new ImageIcon("image/confirm.png"));
 					homeFrame.main.add(confirm);
 					confirm.setBounds(cfwidth / 2 + 28, cfheight - 90, 50, 27);
 					confirm.setOpaque(true);
 
 					JLabel cancel = new JLabel();
-					cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancel.png"));
+					cancel.setIcon(new ImageIcon("image/cancel.png"));
 					homeFrame.main.add(cancel);
 					cancel.setBounds(cfwidth / 2 - 84, cfheight - 90, 50, 27);
 					cancel.setOpaque(true);
@@ -716,13 +716,13 @@ public class Frame {
 
 						@Override
 						public void mouseExited(MouseEvent e) {
-							cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancel.png"));
+							cancel.setIcon(new ImageIcon("image/cancel.png"));
 
 						}
 
 						@Override
 						public void mouseEntered(MouseEvent e) {
-							cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancelEntered.png"));
+							cancel.setIcon(new ImageIcon("image/cancelEntered.png"));
 
 						}
 
@@ -760,13 +760,13 @@ public class Frame {
 
 						@Override
 						public void mouseExited(MouseEvent e) {
-							confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirm.png"));
+							confirm.setIcon(new ImageIcon("image/confirm.png"));
 
 						}
 
 						@Override
 						public void mouseEntered(MouseEvent e) {
-							confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirmEntered.png"));
+							confirm.setIcon(new ImageIcon("image/confirmEntered.png"));
 
 						}
 
@@ -821,13 +821,13 @@ public class Frame {
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/searchButton.png"));
+				searchButton.setIcon(new ImageIcon("image/searchButton.png"));
 
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/searchButtonEntered.png"));
+				searchButton.setIcon(new ImageIcon("image/searchButtonEntered.png"));
 
 			}
 
@@ -882,7 +882,7 @@ public class Frame {
 
 		//创建返回按钮
 		JLabel backButton = new JLabel();
-		backButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/back.png"));
+		backButton.setIcon(new ImageIcon("image/back.png"));
 		backButton.setText(" 返回");
 		backButton.setForeground(new Color(68, 114, 196));
 		backButton.setFont(new Font(type, 0, 18));
@@ -892,7 +892,7 @@ public class Frame {
 		//创建查找栏
 		JLabel searchFrame = new JLabel();
 		searchFrame.setLayout(null);
-		searchFrame.setIcon(new ImageIcon("src/com/SMS/GUI/image/searchFrame2.png"));
+		searchFrame.setIcon(new ImageIcon("image/searchFrame2.png"));
 		stuSchedule.add(searchFrame);
 		searchFrame.setBounds(20, 57, 488, 120);
 		//在查找栏上创建面板
@@ -940,7 +940,7 @@ public class Frame {
 
 		//创建查找按钮
 		JLabel searchButton = new JLabel();
-		searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/search.png"));
+		searchButton.setIcon(new ImageIcon("image/search.png"));
 		search.add(searchButton);
 		searchButton.setBounds(377, 43, 80, 37);
 		searchButton.setOpaque(true);
@@ -1021,13 +1021,13 @@ public class Frame {
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/search.png"));
+				searchButton.setIcon(new ImageIcon("image/search.png"));
 
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/searchEntered.png"));
+				searchButton.setIcon(new ImageIcon("image/searchEntered.png"));
 
 			}
 
@@ -1172,7 +1172,7 @@ public class Frame {
 
 		//创建返回按钮
 		JLabel backButton = new JLabel();
-		backButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/back.png"));
+		backButton.setIcon(new ImageIcon("image/back.png"));
 		backButton.setText(" 返回");
 		backButton.setForeground(new Color(68, 114, 196));
 		backButton.setFont(new Font(type, 0, 18));
@@ -1182,7 +1182,7 @@ public class Frame {
 		//创建查找栏
 		JLabel searchFrame = new JLabel();
 		searchFrame.setLayout(null);
-		searchFrame.setIcon(new ImageIcon("src/com/SMS/GUI/image/searchFrame2.png"));
+		searchFrame.setIcon(new ImageIcon("image/searchFrame2.png"));
 		stuSchedule.add(searchFrame);
 		searchFrame.setBounds(20, 57, 488, 120);
 		//在查找栏上创建面板
@@ -1231,7 +1231,7 @@ public class Frame {
 
 		//创建查找按钮
 		JLabel searchButton = new JLabel();
-		searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/search.png"));
+		searchButton.setIcon(new ImageIcon("image/search.png"));
 		search.add(searchButton);
 		searchButton.setBounds(377, 43, 80, 37);
 		searchButton.setOpaque(true);
@@ -1399,13 +1399,13 @@ public class Frame {
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/search.png"));
+				searchButton.setIcon(new ImageIcon("image/search.png"));
 
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				searchButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/searchEntered.png"));
+				searchButton.setIcon(new ImageIcon("image/searchEntered.png"));
 
 			}
 
@@ -1542,7 +1542,7 @@ public class Frame {
 
 		//创建返回按键
 		JLabel backButton = new JLabel();
-		backButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/back.png"));
+		backButton.setIcon(new ImageIcon("image/back.png"));
 		backButton.setText(" 返回");
 		backButton.setForeground(new Color(68, 114, 196));
 		backButton.setFont(new Font(type, 0, 18));
@@ -1591,7 +1591,7 @@ public class Frame {
 		addressField.setBounds(30 + 90, 130 + 30 * 2 + 10 * 2 + 8, 300, 35);
 		//添加文件选择对话框按钮
 		JLabel fileButton = new JLabel();
-		fileButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/fileSelect.png"));
+		fileButton.setIcon(new ImageIcon("image/fileSelect.png"));
 		homeFrame.main.add(fileButton);
 		fileButton.setBounds(120 + 300, 218, 35, 35);
 
@@ -1605,14 +1605,14 @@ public class Frame {
 		homeFrame.main.add(addressField2);
 		//添加文件选择按钮
 		JLabel fileButton2 = new JLabel();
-		fileButton2.setIcon(new ImageIcon("src/com/SMS/GUI/image/fileSelect.png"));
+		fileButton2.setIcon(new ImageIcon("image/fileSelect.png"));
 		fileButton2.setToolTipText("选择社团成员列表文件");
 		fileButton2.setOpaque(true);
 		homeFrame.main.add(fileButton2);
 
 		//添加导入按钮
 		JLabel inputButton = new JLabel();
-		inputButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/input.png"));
+		inputButton.setIcon(new ImageIcon("image/input.png"));
 		inputButton.setOpaque(true);
 		homeFrame.main.add(inputButton);
 		inputButton.setBounds((cfwidth - 48 * 3 / 2) / 2, cfheight - 200, 48 * 3 / 2, 22 * 3 / 2);
@@ -1634,13 +1634,13 @@ public class Frame {
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				inputButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/input.png"));
+				inputButton.setIcon(new ImageIcon("image/input.png"));
 
 			}
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				inputButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/inputEntered.png"));
+				inputButton.setIcon(new ImageIcon("image/inputEntered.png"));
 
 			}
 			
@@ -1849,7 +1849,7 @@ public class Frame {
 
 		//创建返回按键
 		JLabel backButton = new JLabel();
-		backButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/back.png"));
+		backButton.setIcon(new ImageIcon("image/back.png"));
 		backButton.setText(" 返回");
 		backButton.setForeground(new Color(68, 114, 196));
 		backButton.setFont(new Font(type, 0, 18));
@@ -1898,7 +1898,7 @@ public class Frame {
 		addressField.setBounds(30 + 90, 130 + 30 * 2 + 10 * 2 + 8, 300, 35);
 		//添加文件选择对话框按钮
 		JLabel fileButton = new JLabel();
-		fileButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/fileSelect.png"));
+		fileButton.setIcon(new ImageIcon("image/fileSelect.png"));
 		homeFrame.main.add(fileButton);
 		fileButton.setBounds(120 + 300, 218, 35, 35);
 
@@ -1912,14 +1912,14 @@ public class Frame {
 		homeFrame.main.add(addressField2);
 		//添加文件选择按钮
 		JLabel fileButton2 = new JLabel();
-		fileButton2.setIcon(new ImageIcon("src/com/SMS/GUI/image/fileSelect.png"));
+		fileButton2.setIcon(new ImageIcon("image/fileSelect.png"));
 		fileButton2.setToolTipText("保存社团成员列表文件");
 		fileButton2.setOpaque(true);
 		homeFrame.main.add(fileButton2);
 
 		//添加导出按钮
 		JLabel outputButton = new JLabel();
-		outputButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/output.png"));
+		outputButton.setIcon(new ImageIcon("image/output.png"));
 		outputButton.setOpaque(true);
 		homeFrame.main.add(outputButton);
 		outputButton.setBounds((cfwidth - 48 * 3 / 2) / 2, cfheight - 200, 48 * 3 / 2, 22 * 3 / 2);
@@ -1941,13 +1941,13 @@ public class Frame {
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				outputButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/output.png"));
+				outputButton.setIcon(new ImageIcon("image/output.png"));
 
 			}
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				outputButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/outputEntered.png"));
+				outputButton.setIcon(new ImageIcon("image/outputEntered.png"));
 
 			}
 			
@@ -2155,7 +2155,7 @@ public class Frame {
 
 		//创建返回按钮
 		JLabel backButton = new JLabel();
-		backButton.setIcon(new ImageIcon("src/com/SMS/GUI/image/back.png"));
+		backButton.setIcon(new ImageIcon("image/back.png"));
 		backButton.setText(" 返回");
 		backButton.setForeground(new Color(68, 114, 196));
 		backButton.setFont(new Font(type, 0, 18));
@@ -2164,7 +2164,7 @@ public class Frame {
 
 		//添加查找栏
 		JLabel search = new JLabel();
-		search.setIcon(new ImageIcon("src/com/SMS/GUI/image/unionSearch.png"));
+		search.setIcon(new ImageIcon("image/unionSearch.png"));
 		homeFrame.main.add(search);
 		search.setBounds((cfwidth - 486) / 2, 60, 450 + 36, 75 + 36 / 6 + 1);
 		search.setBackground(Color.green);
@@ -2222,7 +2222,7 @@ public class Frame {
 
 		//添加查找团空按钮
 		JLabel checkFree = new JLabel();
-		checkFree.setIcon(new ImageIcon("src/com/SMS/GUI/image/checkFree.png"));
+		checkFree.setIcon(new ImageIcon("image/checkFree.png"));
 		checkFree.setOpaque(true);
 		homeFrame.main.add(checkFree);
 		checkFree.setBounds(55 + 270 + 50, 167 + 10, 102, 42);
@@ -2289,13 +2289,13 @@ public class Frame {
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				checkFree.setIcon(new ImageIcon("src/com/SMS/GUI/image/checkFree.png"));
+				checkFree.setIcon(new ImageIcon("image/checkFree.png"));
 
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				checkFree.setIcon(new ImageIcon("src/com/SMS/GUI/image/checkFreeEntered.png"));
+				checkFree.setIcon(new ImageIcon("image/checkFreeEntered.png"));
 
 			}
 

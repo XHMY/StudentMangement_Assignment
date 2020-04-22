@@ -36,8 +36,8 @@ public class BackgroundFrame extends JFrame{
 		top.setBackground(new Color(47, 85, 151));
 		top.setLayout(null);
 
-		ImageIcon icon1 = new ImageIcon("src/com/SMS/GUI/image/close.png");
-		ImageIcon icon2 = new ImageIcon("src/com/SMS/GUI/image/minimum.png");
+		ImageIcon icon1 = new ImageIcon("image/close.png");
+		ImageIcon icon2 = new ImageIcon("image/minimum.png");
 
 		JButton close = new JButton();
 		JButton minimum = new JButton();
@@ -87,8 +87,8 @@ public class BackgroundFrame extends JFrame{
 		top.setBackground(new Color(47, 85, 151));
 		top.setLayout(null);
 
-		ImageIcon icon1 = new ImageIcon("src/com/SMS/GUI/image/close.png");
-		ImageIcon icon2 = new ImageIcon("src/com/SMS/GUI/image/minimum.png");
+		ImageIcon icon1 = new ImageIcon("image/close.png");
+		ImageIcon icon2 = new ImageIcon("image/minimum.png");
 
 		JButton close = new JButton();
 		JButton minimum = new JButton();
@@ -191,13 +191,13 @@ public class BackgroundFrame extends JFrame{
 
 		//添加确认和取消按钮
 		JLabel confirm = new JLabel();
-		confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirm.png"));
+		confirm.setIcon(new ImageIcon("image/confirm.png"));
 		main.add(confirm);
 		confirm.setBounds(width / 2 + 28, height - 100, 50, 27);
 		confirm.setOpaque(true);
 
 		JLabel cancel = new JLabel();
-		cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancel.png"));
+		cancel.setIcon(new ImageIcon("image/cancel.png"));
 		main.add(cancel);
 		cancel.setBounds(width / 2 - 84, height - 100, 50, 27);
 		cancel.setOpaque(true);
@@ -219,13 +219,13 @@ public class BackgroundFrame extends JFrame{
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancel.png"));
+				cancel.setIcon(new ImageIcon("image/cancel.png"));
 
 			}
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				cancel.setIcon(new ImageIcon("src/com/SMS/GUI/image/cancelEntered.png"));
+				cancel.setIcon(new ImageIcon("image/cancelEntered.png"));
 
 			}
 			
@@ -252,13 +252,13 @@ public class BackgroundFrame extends JFrame{
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirm.png"));
+				confirm.setIcon(new ImageIcon("image/confirm.png"));
 
 			}
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				confirm.setIcon(new ImageIcon("src/com/SMS/GUI/image/confirmEntered.png"));
+				confirm.setIcon(new ImageIcon("image/confirmEntered.png"));
 
 			}
 			

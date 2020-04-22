@@ -1,0 +1,22 @@
+程序运行、测试与分析
+测试数据生成
+要测试一个学生管理系统，首先需要大量的学生数据。在 StudentManagement 类的构造函数中我添加了自动从外部csv文件导入数据的功能，每次实例化，它都会在一个指定的路径检查是否有可导入的数据。
+于是我就用Python写了个程序来生成程序可以导入的这四个csv文件。里面用到的一个叫做CYaRon的库，是专门为方便算法竞赛选手生成测试数据的。我们用它来解决字符串随机生成的问题，并且将文件内容按照可读取的csv文件输出。
+通过这个Python程序，我们很容易就生成了需要拿到的数据。
+
+性能测试
+在这个程序中主导性能的是用于存储各种数据的两个数据结构，分别是RedBlackBST和LinearProbingHashST，于是我对这方面的性能测试做一个简化，只需要测试两种数据结构的性能即可。
+根据教科书上所讲的内容，这两种数据结构的时间复杂度和空间复杂度如下。
+algorithm 
+(data structure)	worst-case cost
+ (after N inserts)	average-case cost
+ (after N random inserts)	memory (bytes)
+	search	insert	search hit	insert	
+2-3 tree search
+ (red-black BST)	2 lg N	2 lg N	1.00 lg N	1.00 lg N	64 N
+linear probing
+(parallel arrays)	c lg N	c lg N	< 1.50	< 2.50	between 32 N and 128 N
+
+都是时间复杂度在O(lg(N))级别的算法，在测试中也印证了它的速度。在我的MacBook Pro上运行时，一秒钟的时间里，RedBlackBST可以插入1亿个学生。这种时间消耗在一个学生管理系统中基本可以忽略不计，因为基本所有学校的学号都覆盖不了这么多人。LinearProbingHashST的性能同理，不会拖慢程序的性能。它的速度只会比前者更快，只要Java的哈希算法不出问题，它的读写都是常数时间复杂度。程序在两种结构中所执行的单项查找的时间更是可以忽略不计。
+启动程序时，需要读取csv文件中的数据进入系统，以3万个学生，每个学生15节课，学校总共30个社团，每个社团中有100个学生为例。程序需要花费1.5秒的时间启动完毕。
+与其它地方不同的，在这个程序中的查空功能的时间复杂度是O(Nlg(N))，因为它需要遍历进行查空的所有学生。但是这仍然是一个可以接受的速度，它计算30000个学生的课程分布时，只需要1.5秒就可以得出结果。
