@@ -1964,7 +1964,7 @@ public class Frame {
 				if(box1.isSelected() && addressField.getText().length() != 0){
 					if(addressField.getText() != "请选择文件存储地址") {
 						try {
-							studentManage.Export_stu(addressField.getText());
+							studentManage.Export_stu(addressField.getText()+"/学生个人信息.csv");
 						} catch (IOException ioException) {
 							ioException.printStackTrace();
 						}
@@ -1975,7 +1975,7 @@ public class Frame {
 				if(box2.isSelected() && addressField.getText().length() != 0){
 					if(addressField.getText() != "请选择文件存储地址") {
 						try {
-							studentManage.Export_course(addressField.getText());
+							studentManage.Export_course(addressField.getText()+"/学生日程.csv");
 						} catch (IOException ioException) {
 							ioException.printStackTrace();
 						}
@@ -1989,7 +1989,7 @@ public class Frame {
 					if(addressField.getText().length()  != 0 && addressField2.getText().length() != 0){
 						if(addressField.getText() != "请选择文件存储地址" && addressField2.getText() != "请选择文件存储地址") {
 							try {
-								studentManage.Export_uni(addressField.getText(), addressField2.getText());
+								studentManage.Export_uni(addressField.getText()+"/社团信息.csv", addressField2.getText()+"/社团成员列表.csv");
 							} catch (IOException ioException) {
 								ioException.printStackTrace();
 							}
