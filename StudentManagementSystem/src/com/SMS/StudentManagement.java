@@ -2,7 +2,6 @@
 package com.SMS;
 
 import com.SMS.base.*;
-import com.SMS.lib.algs4.StdOut;
 
 import java.io.IOException;
 import java.util.Date;
@@ -39,12 +38,10 @@ public class StudentManagement {
     }
 
     public static void main(String[] args) throws IOException {
-        StudentManagement sm = new StudentManagement();
-        Student stu = sm.Get_stu(13520824);
-        StdOut.println(stu);
-        sm.Modify_stu(stu,new Student(13520824, "张全蛋", false, 9, "电气工程及其自动化","篮翔智能研究院", 13454566, "ktbur", 2019,"c93"));
-        StdOut.println(stu);
-        StdOut.println(sm.Get_stu(13520824));
+        StudentManagement sm = new StudentManagement(false);
+        sm.Import_stu("/Users/yokey/OneDrive/吉珠/Project/大一下课程设计/StudentManagementSystem/data/stu.csv");
+        sm.Add_stu(new Student(13520824, "张全蛋", false, 9, "电气工程及其自动化","篮翔智能研究院", 13454566, "ktbur", 2019,"c93"));
+        sm.Export_stu("/Users/yokey/CODE/Assignment/test.csv");
 //        for (String s : sm.Get_union_name()) {
 //            StdOut.println(s);
 //        }
